@@ -1,13 +1,10 @@
-"use client";;
-import UploadCV from "@/components/UploadCV";
+"use client";
 import Image from "next/image";
-import PostDescription from "@/components/PostDescription";
-import { Button } from "@heroui/react";
+import Formulaire from "@/components/Formulaire";
 
 export default function Home() {
   return (
     <main className="flex flex-row items-center justify-around">
-      {/* TOP LEFT CIRCLE */}
       <div className="absolute -top-25 left-40 bg-[#d99934]/10 border-2 border-[#d99934] rounded-full w-125 h-125 z-0" />
       <Image
         src="/home.png"
@@ -23,11 +20,7 @@ export default function Home() {
           Select your CV and provide a description of the position <br />
           to generate a test with possible HR interview questions
         </p>
-        <PostDescription />
-        <UploadCV />
-        <Button className="bg-[#d99934]/10 border-2 border-[#d99934] rounded-lg m-4 w-fit h-12 text-[#d99934] font-bold">
-          Create a Virtual Interview
-        </Button>
+        <Formulaire />
       </div>
     </main>
   );

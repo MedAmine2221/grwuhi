@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import ReduxProvider from "@/providers/reduxProvider";
+
 export const metadata: Metadata = {
   title: "GRWUHI",
   description: "Get Ready With Us For Your Hiring Interview",
@@ -20,8 +22,10 @@ export default function RootLayout({
       className={"h-full antialiased"}
     >
       <body className="flex flex-col w-full justify-between min-h-screen">
-        {children}
-        <Footer />  
+        <ReduxProvider>
+          {children}
+          <Footer />  
+        </ReduxProvider>
       </body>
     </html>
   );
