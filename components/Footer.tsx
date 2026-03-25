@@ -5,7 +5,7 @@ import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
 import { useState } from "react";
 
 const NAV_LINKS = {
-  "Site Map": ["Home", "Interview Prep", "Salary Guide", "Pricing", "Blog"],
+  "Site Map": ["Home", "Interview Prep", "Blog"],
   "Legal": ["Privacy Policy", "Terms of Service", "Cookie Policy", "Disclaimer"],
 };
 
@@ -104,8 +104,7 @@ export default function Footer() {
 
       {/* Gold Bottom Bar */}
       <div
-        style={{ backgroundColor: "#d99934" }}
-        className="w-full py-2 flex items-center justify-center"
+        className="w-full py-2 flex items-center justify-center bg-[#d99934]"
       >
         <p className="text-white text-xs tracking-wide">
           Copyright &copy; {new Date().getFullYear()} GRWUHI — All Rights Reserved.
