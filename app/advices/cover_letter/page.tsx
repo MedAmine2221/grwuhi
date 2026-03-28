@@ -1,17 +1,16 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
-import { STEPS_CV } from "@/constants";
+import { STEPS_CoverLetter } from "@/constants";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-
-export default function Cv() {
+export default function Cover_letter() {
   const [activeStep, setActiveStep] = useState(0);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
 
-  const step = STEPS_CV[activeStep];
+  const step = STEPS_CoverLetter[activeStep];
 
   return (
     <div className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
@@ -25,25 +24,25 @@ export default function Cv() {
             <p className="text-amber-400 text-xs tracking-[4px] uppercase mb-4">Career Guide</p>
             <h1 className="text-white font-bold leading-tight text-4xl md:text-5xl mb-5">
               How to Write<br />
-              <span className="text-amber-400">a Perfect CV</span>
+              <span className="text-amber-400">a Perfect Cover Letter</span>
             </h1>
             <p className="text-white/60 text-base leading-relaxed max-w-md mb-8 italic">
-              Your CV is the first impression you make on a recruiter. A well-structured document highlights your skills, experience, and personality — greatly increasing your chances of landing an interview.
+                {"At its core, a cover letter is a personalized document that introduces you to potential employers. It's your chance to convey your enthusiasm for the position, highlight your qualifications, and showcase your communication skills. A well-crafted cover letter serves as a bridge between your CV and the job you're applying for."} 
             </p>
             <button
-              onClick={() => window.open("https://www.moncvparfait.fr/creer-cv")}
+              onClick={() => window.open("https://novoresume.com/?noRedirect=true")}
               className="bg-amber-500 text-[#113d3c] font-bold uppercase tracking-widest text-sm px-9 py-4 rounded-sm transition-all duration-300 hover:shadow-[0_8px_32px_rgba(217,153,52,0.45)] hover:-translate-y-0.5 active:translate-y-0"
             >
-              Create My CV →
+              Create My Cover Letter →
             </button>
           </div>
 
           {/* image bubble */}
-          <div className="flex-none w-100 h-100 rounded-full border-2 border-amber-400/30 bg-white/5 flex items-center justify-center overflow-hidden">
+          <div className="flex-none w-100 h-100 border-2 border-amber-400/30 bg-white/5 flex items-center justify-center overflow-hidden">
             <Image
               width={220} height={220}
               alt="cv illustration"
-              src="/write-cv.png"
+              src="/write_cover_letter.png"
               loading="eager"
               className="object-contain w-100 h-100"
             />
@@ -54,19 +53,12 @@ export default function Cv() {
         <div className="h-1 w-full bg-amber-500" />
       </header>
 
-      {/* ── INTRO STRIP ── */}
-      <div className="bg-white border-b border-stone-200 py-7 px-8">
-        <p className="max-w-3xl mx-auto text-center italic text-stone-500 text-base leading-relaxed">
-          A perfect CV is a tailored, concise, and error-free document — a marketing tool for your skills and achievements. It spans one to two A4 pages and should be adapted for each application to highlight the most relevant experience.
-        </p>
-      </div>
-
       {/* ── MAIN ── */}
       <main className="max-w-5xl mx-auto px-8 py-14">
 
         {/* tab row */}
         <div className="flex flex-wrap gap-2 mb-10">
-          {STEPS_CV.map((s, i) => (
+          {STEPS_CoverLetter.map((s, i) => (
             <button
               key={i}
               onClick={() => setActiveStep(i)}
