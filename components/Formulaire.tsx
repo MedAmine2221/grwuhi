@@ -14,14 +14,26 @@ export default function Formulaire() {
     const [cv, setCv] = useState();
     const [isPressed, setIsPressed] = useState(false)
     const createQuiz = async () => {
-      try{
+      try {
         dispatch(setLoadingTrue());
-        setIsPressed(true)
+        setIsPressed(true);
         const resp = await gemini(cv, postDesc);
-        dispatch(addQuiz(resp))
-      }catch(e){
+
+        if (typeof resp !== "string") {
+          console.error("No response from gemini");
+          return;
+        }
+
+        const clean = resp
+          .replace(/```json/g, "")
+          .replace(/```/g, "")
+          .trim();
+
+        const parsed = JSON.parse(clean);
+        dispatch(addQuiz(parsed));
+      } catch (e) {
         console.error(e);
-      }finally{
+      } finally {
         dispatch(setLoadingFalse());
       }
     }

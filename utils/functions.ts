@@ -12,7 +12,7 @@ export async function gemini(cv: any, postDesc: string) {
   const maxAttempts = 3;
   const baseDelay = 2000;
   const maxDelay = 10000;
-
+  
   const fullPrompt = `Tu es un expert RH senior et tech interviewer avec 15+ ans d'expérience en recrutement tech.
 
     Ta mission est de générer un test de recrutement complet, réaliste et personnalisé basé sur :
