@@ -1,8 +1,8 @@
 import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
 
 const NAV_LINKS = {
-  "Site Map": ["Home", "Interview Prep", "Blog"],
-  "Legal": ["Privacy Policy", "Terms of Service", "Cookie Policy", "Disclaimer"],
+  "Site Map": [{name:"Home",href:"/"},{name: "Advices", href: "/advices"},{name: "Reviews", href: "/reviews"}],
+  "Legal": [{name:"Privacy Policy", href:""},{name:"Terms of Service",},{name: "Cookie Policy", href:""},{name: "Disclaimer", href: ""}],
 };
 
 const SOCIAL = [
@@ -10,5 +10,9 @@ const SOCIAL = [
   { icon: FiInstagram, label: "Instagram", link:"https://www.instagram.com/mouhamedaminelz/" },
   { icon: FiFacebook, label: "Facebook", link:"https://www.facebook.com/mouhamed.amine.lazreg/" },
 ];
+
+const ADVICES = [
+    
+]
 
 export { NAV_LINKS, SOCIAL }

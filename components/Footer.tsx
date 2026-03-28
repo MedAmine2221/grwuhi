@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { NAV_LINKS, SOCIAL } from "@/constants";
@@ -76,13 +77,13 @@ export default function Footer() {
                 {section}
               </h4>
               <ul className="flex flex-col gap-2">
-                {links.map((link) => (
-                  <li key={link}>
+                {links.map((link: any) => (
+                  <li key={link?.name}>
                     <a
-                      href="#"
+                      href={link?.href}
                       className="text-white/60 text-sm hover:text-white transition-colors duration-150"
                     >
-                      {link}
+                      {link?.name}
                     </a>
                   </li>
                 ))}
