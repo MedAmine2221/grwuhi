@@ -1,8 +1,5 @@
+import { UserState } from '@/constants/interfaces';
 import { createSlice } from '@reduxjs/toolkit';
-
-interface UserState {
-  user: null
-}
 
 const initialState: UserState = {
   user: null,
