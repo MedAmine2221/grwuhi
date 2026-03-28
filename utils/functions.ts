@@ -17,7 +17,7 @@ export async function gemini(cv: any, postDesc: string) {
 
     Ta mission est de générer un test de recrutement complet, réaliste et personnalisé basé sur :
     - job_description : ${postDesc}
-    - candidate_cv : ${cv}
+    - candidate_cv : ${URL.createObjectURL(cv)}
 
     ════════════════════════════════════════
     RÈGLES ABSOLUES

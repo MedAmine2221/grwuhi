@@ -6,4 +6,8 @@ interface UserState {
   user: null
 }
 
-export type {QuizState, UserState}
+interface LoadingState {
+    loading: boolean
+}
+
+export type {QuizState, UserState, LoadingState}

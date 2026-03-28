@@ -21,7 +21,7 @@ export default function RootLayout({
       lang="en"
       className={"h-full antialiased"}
     >
-      <body className="flex flex-col w-full justify-between min-h-screen">
+      <body className="flex flex-col w-full justify-between min-h-screen" cz-shortcut-listen="true">
         <ReduxProvider>
           {children}
           <Footer />  

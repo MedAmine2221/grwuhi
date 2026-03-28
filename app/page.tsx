@@ -4,13 +4,12 @@ import Formulaire from "@/components/Formulaire";
 
 export default function Home() {
   return (
-    <main className="flex flex-row items-center justify-around">
-      <div className="absolute -top-25 left-40 bg-[#d99934]/10 border-2 border-[#d99934] rounded-full w-150 h-150 z-0" />
+    <main className="flex lg:flex-row items-center lg:justify-around md:justify-center sm:justify-center md:flex-col sm:flex-col">
       <Image
         src="/home.png"
         width={1000}
         height={1000}
-        className="w-110 h-110 object-contain"
+        className="lg:w-200 w-110 h-110 object-contain"
         alt="GRWUHI Home Desc"
         loading="eager"
       />

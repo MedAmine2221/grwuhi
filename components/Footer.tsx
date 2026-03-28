@@ -1,26 +1,16 @@
 "use client";
 
+import { NAV_LINKS, SOCIAL } from "@/constants";
 import Image from "next/image";
-import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
 import { useState } from "react";
 
-const NAV_LINKS = {
-  "Site Map": ["Home", "Interview Prep", "Blog"],
-  "Legal": ["Privacy Policy", "Terms of Service", "Cookie Policy", "Disclaimer"],
-};
-
-const SOCIAL = [
-  { icon: FiLinkedin, label: "LinkedIn" },
-  { icon: FiInstagram, label: "Instagram" },
-  { icon: FiFacebook, label: "Facebook" },
-];
-
-function SocialButton({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+function SocialButton({ icon: Icon, label, link }: { icon: React.ElementType; label: string, link: string }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <a
-      href="#"
+      href={link}
+      target="_blank"
       aria-label={label}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -47,7 +37,7 @@ export default function Footer() {
       className="bg-[#113d3c] w-full rounded-t-lg"
     >
       {/* Main content */}
-      <div className="px-10 pt-10 pb-8 flex flex-col lg:flex-row justify-between gap-10">
+      <div className="px-10 pt-10 pb-8 flex flex-row justify-between gap-10">
 
         {/* Brand Column */}
         <div className="flex flex-col gap-4 max-w-xs">
@@ -72,14 +62,14 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="flex flex-row gap-3 mt-1">
-            {SOCIAL.map(({ icon, label }) => (
-              <SocialButton key={label} icon={icon} label={label} />
+            {SOCIAL.map(({ icon, label, link }) => (
+              <SocialButton link={link} key={label} icon={icon} label={label} />
             ))}
           </div>
         </div>
 
         {/* Nav Columns */}
-        <div className="flex flex-row gap-16 flex-wrap">
+        <div className="flex flex-row gap-16">
           {Object.entries(NAV_LINKS).map(([section, links]) => (
             <div key={section} className="flex flex-col gap-3">
               <h4 className="text-[#d99934] text-xs font-semibold uppercase tracking-widest">
@@ -104,10 +94,13 @@ export default function Footer() {
 
       {/* Gold Bottom Bar */}
       <div
-        className="w-full py-2 flex items-center justify-center bg-[#d99934]"
+        className="w-full py-2 flex flex-col items-center justify-center bg-[#d99934]"
       >
         <p className="text-white text-xs tracking-wide">
           Copyright &copy; {new Date().getFullYear()} GRWUHI — All Rights Reserved.
+        </p>
+        <p className="text-white text-xs tracking-wide">
+          Developed By <a href="https://mohamed-amine-laz.vercel.app/fr" target="_blank" className="text-[#113d3c] text-sm">Mohamed Amine LAZREG</a>
         </p>
       </div>
     </footer>
