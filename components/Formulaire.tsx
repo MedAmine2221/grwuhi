@@ -30,6 +30,8 @@ export default function Formulaire() {
           .trim();
 
         const parsed = JSON.parse(clean);
+        console.log("Parsed quiz:", parsed);
+        
         dispatch(addQuiz(parsed));
       } catch (e) {
         console.error(e);

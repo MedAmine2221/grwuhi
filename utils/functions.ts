@@ -5,6 +5,7 @@ const ai = new GoogleGenAI({
   apiKey: process.env.NEXT_PUBLIC_AI_API,
   apiVersion: "v1alpha",
 });
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function gemini(cv: any, postDesc: string) {
@@ -13,12 +14,21 @@ export async function gemini(cv: any, postDesc: string) {
   const baseDelay = 2000;
   const maxDelay = 10000;
   
+  // Convertir le PDF en base64
+  const base64PDF = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = (reader.result as string).split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(cv);
+  });
+
   const fullPrompt = `Tu es un expert RH senior et tech interviewer avec 15+ ans d'expérience en recrutement tech.
 
     Ta mission est de générer un test de recrutement complet, réaliste et personnalisé basé sur :
     - job_description : ${postDesc}
-    - candidate_cv : ${URL.revokeObjectURL(cv)}
-
     ════════════════════════════════════════
     RÈGLES ABSOLUES
     ════════════════════════════════════════
@@ -86,19 +96,7 @@ export async function gemini(cv: any, postDesc: string) {
     - common_mistake : erreur fréquente commise par les candidats
 
     ════════════════════════════════════════
-    ÉTAPE 4 — TEST TECHNIQUE
-    ════════════════════════════════════════
-    Générer UN test technique réaliste adapté au niveau et au stack :
-    - title             : nom du test
-    - description       : énoncé clair du problème, avec contexte métier réel
-    - constraints       : contraintes techniques (temps, mémoire, technos imposées)
-    - difficulty        : easy | medium | hard | expert
-    - evaluation_criteria : ce qui sera évalué (lisibilité, performance, tests, etc.)
-    - expected_solution : solution correcte commentée, avec explication des choix
-    - bonus_points      : éléments qui différencient un excellent candidat
-
-    ════════════════════════════════════════
-    ÉTAPE 5 — SYNTHÈSE D'ÉVALUATION
+    ÉTAPE 4 — SYNTHÈSE D'ÉVALUATION
     ════════════════════════════════════════
     - match_score       : adéquation estimée CV ↔ Job Description (0–10) avec justification
     - strengths         : 3–5 points forts détectés dans le CV par rapport au poste
@@ -146,22 +144,30 @@ export async function gemini(cv: any, postDesc: string) {
           baseDelay * Math.pow(2, attempts - 1),
           maxDelay,
         );
-
         await delay(backoffDelay);
       }
 
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
-        contents: fullPrompt,
+        contents: [
+          { text: fullPrompt },
+          { 
+            inlineData: {
+              mimeType: "application/pdf",
+              data: base64PDF
+            }
+          }
+        ],
         generationConfig: {
           maxOutputTokens: 1000,
           temperature: 0.7,
           topP: 0.8,
         },
       } as any);
+      
       const text = response.text;
       const cleanedText = text?.trim();
-      console.log("cleanedText ========> ",cleanedText);
+      console.log("cleanedText ========> ", cleanedText);
       return cleanedText;
     } catch (error: any) {
       attempts++;
