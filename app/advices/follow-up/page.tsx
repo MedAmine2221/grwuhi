@@ -24,7 +24,7 @@ export default function FollowUp() {
         description="Sending a thank-you email after an interview isn't just a matter of politeness; it's a strategic tool to confirm your interest and demonstrate that you fully understand the requirements of the position."
         buttonText=""
         buttonLink=""
-        imageSrc="/salary.png"
+        imageSrc="/follow-up.png"
       />
       {/* ── MAIN ── */}
       <AdviceBody data={STEPS_FollowUp_Email} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
