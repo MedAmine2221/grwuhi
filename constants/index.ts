@@ -20,7 +20,7 @@ const ADVICES = [
     tag: "CV",
     tagColor: "#d99934",
     imageSrc: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&q=80",
-    imageAlt: "Rédaction de CV",
+    imageAlt: "CV",
     readTime: "5 min",
     href: "/advices/cv",
   },
@@ -32,21 +32,21 @@ const ADVICES = [
     tag: "Cover Letter",
     tagColor: "#2563eb",
     imageSrc: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&q=80",
-    imageAlt: "Rédaction lettre de motivation",
+    imageAlt: "Cover Letter",
     readTime: "4 min",
     href: "/advices/cover_letter",
   },
   {
     id: 3,
-    title: "Se préparer à l'entretien : les 10 questions incontournables",
+    title: "preparing for the job interview",
     description:
-      "Parlez-moi de vous, vos points faibles, vos ambitions… Apprenez à répondre avec la méthode STAR.",
-    tag: "Entretien",
+      "Succeeding in a job interview requires preparation. This involves thoroughly analyzing the job posting, conducting in-depth research on the company, its industry, and its projects. You should prepare a concise presentation of your background, anticipate common interview questions, list your concrete achievements, and prepare questions to ask the recruiter to demonstrate your motivation.",
+    tag: "Interview",
     tagColor: "#113d3c",
     imageSrc: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80",
-    imageAlt: "Entretien d'embauche",
+    imageAlt: "hiring Interview",
     readTime: "7 min",
-    href: "/conseils/questions-entretien",
+    href: "/advices/preparing_interview",
   },
   {
     id: 4,
@@ -162,6 +162,78 @@ const STEPS_CV = [
 ];
 
 
+const STEPS_Prepar_Interview = [
+  {
+    number: "01",
+    title: "Research and Analysis (Before the interview)",
+    accent: "border-amber-500",
+    tabActive: "bg-amber-500 border-amber-500 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-amber-400 hover:text-amber-500",
+    cardTop: "border-t-amber-500",
+    ghost: "text-amber-500",
+    items: [
+      { label: "The company", desc: "Study its business, its market, its recent projects, its culture and its values." },
+      { label: "The position", desc: "Analyze the job description to identify the key skills required." },
+      { label: "Skills/needs link", desc: "Prepare concrete examples of your past achievements that demonstrate you can fulfill the duties of the position." },
+    ],
+  },
+  {
+    number: "02",
+    title: "Preparing the Speech",
+    accent: "border-teal-500",
+    tabActive: "bg-teal-600 border-teal-600 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-teal-500 hover:text-teal-600",
+    cardTop: "border-t-teal-500",
+    ghost: "text-teal-500",
+    items: [
+      { label: "Presentation (The “Pitch”)", desc: "Prepare a 2-3 minute presentation about your background, structuring it (past, present, future) and linking it to the position." },
+      { label: "Frequently Asked Questions", desc: 'Prepare your answers to classic questions: "Why you?", "Why our company?", "Your strengths/weaknesses", "Why did you leave your last job?".' },
+      { label: "Motivation", desc: "Be prepared to explain why you want this position and what you can bring to the company." },
+    ],
+  },
+  {
+    number: "03",
+    title: "Logistics and Equipment Preparation",
+    accent: "border-orange-500",
+    tabActive: "bg-orange-500 border-orange-500 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-orange-400 hover:text-orange-500",
+    cardTop: "border-t-orange-500",
+    ghost: "text-orange-400",
+    items: [
+      { label: "Support", desc: "Print your CV, the job description and have a notepad." },
+      { label: "Attire", desc: "Choose professional attire that is appropriate for the company culture." },
+      { label: "Logistics", desc: "Check the location, time, and travel time. For a video conference, test your connection, microphone, and camera." },
+    ],
+  },
+  {
+    number: "04",
+    title: "During the interview",
+    accent: "border-violet-500",
+    tabActive: "bg-violet-600 border-violet-600 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-violet-500 hover:text-violet-600",
+    cardTop: "border-t-violet-500",
+    ghost: "text-violet-400",
+    items: [
+      { label: "Non-verbal communication", desc: "Be smiling, have a firm handshake (or greeting) and an open posture." },
+      { label: "Interaction", desc: 'Ask questions about the position, the team, or the objectives (e.g., "What does a typical day look like?", "What are the challenges of the position?").' },
+      { label: "Notes", desc: "N'hésitez pas à prendre des notes, cela montre votre intérêt et votre sérieux. " },
+    ],
+  },
+  {
+    number: "05",
+    title: "After the interview",
+    accent: "border-emerald-700",
+    tabActive: "bg-emerald-800 border-emerald-800 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-emerald-700 hover:text-emerald-700",
+    cardTop: "border-t-emerald-700",
+    ghost: "text-emerald-700",
+    items: [
+      { label: "Thank you", desc: "Send a thank you email within 24-48 hours to reiterate your interest." },
+      { label: "Simulation", desc: "To reduce stress, practice by simulating the interview with a loved one or by filming yourself." },
+    ],
+  },
+];
+
 const STEPS_CoverLetter = [
   {
     number: "01",
@@ -195,4 +267,4 @@ const STEPS_CoverLetter = [
   },
 ];
 
-export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES }
+export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview }
