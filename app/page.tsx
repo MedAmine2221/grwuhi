@@ -4,7 +4,7 @@ import Formulaire from "@/components/Formulaire";
 
 export default function Home() {
   return (
-    <main className="flex lg:flex-row items-center lg:justify-around md:justify-center sm:justify-center md:flex-col sm:flex-col">
+    <main className="flex flex-col items-center lg:justify-around justify-center lg:flex-row m-8">
       <Image
         src="/home.png"
         width={1000}
