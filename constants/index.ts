@@ -62,15 +62,15 @@ const ADVICES = [
   },
   {
     id: 5,
-    title: "L'email de remerciement post-entretien qui fait la différence",
+    title: "The post-interview thank-you email that makes all the difference",
     description:
-      "Un message envoyé dans les 24h peut faire basculer une décision. Voici le modèle exact à utiliser.",
-    tag: "Suivi",
+      "Sending a thank-you email after an interview isn't just a matter of politeness; it's a strategic tool to confirm your interest and demonstrate that you fully understand the requirements of the position.",
+    tag: "Follow-up",
     tagColor: "#b91c1c",
     imageSrc: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=400&q=80",
-    imageAlt: "Email de suivi",
+    imageAlt: "Follow-up email",
     readTime: "3 min",
-    href: "/conseils/email-remerciement",
+    href: "/advices/follow-up",
   },
   {
     id: 6,
@@ -85,6 +85,38 @@ const ADVICES = [
     href: "/conseils/linkedin-emploi",
   },
 ];
+const STEPS_FollowUp_Email = [
+  {
+    number: "01",
+    title: "The 4 pillars of a successful email",
+    accent: "border-amber-500",
+    tabActive: "bg-amber-500 border-amber-500 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-amber-400 hover:text-amber-500",
+    cardTop: "border-t-amber-500",
+    ghost: "text-amber-500",
+    items: [
+      { label: "Responsiveness", desc: "Ideally, send it within 24 to 48 hours maximum after the exchange." },
+      { label: "Personalization", desc: "Mention a specific point discussed during the interview (a company value, a technical challenge, an anecdote) to demonstrate your listening skills." },
+      { label: "Added Value", desc: "Briefly explain how your skills directly address a need expressed by the recruiter." },
+      { label: "The Projection", desc: "State your enthusiasm for joining the team and contributing to the projects mentioned." },
+    ],
+  },
+  {
+    number: "02",
+    title: "mistakes to absolutely avoid",
+    accent: "border-teal-500",
+    tabActive: "bg-teal-600 border-teal-600 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-teal-500 hover:text-teal-600",
+    cardTop: "border-t-teal-500",
+    ghost: "text-teal-500",
+    items: [
+      { label: "Spelling Mistakes", desc: "They are disqualifying and instantly ruin the image of rigor you want to project." },
+      { label: "Don't be too long", desc: "Keep it concise. Don't rewrite your cover letter." },
+      { label: "Inappropriate tone", desc: "Adjust your level of formality according to the company culture (start-up vs large group)." },
+    ],
+  }
+];
+
 
 const STEPS_CV = [
   {
@@ -419,4 +451,4 @@ const STEPS_CoverLetter = [
   },
 ];
 
-export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION }
+export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email }
