@@ -32,7 +32,7 @@ export default function AdviceHeader({title1, title2, description, buttonText, b
             alt="cv illustration"
             src={imageSrc}
             loading="eager"
-            className="object-contain w-100 h-100"
+            className="object-contain w-75 h-75"
           />
         </div>
       </div>
