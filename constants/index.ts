@@ -74,17 +74,65 @@ const ADVICES = [
   },
   {
     id: 6,
-    title: "Réseauter efficacement sur LinkedIn pour trouver un emploi",
+    title: "Networking effectively on LinkedIn to find a job",
     description:
-      "Optimisez votre profil, contactez les bonnes personnes et transformez votre réseau en opportunités concrètes.",
-    tag: "Réseau",
+      "To network effectively on LinkedIn and find a job, optimize your profile with strategic keywords, a professional photo, and a clear headline. Target relevant connections (HR professionals, managers, alumni), engage through comments and shares, and ask for advice rather than direct job postings.",
+    tag: "Networking",
     tagColor: "#0369a1",
     imageSrc: "https://images.unsplash.com/photo-1611944212129-29977ae1398c?w=400&q=80",
     imageAlt: "LinkedIn networking",
     readTime: "8 min",
-    href: "/conseils/linkedin-emploi",
+    href: "/advices/linkedin-networking",
   },
 ];
+
+const STEPS_LinkedIn_Strategy = [
+  {
+    number: "01",
+    title: "Profile Optimization for Visibility",
+    accent: "border-amber-500",
+    tabActive: "bg-amber-500 border-amber-500 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-amber-400 hover:text-amber-500",
+    cardTop: "border-t-amber-500",
+    ghost: "text-amber-500",
+    items: [
+      { label: "Professional Photo & Banner", desc: "Use a high-quality professional photo and a relevant cover image." },
+      { label: "Keywords", desc: "Include industry-specific keywords in your headline and summary to improve recruiter search visibility." },
+      { label: "Open to Work", desc: "Activate the feature in 'recruiters only' mode for privacy or publicly to maximize exposure." },
+      { label: "Custom URL", desc: "Create a clean LinkedIn URL (e.g., linkedin.com/in/yourname)." },
+    ],
+  },
+  {
+    number: "02",
+    title: "Networking & Outreach Strategy",
+    accent: "border-teal-500",
+    tabActive: "bg-teal-600 border-teal-600 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-teal-500 hover:text-teal-600",
+    cardTop: "border-t-teal-500",
+    ghost: "text-teal-500",
+    items: [
+      { label: "Target Smartly", desc: "Connect with recruiters, HR professionals, and employees in your target companies." },
+      { label: "Personalized Messages", desc: "Always send a custom message asking for advice or insights instead of directly asking for a job." },
+      { label: "Alumni Approach", desc: "Use the 'school' filter to connect with alumni and increase engagement chances." },
+      { label: "Active Network Growth", desc: "Aim to grow your network consistently every week." },
+    ],
+  },
+  {
+    number: "03",
+    title: "Engagement & Content Strategy",
+    accent: "border-indigo-500",
+    tabActive: "bg-indigo-600 border-indigo-600 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-indigo-500 hover:text-indigo-600",
+    cardTop: "border-t-indigo-500",
+    ghost: "text-indigo-500",
+    items: [
+      { label: "Engage", desc: "Comment thoughtfully on posts from industry leaders and target companies." },
+      { label: "Share Content", desc: "Publish posts, articles, or projects to showcase your expertise." },
+      { label: "Be Proactive", desc: "Don’t just apply to jobs—start conversations and build relationships." },
+    ],
+  }
+];
+
 const STEPS_FollowUp_Email = [
   {
     number: "01",
@@ -451,4 +499,4 @@ const STEPS_CoverLetter = [
   },
 ];
 
-export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email }
+export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy }
