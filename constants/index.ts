@@ -50,15 +50,15 @@ const ADVICES = [
   },
   {
     id: 4,
-    title: "Négocier son salaire : scripts et stratégies qui fonctionnent",
+    title: "How to negotiate your salary during a job interview",
     description:
-      "70 % des recruteurs s'attendent à négocier. Voici comment préparer votre fourchette et défendre votre valeur.",
-    tag: "Salaire",
+      "Bringing up the topic of salary in a job interview is never easy. You might even feel uncomfortable and tend to avoid the question altogether, or simply accept the recruiter's offer. To get the compensation you believe you deserve, you'll need to prepare and hone your arguments. Here's our advice.",
+    tag: "Salary",
     tagColor: "#7c3aed",
     imageSrc: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80",
-    imageAlt: "Négociation salariale",
+    imageAlt: "Salary negotiation",
     readTime: "6 min",
-    href: "/conseils/negociation-salaire",
+    href: "/advices/negotiating-salary",
   },
   {
     id: 5,
@@ -161,6 +161,158 @@ const STEPS_CV = [
   },
 ];
 
+const STEPS_SALARY_NEGOTIATION = [
+  {
+    number: "01",
+    title: "Preparation & Market Value",
+    accent: "border-amber-500",
+    tabActive: "bg-amber-500 border-amber-500 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-amber-400 hover:text-amber-500",
+    cardTop: "border-t-amber-500",
+    ghost: "text-amber-500",
+    items: [
+      {
+        label: "Know Your Market Value",
+        desc: "Research salaries based on your role, experience, and location before negotiating."
+      },
+      {
+        label: "Use Reliable Sources",
+        desc: "Check salary reports, platforms like Glassdoor, and your professional network."
+      },
+      {
+        label: "Define Your Range",
+        desc: "Set a realistic salary range with a minimum acceptable and a desired maximum."
+      },
+      {
+        label: "Think Beyond Salary",
+        desc: "Consider bonuses, benefits, stock options, and perks as part of total compensation."
+      }
+    ],
+  },
+  {
+    number: "02",
+    title: "Timing the Salary Discussion",
+    accent: "border-teal-500",
+    tabActive: "bg-teal-600 border-teal-600 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-teal-500 hover:text-teal-600",
+    cardTop: "border-t-teal-500",
+    ghost: "text-teal-500",
+    items: [
+      {
+        label: "Let the Recruiter Start",
+        desc: "Wait for the recruiter to mention salary first to gain a strategic advantage."
+      },
+      {
+        label: "Ask Smart Questions",
+        desc: "Ask about the salary range and full compensation package before giving your expectations."
+      },
+      {
+        label: "Choose the Right Moment",
+        desc: "Discuss salary only after you’ve demonstrated your value and understood the role."
+      }
+    ],
+  },
+  {
+    number: "03",
+    title: "Understand the Offer",
+    accent: "border-orange-500",
+    tabActive: "bg-orange-500 border-orange-500 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-orange-400 hover:text-orange-500",
+    cardTop: "border-t-orange-500",
+    ghost: "text-orange-400",
+    items: [
+      {
+        label: "Clarify Salary Details",
+        desc: "Understand the difference between gross and net salary and how it's calculated."
+      },
+      {
+        label: "Check Variable Pay",
+        desc: "Ask about bonuses, targets, and how performance-based pay works."
+      },
+      {
+        label: "Review Benefits",
+        desc: "Look at perks like meal vouchers, transport, insurance, or remote work."
+      },
+      {
+        label: "Take Your Time",
+        desc: "Ask for 24–48 hours to review the offer before accepting."
+      }
+    ],
+  },
+  {
+    number: "04",
+    title: "Present Your Expectations",
+    accent: "border-violet-500",
+    tabActive: "bg-violet-600 border-violet-600 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-violet-500 hover:text-violet-600",
+    cardTop: "border-t-violet-500",
+    ghost: "text-violet-400",
+    items: [
+      {
+        label: "Give a Salary Range",
+        desc: "Always provide a range instead of a fixed number to stay flexible."
+      },
+      {
+        label: "Use Data to Support It",
+        desc: "Base your expectations on market research and your experience."
+      },
+      {
+        label: "Stay Confident",
+        desc: "Communicate your value clearly while remaining open to discussion."
+      }
+    ],
+  },
+  {
+    number: "05",
+    title: "Negotiate Smartly",
+    accent: "border-emerald-700",
+    tabActive: "bg-emerald-800 border-emerald-800 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-emerald-700 hover:text-emerald-700",
+    cardTop: "border-t-emerald-700",
+    ghost: "text-emerald-700",
+    items: [
+      {
+        label: "Make a Counter-Offer",
+        desc: "If the offer is too low, respond with a justified and structured counter-proposal."
+      },
+      {
+        label: "Highlight Your Value",
+        desc: "Use concrete achievements and past results to support your request."
+      },
+      {
+        label: "Ask for Salary Review",
+        desc: "If salary is fixed, negotiate a raise after 6–12 months."
+      }
+    ],
+  },
+  {
+    number: "06",
+    title: "Explore Alternatives",
+    accent: "border-pink-500",
+    tabActive: "bg-pink-600 border-pink-600 text-white",
+    tabIdle: "border-stone-300 text-stone-500 hover:border-pink-500 hover:text-pink-600",
+    cardTop: "border-t-pink-500",
+    ghost: "text-pink-500",
+    items: [
+      {
+        label: "Performance Bonuses",
+        desc: "Negotiate bonuses tied to clear and achievable objectives."
+      },
+      {
+        label: "Remote Work",
+        desc: "Flexible work can reduce personal costs and improve work-life balance."
+      },
+      {
+        label: "Extra Benefits",
+        desc: "Consider perks like transport allowance, meals, or company car."
+      },
+      {
+        label: "Training Opportunities",
+        desc: "Skill development and certifications can add long-term value to your career."
+      }
+    ],
+  },
+];
 
 const STEPS_Prepar_Interview = [
   {
@@ -267,4 +419,4 @@ const STEPS_CoverLetter = [
   },
 ];
 
-export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview }
+export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION }
