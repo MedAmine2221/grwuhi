@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-"use client";
+"use client";;
+import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_CoverLetter } from "@/constants";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function Cover_letter() {
@@ -14,45 +14,14 @@ export default function Cover_letter() {
 
   return (
     <div className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
-
-      {/* ── HERO ── */}
-      <header className="bg-[#113d3c] relative overflow-hidden">
-        {/* decorative rings */}
-        <div className="max-w-5xl mx-auto px-8 py-16 flex flex-wrap items-center justify-between gap-10 relative z-10">
-          {/* text */}
-          <div className="flex-1 min-w-72">
-            <p className="text-amber-400 text-xs tracking-[4px] uppercase mb-4">Career Guide</p>
-            <h1 className="text-white font-bold leading-tight text-4xl md:text-5xl mb-5">
-              How to Write<br />
-              <span className="text-amber-400">a Perfect Cover Letter</span>
-            </h1>
-            <p className="text-white/60 text-base leading-relaxed max-w-md mb-8 italic">
-                {"At its core, a cover letter is a personalized document that introduces you to potential employers. It's your chance to convey your enthusiasm for the position, highlight your qualifications, and showcase your communication skills. A well-crafted cover letter serves as a bridge between your CV and the job you're applying for."} 
-            </p>
-            <button
-              onClick={() => window.open("https://novoresume.com/?noRedirect=true")}
-              className="bg-amber-500 text-[#113d3c] font-bold uppercase tracking-widest text-sm px-9 py-4 rounded-sm transition-all duration-300 hover:shadow-[0_8px_32px_rgba(217,153,52,0.45)] hover:-translate-y-0.5 active:translate-y-0"
-            >
-              Create My Cover Letter →
-            </button>
-          </div>
-
-          {/* image bubble */}
-          <div className="flex-none w-100 h-100 border-2 border-amber-400/30 bg-white/5 flex items-center justify-center overflow-hidden">
-            <Image
-              width={220} height={220}
-              alt="cv illustration"
-              src="/write_cover_letter.png"
-              loading="eager"
-              className="object-contain w-100 h-100"
-            />
-          </div>
-        </div>
-
-        {/* gold rule */}
-        <div className="h-1 w-full bg-amber-500" />
-      </header>
-
+      <AdviceHeader
+        title1="How to Write"
+        title2="a Perfect Cover Letter"
+        description="At its core, a cover letter is a personalized document that introduces you to potential employers. It's your chance to convey your enthusiasm for the position, highlight your qualifications, and showcase your communication skills. A well-crafted cover letter serves as a bridge between your CV and the job you're applying for."
+        buttonText="Create My Cover Letter →"
+        buttonLink="https://novoresume.com/?noRedirect=true"
+        imageSrc="/write_cover_letter.png"
+      />
       {/* ── MAIN ── */}
       <main className="max-w-5xl mx-auto px-8 py-14">
 

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-"use client";
+"use client";;
+import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_Prepar_Interview } from "@/constants";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function PreparingInterview() {
@@ -14,38 +14,14 @@ export default function PreparingInterview() {
 
   return (
     <div className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
-
-      {/* ── HERO ── */}
-      <header className="bg-[#113d3c] relative overflow-hidden">
-        {/* decorative rings */}
-        <div className="max-w-5xl mx-auto px-8 py-16 flex flex-wrap items-center justify-between gap-10 relative z-10">
-          {/* text */}
-          <div className="flex-1 min-w-72">
-            <p className="text-amber-400 text-xs tracking-[4px] uppercase mb-4">Career Guide</p>
-            <h1 className="text-white font-bold leading-tight text-4xl md:text-5xl mb-5">
-              How to Prepare<br />
-              <span className="text-amber-400">Your Interview</span>
-            </h1>
-            <p className="text-white/60 text-base leading-relaxed max-w-md mb-8 italic">
-                {"Succeeding in a job interview requires preparation. This involves thoroughly analyzing the job posting, conducting in-depth research on the company, its industry, and its projects. You should prepare a concise presentation of your background, anticipate common interview questions, list your concrete achievements, and prepare questions to ask the recruiter to demonstrate your motivation."} 
-            </p>
-          </div>
-
-          {/* image bubble */}
-          <div className="flex-none w-100 h-100 border-2 border-amber-400/30 bg-white/5 flex items-center justify-center overflow-hidden">
-            <Image
-              width={220} height={220}
-              alt="interview illustration"
-              src="/interview.png"
-              loading="eager"
-              className="object-contain w-150 h-150"
-            />
-          </div>
-        </div>
-
-        {/* gold rule */}
-        <div className="h-1 w-full bg-amber-500" />
-      </header>
+        <AdviceHeader
+            title1="How to Prepare"
+            title2="Your Interview"
+            description="Succeeding in a job interview requires preparation. This involves thoroughly analyzing the job posting, conducting in-depth research on the company, its industry, and its projects. You should prepare a concise presentation of your background, anticipate common interview questions, list your concrete achievements, and prepare questions to ask the recruiter to demonstrate your motivation."
+            buttonText=""
+            buttonLink=""
+            imageSrc="/interview.png"
+        />
 
       {/* ── MAIN ── */}
       <main className="max-w-5xl mx-auto px-8 py-14">
