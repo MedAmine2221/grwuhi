@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-"use client";;
+"use client";
 import AdviceBody from "@/components/AdviceBody";
 import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_SALARY_NEGOTIATION } from "@/constants";

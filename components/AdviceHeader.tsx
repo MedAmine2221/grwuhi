@@ -9,6 +9,15 @@ export default function AdviceHeader({title1, title2, description, buttonText, b
       <div className="max-w-5xl mx-auto px-8 py-16 flex flex-wrap items-center justify-between gap-10 relative z-10">
         {/* text */}
         <FiArrowLeft onClick={() => window.history.back()} className='font-extrabold cursor-pointer' color='white' size={40}/>
+        <div className="flex lg:hidden flex-none w-50 h-50 rounded-full border-2 border-amber-400/30 bg-white/5 items-center justify-center overflow-hidden">
+          <Image
+            width={220} height={220}
+            alt="cv illustration"
+            src={imageSrc}
+            loading="eager"
+            className="object-contain w-75 h-75"
+          />
+        </div>
         <div className="flex-1 min-w-72">
           <p className="text-amber-400 text-xs tracking-[4px] uppercase mb-4">Career Guide</p>
           <h1 className="text-white font-bold leading-tight text-4xl md:text-5xl mb-5">
@@ -26,7 +35,7 @@ export default function AdviceHeader({title1, title2, description, buttonText, b
           </button>}
         </div>
         {/* image bubble */}
-        <div className="flex-none w-100 h-100 rounded-full border-2 border-amber-400/30 bg-white/5 flex items-center justify-center overflow-hidden">
+        <div className="hidden lg:flex flex-none w-100 h-100 rounded-full border-2 border-amber-400/30 bg-white/5 items-center justify-center overflow-hidden">
           <Image
             width={220} height={220}
             alt="cv illustration"

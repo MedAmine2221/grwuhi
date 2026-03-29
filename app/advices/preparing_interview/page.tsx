@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-"use client";;
+"use client";
 import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_Prepar_Interview } from "@/constants";
 import { useState, useEffect } from "react";
