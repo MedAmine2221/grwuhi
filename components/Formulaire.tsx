@@ -29,9 +29,7 @@ export default function Formulaire() {
           .replace(/```/g, "")
           .trim();
 
-        const parsed = JSON.parse(clean);
-        console.log("Parsed quiz:", parsed);
-        
+        const parsed = JSON.parse(clean);        
         dispatch(addQuiz(parsed));
       } catch (e) {
         console.error(e);

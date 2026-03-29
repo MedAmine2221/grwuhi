@@ -167,7 +167,6 @@ export async function gemini(cv: any, postDesc: string) {
       
       const text = response.text;
       const cleanedText = text?.trim();
-      console.log("cleanedText ========> ", cleanedText);
       return cleanedText;
     } catch (error: any) {
       attempts++;
