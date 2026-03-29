@@ -28,8 +28,7 @@ export default function Formulaire() {
           .replace(/```json/g, "")
           .replace(/```/g, "")
           .trim();
-
-        const parsed = JSON.parse(clean);        
+        const parsed = clean === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." || clean === "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard." ? clean :  JSON?.parse(clean);        
         dispatch(addQuiz(parsed));
       } catch (e) {
         console.error(e);
