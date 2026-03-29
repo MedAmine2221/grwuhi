@@ -1,8 +1,7 @@
 import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
 
 const NAV_LINKS = {
-  "Site Map": [{name:"Home",href:"/"},{name: "Advices", href: "/advices"},{name: "Reviews", href: "/reviews"}],
-  "Legal": [{name:"Privacy Policy", href:""},{name:"Terms of Service",},{name: "Cookie Policy", href:""},{name: "Disclaimer", href: ""}],
+  "Site Map": [{name:"Home",href:"/"},{name: "Advices", href: "/advices"}],
 };
 
 const SOCIAL = [

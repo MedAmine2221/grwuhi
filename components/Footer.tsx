@@ -44,7 +44,7 @@ export default function Footer() {
         <div className="flex flex-row gap-16">
           {Object.entries(NAV_LINKS).map(([section, links]) => (
             <div key={section} className="flex flex-col gap-3">
-              <h4 className="text-[#d99934] text-xs font-semibold uppercase tracking-widest">
+              <h4 className="text-[#d99934] text-base font-semibold uppercase tracking-widest">
                 {section}
               </h4>
               <ul className="flex flex-col gap-2">
@@ -52,7 +52,7 @@ export default function Footer() {
                   <li key={link?.name}>
                     <a
                       href={link?.href}
-                      className="text-white/60 text-sm hover:text-white transition-colors duration-150"
+                      className="text-white/60 text-base hover:text-white transition-colors duration-150"
                     >
                       {link?.name}
                     </a>
