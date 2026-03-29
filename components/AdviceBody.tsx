@@ -6,7 +6,7 @@ export default function AdviceBody({data, setActiveStep, activeStep, step}: {dat
 
         {/* tab row */}
         <div className="flex flex-wrap gap-2 mb-10">
-          {data.map((s, i) => (
+          {data.map((s: any, i: any) => (
             <button
               key={i}
               onClick={() => setActiveStep(i)}
@@ -35,7 +35,7 @@ export default function AdviceBody({data, setActiveStep, activeStep, step}: {dat
 
           {/* cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {step.items.map((item, j) => (
+            {step.items.map((item: any, j: any) => (
               <div
                 key={j}
                 style={{ animationDelay: `${j * 0.06}s` }}
