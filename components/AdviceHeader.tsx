@@ -1,8 +1,9 @@
 "use client";
+import { AdviceHeaderProps } from '@/constants/interfaces';
 import Image from 'next/image';
 import { FiArrowLeft } from 'react-icons/fi';
 
-export default function AdviceHeader({title1, title2, description, buttonText, buttonLink, imageSrc}: {title1: string, title2: string, description: string, buttonText: string, buttonLink: string, imageSrc: string}) {
+export default function AdviceHeader({title1, title2, description, buttonText, buttonLink, imageSrc}: AdviceHeaderProps) {
   return (
     <header className="bg-[#113d3c] relative overflow-hidden">
       {/* decorative rings */}

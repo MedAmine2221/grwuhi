@@ -1,8 +1,8 @@
+import { UploadCVProps } from "@/constants/interfaces";
 import { useState, ChangeEvent, DragEvent } from "react";
 import { FiTrash } from "react-icons/fi";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function UploadCV({setCv, cv, isPressed}:{setCv: (cv: any)=> void, cv: any, isPressed: boolean}) {
+ 
+export default function UploadCV({setCv, cv, isPressed}: UploadCVProps) {
     const [fileName, setFileName] = useState("");
     const [fileUrl, setFileUrl] = useState("")
     const handleFile = (file?: File) => {

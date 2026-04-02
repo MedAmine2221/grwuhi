@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export default function AdviceBody({data, setActiveStep, activeStep, step}: {data: any, setActiveStep: (step: number) => void, activeStep: number, step: any}) {
+import { AdviceBodyProps } from "@/constants/interfaces";
+
+export default function AdviceBody({data, setActiveStep, activeStep, step}: AdviceBodyProps) {
   return (
     <main className="max-w-5xl mx-auto px-8 py-14">
       {/* tab row */}

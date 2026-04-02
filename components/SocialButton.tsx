@@ -1,6 +1,7 @@
+import { SocialButtonProps } from "@/constants/interfaces";
 import { useState } from "react";
 
-export default function SocialButton({ icon: Icon, label, link }: { icon: React.ElementType; label: string, link: string }) {
+export default function SocialButton({ icon: Icon, label, link }: SocialButtonProps) {
   const [hovered, setHovered] = useState(false);
 
   return (

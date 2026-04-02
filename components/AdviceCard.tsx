@@ -1,17 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+import { AdviceCardProps } from "@/constants/interfaces";
 import { Card } from "@heroui/react";
-
-export type AdviceCardProps = {
-  title: string;
-  description: string;
-  tag: string;
-  tagColor?: string;
-  imageSrc: string;
-  imageAlt: string;
-  readTime: string;
-  href?: string;
-  onClose?: () => void;
-};
 
 export function AdviceCard({
   title,
@@ -20,9 +9,7 @@ export function AdviceCard({
   tagColor = "#d99934",
   imageSrc,
   imageAlt,
-  readTime,
   href,
-  onClose,
 }: AdviceCardProps) {
   return (
     <Card className="w-full items-stretch md:flex-row border-2 border-[#d99934] bg-[#d99934]/10">

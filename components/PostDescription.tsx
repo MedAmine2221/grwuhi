@@ -1,6 +1,7 @@
+import { PostDescriptionProps } from '@/constants/interfaces'
 import { Label, TextArea, TextField } from '@heroui/react'
 
-export default function PostDescription({setPostDesc, postDesc, isPressed}:{setPostDesc: (text: string)=> void, postDesc: string, isPressed: boolean}) {
+export default function PostDescription({setPostDesc, postDesc, isPressed}: PostDescriptionProps) {
   return (
     <TextField isInvalid={!postDesc && isPressed} isRequired className="w-full" name="fullName">
       <Label>Post Description</Label>
