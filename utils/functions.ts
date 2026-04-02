@@ -98,7 +98,7 @@ export async function gemini(cv: any, postDesc: string) {
     ════════════════════════════════════════
     ÉTAPE 4 — SYNTHÈSE D'ÉVALUATION
     ════════════════════════════════════════
-    - match_score       : adéquation estimée CV ↔ Job Description (0–10) avec justification
+    - match_score       : adéquation estimée CV ↔ Job Description (0%–100%) avec justification
     - strengths         : 3–5 points forts détectés dans le CV par rapport au poste
     - concerns          : 2–4 zones de risque ou d'incertitude à explorer
     - red_flags         : signaux d'alarme généraux pendant l'entretien
@@ -110,13 +110,24 @@ export async function gemini(cv: any, postDesc: string) {
     ════════════════════════════════════════
 
     {
+    "condidate_name": "",
+    "candidate_post": "What is the candidate’s academic background",
     "analysis": {
         "detected_level": "junior | mid | senior | principal",
         "years_of_experience": 0,
         "main_stack": [],
         "business_domain": "",
-        "match_score": 0,
+        "match_score": 0%,
         "match_justification": ""
+    },
+    "evaluation_summary": {
+      concerns: [],
+      green_flags: []
+      hiring_justification: "",
+      hiring_recommendation: Yes | No | Maybe,
+      match_justification: [],
+      red_flags: [],
+      strengths: []
     },
     "hr_questions": [
         {
