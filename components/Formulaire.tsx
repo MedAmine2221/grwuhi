@@ -18,22 +18,24 @@ export default function Formulaire() {
     const [isPressed, setIsPressed] = useState(false)
     const createQuiz = async () => {
       try {
-        dispatch(setLoadingTrue());
         setIsPressed(true);
-        const resp = await gemini(cv, postDesc);
-
-        if (typeof resp !== "string") {
-          console.error("No response from gemini");
-          return;
-        }
-
-        const clean = resp
+        if(cv && postDesc){
+          dispatch(setLoadingTrue());
+          const resp = await gemini(cv, postDesc);
+          
+          if (typeof resp !== "string") {
+            console.error("No response from gemini");
+            return;
+          }
+          
+          const clean = resp
           .replace(/```json/g, "")
           .replace(/```/g, "")
           .trim();
-        const parsed = clean === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." || clean === "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard." ? clean :  JSON?.parse(clean);        
-        dispatch(addQuiz(parsed));
-        router.push("/matching-score");
+          const parsed = clean === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." || clean === "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard." ? clean :  JSON?.parse(clean);        
+          dispatch(addQuiz(parsed));
+          router.push("/matching-score");
+        }
       } catch (e) {
         console.error(e);
       } finally {
