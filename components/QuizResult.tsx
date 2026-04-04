@@ -195,7 +195,7 @@ export default function QuizResult({ candidateName, candidatePost }: { candidate
         ].map(({ label, value }) => (
           <div
             key={label}
-            className="flex-1 min-w-[100px] bg-background border border-border/50 rounded-xl p-3"
+            className="flex-1 min-w-25 bg-background border border-border/50 rounded-xl p-3"
           >
             <p className="text-xs text-muted-foreground mb-1">{label}</p>
             <p className="text-sm font-semibold text-foreground">{value}</p>
