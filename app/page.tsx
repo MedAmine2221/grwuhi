@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";;
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Formulaire from "@/components/Formulaire";
 import { useSelector } from "react-redux";
 import AnalysisResult from "@/components/AnalysisComponent";
