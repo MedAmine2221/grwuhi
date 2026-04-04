@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(()=>{
     const timer = setTimeout(()=>{
     setErrorMsg("");
-    },15000),
+    },15000);
     return () => clearTimeout(timer);
   },[])
   return (
