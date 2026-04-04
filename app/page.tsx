@@ -5,13 +5,13 @@ import Formulaire from "@/components/Formulaire";
 import { useSelector } from "react-redux";
 import AnalysisResult from "@/components/AnalysisComponent";
 import QuizResult from "@/components/QuizResult";
-
 export default function Home() {
   const quiz = useSelector((state: any) => state.quiz.quiz);
+  
   const quizResult = useSelector((state: any) => state.quizResult.quizResult);
   return (
     <>
-      {!quiz && !quizResult ? (
+      {!quiz && !quizResult || quiz =="Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." ? (
         <main className="flex flex-col items-center lg:justify-around justify-center lg:flex-row m-8">
           <Image
             src="/home.png"
@@ -27,6 +27,9 @@ export default function Home() {
               to generate a test with possible HR interview questions
             </p>
             <Formulaire />
+          { quiz === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." && (
+            <p className="text-center text-sm mb-4 text-danger font-bold">{"I'm sorry, I'm currently experiencing technical difficulties. Please try again in a few moments."}</p>
+          )}
           </div>
         </main>
       ) : !quizResult && quiz ? (

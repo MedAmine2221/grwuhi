@@ -58,7 +58,7 @@ export default function Formulaire() {
         :                            
         <>
           <Image src={"/scanner.gif"} width={100} height={100} alt={""} />
-          <p className="text-[#d99934] text-sm font-bold">{msgAtt}</p>
+          <p className="text-[#d99934] text-sm font-bold text-center">{msgAtt}</p>
         </>
       }
     </>
