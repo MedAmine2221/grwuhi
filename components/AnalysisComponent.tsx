@@ -18,7 +18,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <div className="w-11 h-11 rounded-full bg-[#113d3c] text-white flex items-center justify-center font-medium text-sm shrink-0">
-          {quiz.condidate_name.split(" ").map((element: any) => (
+          {quiz?.condidate_name?.split(" ").map((element: any) => (
             element[0]
           ))}
         </div>
@@ -31,9 +31,9 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
 
         <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full bg-[#d99934]/10 text-[#d99934] border border-[#d99934] shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-[#d99934]" />
-          {evaluation_summary.hiring_recommendation === "strong yes"
+          {evaluation_summary?.hiring_recommendation === "strong yes"
             ? "Strong hire"
-            : evaluation_summary.hiring_recommendation}
+            : evaluation_summary?.hiring_recommendation}
         </span>
       </div>
 
@@ -87,12 +87,12 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       {/* Green & Red flags */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <SectionCard title="Green flags" titleColor="#0F6E56">
-          {evaluation_summary.green_flags.map((item: string, i: number) => (
+          {evaluation_summary?.green_flags.map((item: string, i: number) => (
             <FlagItem key={i} text={item} color="#1D9E75" />
           ))}
         </SectionCard>
         <SectionCard title="Red flags" titleColor="#993C1D">
-          {evaluation_summary.red_flags.map((item: string, i: number) => (
+          {evaluation_summary?.red_flags.map((item: string, i: number) => (
             <FlagItem key={i} text={item} color="#D85A30" />
           ))}
         </SectionCard>
@@ -101,12 +101,12 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       {/* Strengths & Concerns */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <SectionCard title="Strengths">
-          {evaluation_summary.strengths.map((item: string, i: number) => (
+          {evaluation_summary?.strengths.map((item: string, i: number) => (
             <FlagItem key={i} text={item} color="#378ADD" />
           ))}
         </SectionCard>
         <SectionCard title="Concerns" titleColor="#854F0B">
-          {evaluation_summary.concerns.map((item: string, i: number) => (
+          {evaluation_summary?.concerns.map((item: string, i: number) => (
             <FlagItem key={i} text={item} color="#EF9F27" />
           ))}
         </SectionCard>
@@ -115,7 +115,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       {/* Hiring justification */}
       <SectionCard title="Hiring recommendation" accent="#1D9E75">
         <p className="text-sm leading-relaxed text-foreground">
-          {evaluation_summary.hiring_justification}
+          {evaluation_summary?.hiring_justification}
         </p>
       </SectionCard>
       <Modal>
