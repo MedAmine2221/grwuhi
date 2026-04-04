@@ -6,14 +6,20 @@ import SectionCard from "./SectionCard";
 import FlagItem from "./FlagItem";
 import MetricCard from "./MetricCard";
 import { useSelector } from "react-redux";
-
+import {motion} from "framer-motion";
 export default function AnalysisResult({ quiz }: { quiz: any }) {
   const quizReslt = useSelector((state: any)=> state.quizResult.quizResult)  
   const { analysis, evaluation_summary, hr_questions, technical_questions } = quiz;
   const score = parseInt(analysis?.match_score);
   const [start, setStart]= useState(false)
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 space-y-4">
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.5 }}
+      viewport={{ once: true }}
+      className="max-w-3xl mx-auto px-4 py-8 space-y-4"
+    >
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
@@ -121,6 +127,6 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       <Modal>
         {start && !quizReslt && <QuizModal hr={hr_questions} technical={technical_questions} />}
       </Modal>
-    </div>
+    </motion.div>
   );
 }
