@@ -7,10 +7,10 @@ import AnalysisResult from "@/components/AnalysisComponent";
 
 export default function Home() {
   const quiz = useSelector((state: any) => state.quiz.quiz);
-
+  const quizResult = useSelector((state: any) => state.quizResult.quizResult);
   return (
     <>
-      {!quiz ? (
+      {!quiz && !quizResult ? (
         <main className="flex flex-col items-center lg:justify-around justify-center lg:flex-row m-8">
           <Image
             src="/home.png"
@@ -28,8 +28,12 @@ export default function Home() {
             <Formulaire />
           </div>
         </main>
-      ) : (
+      ) : !quizResult && quiz ? (
         <AnalysisResult quiz={quiz} />
+      ) : (
+        <>
+        
+        </>
       )}
     </>
   );

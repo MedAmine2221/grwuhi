@@ -3,7 +3,7 @@
 import { PER_QUESTION_TIME } from '@/constants';
 import { TestType } from '@/constants/enums';
 import { AllAnswersType, QuestionAnswer } from '@/constants/interfaces';
-import { addQuizResult } from '@/redux/slice/resultQuizResponsAnalyseSlice';
+import { addQuizResult } from '@/redux/slice/quizResultSlice';
 import { analyseResponses } from '@/utils/functions';
 import { Modal, Spinner } from '@heroui/react';
 import Image from 'next/image';
@@ -118,9 +118,17 @@ export default function QuizModal({
     }
 
     const response = await analyseResponses(allAnswers, hr, technical)
-    console.log("response ",response);
-    dispatch(addQuizResult(response))
+    if (typeof response !== "string") {
+      console.error("No response from gemini");
+      return;
+    }
     
+    const clean = response
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+    const parsed = clean === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." || clean === "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard." ? clean :  JSON?.parse(clean);        
+    dispatch(addQuizResult(parsed));
   };
   // ── Restore draft when switching questions ─────────────────────────────────
   useEffect(() => {
