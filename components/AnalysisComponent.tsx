@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 export default function AnalysisResult({ quiz }: { quiz: any }) {
   const quizReslt = useSelector((state: any)=> state.quizResult.quizResult)  
   const { analysis, evaluation_summary, hr_questions, technical_questions } = quiz;
-  const score = parseInt(analysis.match_score);
+  const score = parseInt(analysis?.match_score);
   const [start, setStart]= useState(false)
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-4">
@@ -23,9 +23,9 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
           ))}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-medium text-base">{quiz.condidate_name}</p>
+          <p className="font-medium text-base">{quiz?.condidate_name}</p>
           <p className="text-sm text-muted-foreground">
-            {quiz.candidate_post} — {analysis.detected_level} level
+            {quiz?.candidate_post} — {analysis?.detected_level} level
           </p>
         </div>
 
@@ -39,12 +39,12 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
 
       {/* Metrics */}
       <div className="flex gap-3 flex-wrap">
-        <MetricCard label="Match score" value={analysis.match_score} />
+        <MetricCard label="Match score" value={analysis?.match_score} />
         <MetricCard
           label="Experience"
-          value={`${analysis.years_of_experience} yrs`}
+          value={`${analysis?.years_of_experience} yrs`}
         />
-        <MetricCard label="Level" value={analysis.detected_level} />
+        <MetricCard label="Level" value={analysis?.detected_level} />
       </div>
 
       {/* Match score bar */}
