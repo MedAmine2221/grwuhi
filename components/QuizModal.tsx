@@ -1,73 +1,189 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { PER_QUESTION_TIME } from '@/constants';
+import { TestType } from '@/constants/enums';
+import { AllAnswersType, QuestionAnswer } from '@/constants/interfaces';
+import { addQuizResult } from '@/redux/slice/resultQuizResponsAnalyseSlice';
+import { analyseResponses } from '@/utils/functions';
 import { Modal, Spinner } from '@heroui/react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { FiChevronRight } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
 
-const PER_QUESTION_TIME = 90;
-
-export default function QuizModal() {
+// ─── Component ───────────────────────────────────────────────────────────────
+export default function QuizModal({
+  hr,
+  technical,
+}: {
+  hr: {
+    question: string,
+    category: string,
+    preferred_answer: string,
+    red_flag_answer: string,
+    follow_up: string
+  }[],
+  technical: {
+    question: string,
+    type: "theory" | "practical" | "trap",
+    difficulty: "easy" | "medium" | "hard",
+    correct_answer: string,
+    common_mistake: string
+  }[]
+}) {
+  const dispatch = useDispatch();
   const quiz = useSelector((state: any) => state.quiz.quiz);
 
+  const [phase, setPhase] = useState<TestType>(TestType.HR);
   const [current, setCurrent] = useState(0);
   const [seconds, setSeconds] = useState(PER_QUESTION_TIME);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
 
-  const totalQuestions = quiz?.hr_questions?.length ?? 0;
+  // Draft text currently visible in the textarea
+  const [draft, setDraft] = useState("");
+
+  // Saved answers – one array per phase, each slot: { question, answer }
+  const [hrAnswers, setHrAnswers] = useState<QuestionAnswer[]>([]);
+  const [technicalAnswers, setTechnicalAnswers] = useState<QuestionAnswer[]>([]);
+
+  // Ref so timer callbacks always read the latest draft without stale closures
+  const draftRef = useRef(draft);
+  useEffect(() => { draftRef.current = draft; }, [draft]);
+
+  const questions: any[] = phase === TestType.HR
+    ? (hr        ?? [])
+    : (technical ?? []);
+
+  const totalQuestions  = questions.length;
+  const currentQuestion = questions[current];
+
   const progress = Math.round((seconds / PER_QUESTION_TIME) * 100);
   const isUrgent = seconds <= 30;
-  const mins = Math.floor(seconds / 60);
-  const secs = seconds % 60;
+  const mins     = Math.floor(seconds / 60);
+  const secs     = seconds % 60;
 
-  // Reset timer on question change
-    useEffect(() => {
-      const id = setTimeout(() => setSeconds(PER_QUESTION_TIME), 0);
-      return () => clearTimeout(id);
-    }, [current]);
+  // ── Save current answer (or null) into the right phase array ──────────────
+  const saveCurrentAnswer = (idx: number, value: string, ph: TestType) => {
+    const entry: QuestionAnswer = {
+      question: ph === TestType.HR
+        ? hr?.[idx]?.question
+        : technical?.[idx]?.question,
+      answer: value.trim() === "" ? null : value.trim(),
+    };
 
-  // Countdown + auto-advance
+    if (ph === TestType.HR) {
+      setHrAnswers(prev => {
+        const next = [...prev];
+        next[idx]  = entry;
+        return next;
+      });
+    } else {
+      setTechnicalAnswers(prev => {
+        const next = [...prev];
+        next[idx]  = entry;
+        return next;
+      });
+    }
+  };
+
+  // ── Navigate: save → move forward (or switch phase) ──────────────────────
+  const goNext = () => {
+    saveCurrentAnswer(current, draftRef.current, phase);
+
+    if (current < totalQuestions - 1) {
+      setCurrent(c => c + 1);
+    } else if (phase === TestType.HR) {
+      // HR done → switch to Technical phase
+      setPhase(TestType.TECHNICAL);
+      setCurrent(0);
+    }
+    // If last technical question → handled by the Submit button
+  };
+
+  // ── Submit: save last answer then log / dispatch ───────────────────────────
+  const handleSubmit = async () => {
+    // Save last answer synchronously via functional updater
+    const lastEntry: QuestionAnswer = {
+      question: technical?.[current]?.question,
+      answer:   draftRef.current.trim() === "" ? null : draftRef.current.trim(),
+    };
+
+    setTechnicalAnswers(prev => {
+      const next  = [...prev];
+      next[current] = lastEntry;
+      return next;
+    });
+    const allAnswers: AllAnswersType = {
+      hr: hrAnswers,
+      technical: technicalAnswers
+    }
+
+    const response = await analyseResponses(allAnswers, hr, technical)
+    console.log("response ",response);
+    dispatch(addQuizResult(response))
+    
+  };
+  // ── Restore draft when switching questions ─────────────────────────────────
+  useEffect(() => {
+    const saved =
+      phase === TestType.HR
+        ? hrAnswers[current]?.answer ?? ""
+        : technicalAnswers[current]?.answer ?? "";
+    setDraft(saved);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, phase]);
+
+  // ── Timer reset ────────────────────────────────────────────────────────────
+  useEffect(() => {
+    setSeconds(PER_QUESTION_TIME);
+  }, [current, phase]);
+
+  // ── Countdown + auto-advance ───────────────────────────────────────────────
   useEffect(() => {
     if (seconds <= 0) {
-      if (current < totalQuestions - 1) {
-        const t = setTimeout(() => setCurrent(c => c + 1), 0);
-        return () => clearTimeout(t);
+      // Only auto-advance if not on the very last question of the last phase
+      if (!(current === totalQuestions - 1 && phase === TestType.TECHNICAL)) {
+        goNext();
       }
       return;
     }
     const id = setInterval(() => setSeconds(s => s - 1), 1000);
     return () => clearInterval(id);
-  }, [seconds, current, totalQuestions]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seconds]);
 
-  const goNext = () => { if (current < totalQuestions - 1) setCurrent(c => c + 1); };
-  const goPrev = () => { if (current > 0) setCurrent(c => c - 1); };
+  // ── Dot navigation: also save before jumping ──────────────────────────────
+  const jumpTo = (i: number) => {
+    saveCurrentAnswer(current, draftRef.current, phase);
+    setCurrent(i);
+  };
 
-  const currentQuestion = quiz?.hr_questions?.[current];
+  const isLastQuestion = current === totalQuestions - 1;
+  const isLastPhase    = phase === TestType.TECHNICAL;
+  const answersForPhase = phase === TestType.HR ? hrAnswers : technicalAnswers;
+  const dotAnswered     = (i: number) => answersForPhase[i] !== undefined;
+
+  // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <>
       {!quiz ? (
-        /* ─────────── Welcome Screen ─────────── */
+        /* ─────────── Loading / Welcome Screen ─────────── */
         <Modal.Backdrop className="bg-black/60 backdrop-blur-sm">
           <Modal.Container className="flex items-center justify-center min-h-screen p-4">
             <Modal.Dialog className="relative w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-2xl shadow-black/20 border border-[#113d3c]/10">
-              {/* Header */}
-              <Modal.CloseTrigger className='w-10 h-10' />
+              <Modal.CloseTrigger className="w-10 h-10" />
               <div className="relative px-8 pt-10 pb-7 bg-linear-to-b from-[#113d3c]/5 to-transparent overflow-hidden">
-                {/* Avatar */}
                 <div className="mx-auto mb-5 w-50 h-50 rounded-full p-0.75 bg-linear-to-br from-[#d99934] to-[#113d3c]">
                   <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
                     <Image src="/hiring-interview.png" alt="hiring-interview" loading="eager" width={88} height={88} className="object-cover" />
                   </div>
                 </div>
-                <h1 className="text-center text-xl font-bold text-[#113d3c] tracking-tight">The HR and technical test for the position you applied for is currently under development</h1>
+                <h1 className="text-center text-xl font-bold text-[#113d3c] tracking-tight">
+                  The HR and technical test for the position you applied for is currently under development
+                </h1>
               </div>
-
-              {/* Body */}
               <div className="px-8 pb-8">
                 <div className="flex items-center justify-center">
-                  <Spinner className='w-30 h-30'/>
+                  <Spinner className="w-30 h-30" />
                 </div>
               </div>
             </Modal.Dialog>
@@ -75,12 +191,11 @@ export default function QuizModal() {
         </Modal.Backdrop>
 
       ) : quiz === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." ? (
+        /* ─────────── Error Screen ─────────── */
         <Modal.Backdrop className="bg-black/60 backdrop-blur-sm">
-
           <Modal.Container className="flex items-center justify-center min-h-screen p-4">
-
             <Modal.Dialog className="relative w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-2xl shadow-black/20 border border-[#113d3c]/10">
-              <Modal.CloseTrigger className='w-10 h-10' />
+              <Modal.CloseTrigger className="w-10 h-10" />
               <div className="px-8 pb-8">
                 <div className="flex items-center justify-center">
                   <Image src="/Error-429.png" alt="error" loading="eager" width={1000} height={1000} className="object-cover ml-4" />
@@ -89,30 +204,45 @@ export default function QuizModal() {
             </Modal.Dialog>
           </Modal.Container>
         </Modal.Backdrop>
+
       ) : (
         /* ─────────── Quiz Screen ─────────── */
         <Modal.Backdrop className="bg-black/60 backdrop-blur-sm">
           <Modal.Container className="flex items-center justify-center min-h-screen p-4">
             <Modal.Dialog className="relative w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-2xl shadow-black/20 border border-[#113d3c]/10">
-              <Modal.CloseTrigger className='w-10 h-10' />
+              <Modal.CloseTrigger className="w-10 h-10" />
+
+              {/* ── Phase badge ── */}
+              <div className="flex justify-center pt-4 pb-1">
+                <span className={`px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest ${
+                  phase === TestType.HR
+                    ? "bg-[#d99934]/15 text-[#d99934]"
+                    : "bg-[#113d3c]/10 text-[#113d3c]"
+                }`}>
+                  {phase === TestType.HR ? "🤝 HR Questions" : "⚙️ Technical Questions"}
+                </span>
+              </div>
+
               {/* ── Timer bar ── */}
-              <div className="px-6 pt-5 pb-4 bg-[#113d3c]/3 border-b border-[#113d3c]/8">
+              <div className="px-6 pt-3 pb-4 bg-[#113d3c]/3 border-b border-[#113d3c]/8">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full shrink-0 ${isUrgent ? 'bg-red-500 animate-ping' : 'bg-[#d99934] animate-pulse'}`} />
-                    <span className={`font-mono text-2xl font-semibold tracking-widest transition-colors ${isUrgent ? 'text-red-500' : 'text-[#113d3c]'}`}>
-                      {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${isUrgent ? "bg-red-500 animate-ping" : "bg-[#d99934] animate-pulse"}`} />
+                    <span className={`font-mono text-2xl font-semibold tracking-widest transition-colors ${isUrgent ? "text-red-500" : "text-[#113d3c]"}`}>
+                      {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
                     </span>
                   </div>
                   <span className="px-3 py-1 rounded-full bg-[#113d3c]/6 text-[#113d3c]/55 text-xs font-bold font-mono">
                     {current + 1} / {totalQuestions}
                   </span>
                 </div>
-
-                {/* Progress */}
                 <div className="h-1.5 w-full bg-[#113d3c]/8 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-1000 ${isUrgent ? 'bg-linear-to-r from-red-500 to-red-400' : 'bg-linear-to-r from-[#d99934] to-[#f0b840]'}`}
+                    className={`h-full rounded-full transition-all duration-1000 ${
+                      isUrgent
+                        ? "bg-linear-to-r from-red-500 to-red-400"
+                        : "bg-linear-to-r from-[#d99934] to-[#f0b840]"
+                    }`}
                     style={{ width: `${progress}%` }}
                   />
                 </div>
@@ -122,7 +252,7 @@ export default function QuizModal() {
               <div className="px-6 pt-6 pb-4">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-[#d99934]/10 border border-[#d99934]/25 text-[#d99934] text-[11px] font-bold font-mono shrink-0">
-                    {String(current + 1).padStart(2, '0')}
+                    {String(current + 1).padStart(2, "0")}
                   </div>
                   <span className="text-[10px] font-bold text-[#113d3c]/35 uppercase tracking-widest">Question</span>
                 </div>
@@ -134,56 +264,58 @@ export default function QuizModal() {
                 <textarea
                   rows={4}
                   placeholder="Type your answer here…"
-                  value={answers[current] ?? ''}
-                  onChange={e => setAnswers(prev => ({ ...prev, [current]: e.target.value }))}
+                  value={draft}
+                  onChange={e => setDraft(e.target.value)}
                   className="w-full bg-[#113d3c]/3 border border-[#113d3c]/10 rounded-xl px-4 py-3 text-sm text-[#113d3c] placeholder-[#113d3c]/25 outline-none resize-none focus:border-[#d99934]/50 focus:bg-[#d99934]/2 transition-all"
                 />
               </div>
 
               {/* ── Navigation ── */}
               <div className="px-6 pb-6 pt-3 border-t border-[#113d3c]/[0.07] flex items-center gap-3">
-
-                {/* Prev */}
-                <button
-                  onClick={goPrev}
-                  disabled={current === 0}
-                  className="w-11 h-11 flex items-center justify-center rounded-xl border border-[#113d3c]/12 bg-[#113d3c]/4 text-[#113d3c]/50 hover:bg-[#113d3c]/9 hover:text-[#113d3c] transition-all disabled:opacity-25 disabled:cursor-not-allowed cursor-pointer text-xl"
-                >
-                  <FiChevronLeft />
-                </button>
-
                 {/* Dot indicators */}
-                <div className="flex-1 flex items-center justify-center gap-1.5">
-                  {quiz.hr_questions.map((_: any, i: number) => (
+                <div className="flex-1 flex items-center justify-center gap-1.5 flex-wrap">
+                  {questions.map((_: any, i: number) => (
                     <button
                       key={i}
-                      onClick={() => setCurrent(i)}
+                      onClick={() => jumpTo(i)}
                       className={`rounded-full transition-all duration-200 cursor-pointer ${
                         i === current
-                          ? 'w-5 h-2 bg-[#d99934]'
-                          : answers[i]
-                          ? 'w-2 h-2 bg-[#113d3c]/40'
-                          : 'w-2 h-2 bg-[#113d3c]/15'
+                          ? "w-5 h-2 bg-[#d99934]"
+                          : dotAnswered(i)
+                          ? "w-2 h-2 bg-[#113d3c]/40"
+                          : "w-2 h-2 bg-[#113d3c]/15"
                       }`}
                     />
                   ))}
                 </div>
 
-                {/* Next / Submit */}
-                {current < totalQuestions - 1 ? (
+                {/* ── Next / "Technical Questions" / Submit ── */}
+                {isLastQuestion && isLastPhase ? (
+                  // Last question of technical → Submit
+                  <button
+                    onClick={handleSubmit}
+                    className="h-11 px-5 flex items-center justify-center rounded-xl bg-[#d99934] text-white text-xs font-bold hover:bg-[#e8a840] hover:shadow-md hover:shadow-[#d99934]/25 hover:-translate-y-px transition-all cursor-pointer"
+                  >
+                    Submit
+                  </button>
+                ) : isLastQuestion && phase === TestType.HR ? (
+                  // Last HR question → show "Technical Questions" button
+                  <button
+                    onClick={goNext}
+                    className="h-11 px-4 flex items-center justify-center gap-1.5 rounded-xl bg-[#113d3c] text-white text-xs font-bold hover:bg-[#1a5a58] hover:shadow-md hover:shadow-[#113d3c]/20 hover:-translate-y-px transition-all cursor-pointer whitespace-nowrap"
+                  >
+                    Technical Questions →
+                  </button>
+                ) : (
+                  // Any other question → plain next arrow
                   <button
                     onClick={goNext}
                     className="w-11 h-11 flex items-center justify-center rounded-xl bg-[#113d3c] text-white hover:bg-[#1a5a58] hover:shadow-md hover:shadow-[#113d3c]/20 hover:-translate-y-px transition-all cursor-pointer text-xl"
                   >
                     <FiChevronRight />
                   </button>
-                ) : (
-                  <button className="h-11 px-5 flex items-center justify-center rounded-xl bg-[#d99934] text-white text-xs font-bold hover:bg-[#e8a840] hover:shadow-md hover:shadow-[#d99934]/25 hover:-translate-y-px transition-all cursor-pointer">
-                    Submit
-                  </button>
                 )}
               </div>
-
             </Modal.Dialog>
           </Modal.Container>
         </Modal.Backdrop>

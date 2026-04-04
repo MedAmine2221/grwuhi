@@ -1,5 +1,7 @@
 import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
 
+const PER_QUESTION_TIME = 90;
+
 const NAV_LINKS = {
   "Site Map": [{name:"Home",href:"/"},{name: "Advices", href: "/advices"}],
 };
@@ -498,4 +500,4 @@ const STEPS_CoverLetter = [
   },
 ];
 
-export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy }
+export { NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }

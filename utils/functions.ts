@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AllAnswersType } from "@/constants/interfaces";
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({
@@ -7,6 +8,137 @@ const ai = new GoogleGenAI({
 });
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export async function analyseResponses(
+  response: AllAnswersType, 
+  hr_questions: {
+    question: string,
+    category: string,
+    preferred_answer: string,
+    red_flag_answer: string,
+    follow_up: string
+  }[], 
+  technical_questions: {
+    question: string,
+    type: "theory" | "practical" | "trap",
+    difficulty: "easy" | "medium" | "hard",
+    correct_answer: string,
+    common_mistake: string
+  }[]
+){
+  let attempts = 0;
+  const maxAttempts = 3;
+  const baseDelay = 2000;
+  const maxDelay = 10000;
+  const fullPrompt = `Tu es un expert en évaluation de candidats avec 15+ ans d'expérience en recrutement tech.
+
+  Ta mission est d'analyser les réponses d'un candidat lors d'un entretien et de fournir une évaluation détaillée.
+
+  ════════════════════════════════════════
+  DONNÉES D'ENTRÉE
+  ════════════════════════════════════════
+
+  QUESTIONS RH ET RÉPONSES DU CANDIDAT :
+  ${hr_questions.map((q, i) => `
+  Question RH ${i + 1} : ${q.question}
+  Catégorie : ${q.category}
+  Réponse attendue : ${q.preferred_answer}
+  Réponse red flag : ${q.red_flag_answer}
+  Réponse du candidat : ${response.hr[i]?.answer ?? "Pas de réponse"}
+  `).join('\n---\n')}
+
+  QUESTIONS TECHNIQUES ET RÉPONSES DU CANDIDAT :
+  ${technical_questions.map((q, i) => `
+  Question Technique ${i + 1} : ${q.question}
+  Type : ${q.type} | Difficulté : ${q.difficulty}
+  Réponse correcte : ${q.correct_answer}
+  Erreur fréquente : ${q.common_mistake}
+  Réponse du candidat : ${response.technical[i]?.answer ?? "Pas de réponse"}
+  `).join('\n---\n')}
+
+  ════════════════════════════════════════
+  RÈGLES D'ÉVALUATION
+  ════════════════════════════════════════
+  - Évaluer chaque réponse de 0% à 100% selon sa qualité
+  - Comparer la réponse du candidat à la preferred_answer ET à la red_flag_answer
+  - Si la réponse ressemble à un red_flag → score ≤ 30%
+  - Si la réponse est partielle mais correcte → score entre 40% et 74%
+  - Si la réponse est bonne mais incomplète → score entre 75% et 89%
+  - Si la réponse correspond bien à la preferred_answer → score ≥ 90%
+  - Pour les réponses nulles ou "Pas de réponse" → score = 0%
+  - Lorsque le score est < 75%, fournir la meilleure réponse que le candidat aurait dû donner
+
+  ════════════════════════════════════════
+  FORMAT JSON STRICT — AUCUN TEXTE EN DEHORS
+  ════════════════════════════════════════
+  {
+    "hr_analysis": [
+      {
+        "question": "question posée",
+        "candidate_answer": "réponse du candidat",
+        "score": 0,
+        "feedback": "explication courte du score",
+        "ideal_answer": "réponse idéale (uniquement si score < 75%)"
+      }
+    ],
+    "technical_analysis": [
+      {
+        "question": "question posée",
+        "candidate_answer": "réponse du candidat",
+        "score": 0,
+        "feedback": "explication courte du score",
+        "ideal_answer": "réponse idéale (uniquement si score < 75%)"
+      }
+    ],
+    "overall": {
+      "hr_average": 0,
+      "technical_average": 0,
+      "global_score": 0,
+      "summary": "résumé global de la performance du candidat en 2-3 phrases"
+    }
+  }`;
+  while (attempts < maxAttempts) {
+    try {
+      if (attempts > 0) {
+        const backoffDelay = Math.min(
+          baseDelay * Math.pow(2, attempts - 1),
+          maxDelay,
+        );
+        await delay(backoffDelay);
+      }
+
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: [
+          { text: fullPrompt },
+        ],
+        generationConfig: {
+          maxOutputTokens: 1000,
+          temperature: 0.7,
+          topP: 0.8,
+        },
+      } as any);
+      
+      const text = response.text;
+      const cleanedText = text?.trim();
+      return cleanedText;
+    } catch (error: any) {
+      attempts++;
+      const shouldRetry =
+        error.message?.includes("429") ||
+        error.message?.includes("503") ||
+        error.message?.includes("500") ||
+        error.message?.includes("rate_limit");
+
+      if (shouldRetry && attempts < maxAttempts) {
+        continue;
+      }
+
+      return "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants.";
+    }
+  }
+
+  return "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard.";
+}
 
 export async function gemini(cv: any, postDesc: string) {
   let attempts = 0;

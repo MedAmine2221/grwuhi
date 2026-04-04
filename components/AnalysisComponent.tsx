@@ -7,7 +7,7 @@ import FlagItem from "./FlagItem";
 import MetricCard from "./MetricCard";
 
 export default function AnalysisResult({ quiz }: { quiz: any }) {
-  const { analysis, evaluation_summary } = quiz;
+  const { analysis, evaluation_summary, hr_questions, technical_questions } = quiz;
   const score = parseInt(analysis.match_score);
   const [start, setStart]= useState(false)
   return (
@@ -118,7 +118,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       </SectionCard>
       <Modal>
         <Button className="bg-[#d99934]/10 border border-[#d99934] text-[#d99934]" onClick={()=> setStart(true)}>Start Test</Button>
-        {start && <QuizModal />}
+        {start && <QuizModal hr={hr_questions} technical={technical_questions} />}
       </Modal>
     </div>
   );

@@ -1,19 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";;
-import { Button, Spinner } from "@heroui/react";
+import { Button } from "@heroui/react";
 import PostDescription from "./PostDescription";
 import UploadCV from "./UploadCV";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { gemini } from "@/utils/functions";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuiz } from "@/redux/slice/quizSlice";
 import { setLoadingFalse, setLoadingTrue } from "@/redux/slice/loadingSlice";
+import Image from "next/image";
 export default function Formulaire() {
     const dispatch = useDispatch();
     const loading = useSelector((state: any) => state.loading.loading);
     const [postDesc, setPostDesc] = useState("");
     const [cv, setCv] = useState();
-    const [isPressed, setIsPressed] = useState(false)
+    const [isPressed, setIsPressed] = useState(false);
+    const [msgAtt, setMsgAtt] = useState("This operation may take a few minutes")
+    useEffect(()=>{
+      const timer = setTimeout(()=>{
+        setMsgAtt("Your CV is being analyzed. Please wait a moment…")
+      },25000);
+      return(()=>clearTimeout(timer));
+    })
     const createQuiz = async () => {
       try {
         setIsPressed(true);
@@ -48,7 +56,10 @@ export default function Formulaire() {
           Evaluate Compatibility
         </Button>
         :                            
-        <Spinner className="mt-8 text-[#d99934] w-10 h-10"/>
+        <>
+          <Image src={"/scanner.gif"} width={100} height={100} alt={""} />
+          <p className="text-[#d99934] text-sm font-bold">{msgAtt}</p>
+        </>
       }
     </>
 )

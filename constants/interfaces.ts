@@ -3,6 +3,10 @@ interface QuizState {
   quiz: null
 }
 
+interface QuizResultState {
+  quizResult: null
+}
+
 interface UserState {
   user: null
 }
@@ -42,4 +46,15 @@ interface SocialButtonProps { icon: React.ElementType; label: string, link: stri
 
 interface UploadCVProps {setCv: (cv: any)=> void, cv: any, isPressed: boolean}
 
-export type {QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps}
+interface QuestionAnswer {
+  question: string;
+  answer: string | null;
+}
+
+interface AllAnswersType {
+  hr: QuestionAnswer[];
+  technical: QuestionAnswer[];
+}
+
+
+export type {QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState}
