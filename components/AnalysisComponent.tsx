@@ -5,8 +5,10 @@ import QuizModal from "./QuizModal";
 import SectionCard from "./SectionCard";
 import FlagItem from "./FlagItem";
 import MetricCard from "./MetricCard";
+import { useSelector } from "react-redux";
 
 export default function AnalysisResult({ quiz }: { quiz: any }) {
+  const quizReslt = useSelector((state: any)=> state.quizResult.quizResult)  
   const { analysis, evaluation_summary, hr_questions, technical_questions } = quiz;
   const score = parseInt(analysis.match_score);
   const [start, setStart]= useState(false)
@@ -50,7 +52,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
         <div className="flex justify-between text-xs text-muted-foreground mb-2">
           <span>Overall compatibility</span>
           <span className="font-medium text-foreground">
-            {analysis.match_score}
+            {analysis?.match_score}
           </span>
         </div>
         <div className="h-1.5 bg-muted rounded-full overflow-hidden">
@@ -64,7 +66,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       {/* Tech stack */}
       <SectionCard title="Tech stack">
         <div className="flex flex-wrap gap-1.5">
-          {analysis.main_stack.map((item: string) => (
+          {analysis?.main_stack.map((item: string) => (
             <span
               key={item}
               className="text-xs px-2.5 py-1 rounded-md border-muted/50 border-2 text-muted-foreground"
@@ -78,7 +80,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       {/* Match justification */}
       <SectionCard title="Match justification">
         <p className="text-sm leading-relaxed text-foreground">
-          {analysis.match_justification}
+          {analysis?.match_justification}
         </p>
       </SectionCard>
 
@@ -118,7 +120,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       </SectionCard>
       <Modal>
         <Button className="bg-[#d99934]/10 border border-[#d99934] text-[#d99934]" onClick={()=> setStart(true)}>Start Test</Button>
-        {start && <QuizModal hr={hr_questions} technical={technical_questions} />}
+        {start && !quizReslt && <QuizModal hr={hr_questions} technical={technical_questions} />}
       </Modal>
     </div>
   );

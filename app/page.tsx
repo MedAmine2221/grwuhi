@@ -4,6 +4,7 @@ import Image from "next/image";
 import Formulaire from "@/components/Formulaire";
 import { useSelector } from "react-redux";
 import AnalysisResult from "@/components/AnalysisComponent";
+import QuizResult from "@/components/QuizResult";
 
 export default function Home() {
   const quiz = useSelector((state: any) => state.quiz.quiz);
@@ -31,9 +32,10 @@ export default function Home() {
       ) : !quizResult && quiz ? (
         <AnalysisResult quiz={quiz} />
       ) : (
-        <>
-        
-        </>
+        <QuizResult
+          candidateName={quiz?.condidate_name ?? "Candidate"}
+          candidatePost={quiz?.candidate_post ?? ""}
+        />
       )}
     </>
   );
