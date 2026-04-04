@@ -8,8 +8,14 @@ import QuizResult from "@/components/QuizResult";
 import { motion } from "framer-motion";
 export default function Home() {
   const quiz = useSelector((state: any) => state.quiz.quiz);
-  
   const quizResult = useSelector((state: any) => state.quizResult.quizResult);
+  const [errorMsg,setErrorMsg] = useState("I'm sorry, I'm currently experiencing technical difficulties. Please try again in a few moments.");
+  useEffect(()=>{
+    const timer = setTimeout(()=>{
+    setErrorMsg("");
+    },15000),
+    return () => clearTimeout(timer);
+  },[])
   return (
     <motion.div         
       initial={{ opacity: 0, y: 50 }}
@@ -34,7 +40,7 @@ export default function Home() {
             </p>
             <Formulaire />
           { quiz === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." && (
-            <p className="text-center text-sm mb-4 text-danger font-bold">{"I'm sorry, I'm currently experiencing technical difficulties. Please try again in a few moments."}</p>
+            <p className="text-center text-sm mb-4 text-danger font-bold">{errorMsg}</p>
           )}
           </div>
         </main>
