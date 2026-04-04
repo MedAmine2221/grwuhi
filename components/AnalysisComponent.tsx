@@ -52,7 +52,10 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
         />
         <MetricCard label="Level" value={analysis?.detected_level} />
       </div>
-      <Button className="bg-[#d99934]/10 border border-[#d99934] text-[#d99934]" onClick={()=> setStart(true)}>Start Test</Button>
+      <Modal>
+        <Button className="bg-[#d99934]/10 border border-[#d99934] text-[#d99934]" onClick={()=> setStart(true)}>Start Test</Button>
+        {start && !quizReslt && <QuizModal hr={hr_questions} technical={technical_questions} />}
+      </Modal>
       {/* Match score bar */}
       <div className="bg-background border border-border/50 rounded-xl p-4">
         <div className="flex justify-between text-xs text-muted-foreground mb-2">
@@ -124,9 +127,6 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
           {evaluation_summary?.hiring_justification}
         </p>
       </SectionCard>
-      <Modal>
-        {start && !quizReslt && <QuizModal hr={hr_questions} technical={technical_questions} />}
-      </Modal>
     </motion.div>
   );
 }
