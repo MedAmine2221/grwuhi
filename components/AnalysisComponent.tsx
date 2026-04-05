@@ -6,7 +6,7 @@ import SectionCard from "./SectionCard";
 import FlagItem from "./FlagItem";
 import MetricCard from "./MetricCard";
 import { useSelector } from "react-redux";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 export default function AnalysisResult({ quiz }: { quiz: any }) {
   const quizReslt = useSelector((state: any)=> state.quizResult.quizResult)  
   const { analysis, evaluation_summary, hr_questions, technical_questions } = quiz;
@@ -46,12 +46,16 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       {/* Metrics */}
       <div className="flex gap-3 flex-wrap">
         <MetricCard label="Match score" value={analysis?.match_score} />
-        <MetricCard
+        {String(analysis?.years_of_experience).length < 10 && <MetricCard
           label="Experience"
           value={`${analysis?.years_of_experience} yrs`}
-        />
+        />}
         <MetricCard label="Level" value={analysis?.detected_level} />
       </div>
+      {String(analysis?.years_of_experience).length > 10 && <MetricCard
+        label="Experience"
+        value={`${analysis?.years_of_experience} yrs`}
+      />}
       <Modal>
         <Button className="bg-[#d99934]/10 border border-[#d99934] text-[#d99934]" onClick={()=> setStart(true)}>Start Test</Button>
         {start && !quizReslt && <QuizModal hr={hr_questions} technical={technical_questions} />}

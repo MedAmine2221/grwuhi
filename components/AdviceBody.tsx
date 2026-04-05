@@ -15,7 +15,7 @@ export default function AdviceBody({data, setActiveStep, activeStep, step}: Advi
               activeStep === i ? s.tabActive : s.tabIdle
             }`}
           >
-            <span className="block text-[10px] opacity-60 leading-none mb-0.5">{s.number}</span>
+            <span className="block text-base opacity-60 leading-none mb-0.5">{s.number}</span>
             {s.title}
           </button>
         ))}

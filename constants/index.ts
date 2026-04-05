@@ -1,6 +1,6 @@
 import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
 
-const PER_QUESTION_TIME = 90;
+const PER_QUESTION_TIME = 150;
 
 const NAV_LINKS = {
   "Site Map": [{name:"Home",href:"/"},{name: "Advices", href: "/advices"}],
