@@ -242,27 +242,29 @@ export default function QuizModal({
 
               {/* ── Timer bar ── */}
               <div className="px-6 pt-3 pb-4 bg-[#113d3c]/3 border-b border-[#113d3c]/8">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full shrink-0 ${isUrgent ? "bg-red-500 animate-ping" : "bg-[#d99934] animate-pulse"}`} />
-                    <span className={`font-mono text-2xl font-semibold tracking-widest transition-colors ${isUrgent ? "text-red-500" : "text-[#113d3c]"}`}>
-                      {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-[#113d3c]/6 text-[#113d3c]/55 text-xs font-bold font-mono">
-                    {current + 1} / {totalQuestions}
-                  </span>
-                </div>
-                <div className="h-1.5 w-full bg-[#113d3c]/8 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full transition-all duration-1000 ${
-                      isUrgent
-                        ? "bg-linear-to-r from-red-500 to-red-400"
-                        : "bg-linear-to-r from-[#d99934] to-[#f0b840]"
-                    }`}
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
+                {!loading && (
+                  <>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${isUrgent ? "bg-red-500 animate-ping" : "bg-[#d99934] animate-pulse"}`} />
+                        <span className={`font-mono text-2xl font-semibold tracking-widest transition-colors ${isUrgent ? "text-red-500" : "text-[#113d3c]"}`}>
+                          {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
+                        </span>
+                      </div>
+                      <span className="px-3 py-1 rounded-full bg-[#113d3c]/6 text-[#113d3c]/55 text-xs font-bold font-mono">
+                        {current + 1} / {totalQuestions}
+                      </span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#113d3c]/8 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-1000 ${isUrgent
+                            ? "bg-linear-to-r from-red-500 to-red-400"
+                            : "bg-linear-to-r from-[#d99934] to-[#f0b840]"}`}
+                        style={{ width: `${progress}%` }} 
+                      />
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* ── Question ── */}
