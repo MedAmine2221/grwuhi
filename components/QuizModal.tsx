@@ -104,12 +104,12 @@ export default function QuizModal({
   // ── Submit: save last answer then log / dispatch ───────────────────────────
   const handleSubmit = async () => {
     try {
-        dispatch(setLoadingTrue());
-        // Save last answer synchronously via functional updater
-        const lastEntry: QuestionAnswer = {
-          question: technical?.[current]?.question,
-          answer:   draftRef.current.trim() === "" ? null : draftRef.current.trim(),
-        };
+      dispatch(setLoadingTrue());
+      // Save last answer synchronously via functional updater
+      const lastEntry: QuestionAnswer = {
+        question: technical?.[current]?.question,
+        answer:   draftRef.current.trim() === "" ? null : draftRef.current.trim(),
+      };
 
       setTechnicalAnswers(prev => {
         const next  = [...prev];

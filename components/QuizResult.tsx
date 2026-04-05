@@ -12,7 +12,7 @@ export default function QuizResult({ candidateName, candidatePost }: { candidate
 
   const { hr_analysis, technical_analysis, overall } = quizResult;
 
-  const globalPct = Math.round((overall.global_score / 10) * 100);
+  const globalPct = Math.round((overall.global_score / 100) * 100);
   const globalColor =
     globalPct >= 70 ? "#1D9E75" : globalPct >= 40 ? "#d99934" : "#D85A30";
 
@@ -44,16 +44,16 @@ export default function QuizResult({ candidateName, candidatePost }: { candidate
           }}
         >
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: globalColor }} />
-          Score {overall.global_score.toFixed(1)} / 10
+          Score {overall.global_score.toFixed(1)} / 100
         </span>
       </div>
 
       {/* Score metrics */}
       <div className="flex gap-3 flex-wrap">
         {[
-          { label: "Global score", value: `${overall.global_score.toFixed(1)} / 10` },
-          { label: "HR average", value: `${overall.hr_average.toFixed(1)} / 10` },
-          { label: "Technical avg", value: `${overall.technical_average.toFixed(1)} / 10` },
+          { label: "Global score", value: `${overall.global_score.toFixed(1)} / 100` },
+          { label: "HR average", value: `${overall.hr_average.toFixed(1)} / 100` },
+          { label: "Technical avg", value: `${overall.technical_average.toFixed(1)} / 100` },
         ].map(({ label, value }) => (
           <div
             key={label}

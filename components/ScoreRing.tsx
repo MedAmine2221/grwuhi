@@ -1,4 +1,4 @@
-export default function ScoreRing({ score, max = 10 }: { score: number; max?: number }) {
+export default function ScoreRing({ score, max = 100 }: { score: number; max?: number }) {
   const pct = Math.round((score / max) * 100);
   const r = 26;
   const circ = 2 * Math.PI * r;

@@ -19,7 +19,7 @@ export default function CategorySection({
       {/* mini progress bar */}
       <div className="flex justify-between text-xs text-muted-foreground mb-2">
         <span>Average score</span>
-        <span className="font-medium text-foreground">{avg.toFixed(1)} / 10</span>
+        <span className="font-medium text-foreground">{avg.toFixed(1)} / 100</span>
       </div>
       <div className="h-1.5 bg-muted rounded-full overflow-hidden mb-4">
         <div
