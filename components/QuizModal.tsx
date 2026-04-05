@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+"use client";;
 import { PER_QUESTION_TIME } from '@/constants';
 import { TestType } from '@/constants/enums';
 import { AllAnswersType, QuestionAnswer } from '@/constants/interfaces';
+import { setLoadingFalse, setLoadingTrue } from '@/redux/slice/loadingSlice';
 import { addQuizResult } from '@/redux/slice/quizResultSlice';
 import { analyseResponses } from '@/utils/functions';
 import { Modal, Spinner } from '@heroui/react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { FiChevronRight } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -33,7 +33,9 @@ export default function QuizModal({
 }) {
   const dispatch = useDispatch();
   const quiz = useSelector((state: any) => state.quiz.quiz);
-
+  const loading = useSelector((state: any)=> state.loading.loading);
+  console.log("loading =============> ", loading);
+  
   const [phase, setPhase] = useState<TestType>(TestType.HR);
   const [current, setCurrent] = useState(0);
   const [seconds, setSeconds] = useState(PER_QUESTION_TIME);
@@ -101,34 +103,41 @@ export default function QuizModal({
 
   // ── Submit: save last answer then log / dispatch ───────────────────────────
   const handleSubmit = async () => {
-    // Save last answer synchronously via functional updater
-    const lastEntry: QuestionAnswer = {
-      question: technical?.[current]?.question,
-      answer:   draftRef.current.trim() === "" ? null : draftRef.current.trim(),
-    };
+    try {
+        dispatch(setLoadingTrue());
+        // Save last answer synchronously via functional updater
+        const lastEntry: QuestionAnswer = {
+          question: technical?.[current]?.question,
+          answer:   draftRef.current.trim() === "" ? null : draftRef.current.trim(),
+        };
 
-    setTechnicalAnswers(prev => {
-      const next  = [...prev];
-      next[current] = lastEntry;
-      return next;
-    });
-    const allAnswers: AllAnswersType = {
-      hr: hrAnswers,
-      technical: technicalAnswers
-    }
+      setTechnicalAnswers(prev => {
+        const next  = [...prev];
+        next[current] = lastEntry;
+        return next;
+      });
+      const allAnswers: AllAnswersType = {
+        hr: hrAnswers,
+        technical: technicalAnswers
+      }
 
-    const response = await analyseResponses(allAnswers, hr, technical)
-    if (typeof response !== "string") {
-      console.error("No response from gemini");
-      return;
+      const response = await analyseResponses(allAnswers, hr, technical)
+      if (typeof response !== "string") {
+        console.error("No response from gemini");
+        return;
+      }
+
+      const clean = response
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+      const parsed = clean === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." || clean === "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard." ? clean :  JSON?.parse(clean);        
+      dispatch(addQuizResult(parsed));
+    } catch (error) {
+      console.error(error);      
+    } finally {
+      dispatch(setLoadingFalse());
     }
-    
-    const clean = response
-    .replace(/```json/g, "")
-    .replace(/```/g, "")
-    .trim();
-    const parsed = clean === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." || clean === "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard." ? clean :  JSON?.parse(clean);        
-    dispatch(addQuizResult(parsed));
   };
   // ── Restore draft when switching questions ─────────────────────────────────
   useEffect(() => {
@@ -159,17 +168,17 @@ export default function QuizModal({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
 
-  // ── Dot navigation: also save before jumping ──────────────────────────────
-  const jumpTo = (i: number) => {
-    saveCurrentAnswer(current, draftRef.current, phase);
-    setCurrent(i);
-  };
-
   const isLastQuestion = current === totalQuestions - 1;
   const isLastPhase    = phase === TestType.TECHNICAL;
   const answersForPhase = phase === TestType.HR ? hrAnswers : technicalAnswers;
   const dotAnswered     = (i: number) => answersForPhase[i] !== undefined;
-
+  const [msgAtt, setMsgAtt] = useState("This operation may take a few minutes")
+  useEffect(()=>{
+    const timer = setTimeout(()=>{
+      setMsgAtt("Your CV is being analyzed. Please wait a moment…")
+    },25000);
+    return(()=>clearTimeout(timer));
+  })
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <>
@@ -279,13 +288,12 @@ export default function QuizModal({
               </div>
 
               {/* ── Navigation ── */}
-              <div className="px-6 pb-6 pt-3 border-t border-[#113d3c]/[0.07] flex items-center gap-3">
+              <div className="px-6 pb-6 pt-3 border-t border-[#113d3c]/[0.07] flex flex-col items-center gap-3">
                 {/* Dot indicators */}
                 <div className="flex-1 flex items-center justify-center gap-1.5 flex-wrap">
                   {questions.map((_: any, i: number) => (
                     <button
                       key={i}
-                      onClick={() => jumpTo(i)}
                       className={`rounded-full transition-all duration-200 cursor-pointer ${
                         i === current
                           ? "w-5 h-2 bg-[#d99934]"
@@ -300,12 +308,19 @@ export default function QuizModal({
                 {/* ── Next / "Technical Questions" / Submit ── */}
                 {isLastQuestion && isLastPhase ? (
                   // Last question of technical → Submit
-                  <button
-                    onClick={handleSubmit}
-                    className="h-11 px-5 flex items-center justify-center rounded-xl bg-[#d99934] text-white text-xs font-bold hover:bg-[#e8a840] hover:shadow-md hover:shadow-[#d99934]/25 hover:-translate-y-px transition-all cursor-pointer"
-                  >
-                    Submit
-                  </button>
+                  !loading ? (
+                      <button
+                        onClick={handleSubmit}
+                        className="h-11 px-5 flex items-center justify-center rounded-xl bg-[#d99934] text-white text-xs font-bold hover:bg-[#e8a840] hover:shadow-md hover:shadow-[#d99934]/25 hover:-translate-y-px transition-all cursor-pointer"
+                      >
+                        Submit
+                      </button>
+                    ):(
+                      <div className='flex flex-col items-center'>
+                        <Image src={"/scanne_response.gif"} width={100} height={100} alt={""} />
+                        <p className="text-[#d99934] text-sm font-bold text-center">{msgAtt}</p>
+                      </div>
+                    )
                 ) : isLastQuestion && phase === TestType.HR ? (
                   // Last HR question → show "Technical Questions" button
                   <button
@@ -318,9 +333,9 @@ export default function QuizModal({
                   // Any other question → plain next arrow
                   <button
                     onClick={goNext}
-                    className="w-11 h-11 flex items-center justify-center rounded-xl bg-[#113d3c] text-white hover:bg-[#1a5a58] hover:shadow-md hover:shadow-[#113d3c]/20 hover:-translate-y-px transition-all cursor-pointer text-xl"
+                    className="text-xs w-11 h-11 flex items-center justify-center rounded-xl bg-[#113d3c] text-white hover:bg-[#1a5a58] hover:shadow-md hover:shadow-[#113d3c]/20 hover:-translate-y-px transition-all cursor-pointer"
                   >
-                    <FiChevronRight />
+                    Next
                   </button>
                 )}
               </div>
