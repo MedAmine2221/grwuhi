@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";;
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Formulaire from "@/components/Formulaire";
 import { useSelector } from "react-redux";
 import AnalysisResult from "@/components/AnalysisComponent";
@@ -10,13 +10,7 @@ import { motion } from "framer-motion";
 export default function Home() {
   const quiz = useSelector((state: any) => state.quiz.quiz);
   const quizResult = useSelector((state: any) => state.quizResult.quizResult);
-  const [errorMsg,setErrorMsg] = useState("I'm sorry, I'm currently experiencing technical difficulties. Please try again in a few moments.");
-  useEffect(()=>{
-    const timer = setTimeout(()=>{
-    setErrorMsg("");
-    },15000);
-    return () => clearTimeout(timer);
-  },[])
+  const [remove,setRemove] = useState(false);  
   return (
     <motion.div         
       initial={{ opacity: 0, y: 50 }}
@@ -40,8 +34,8 @@ export default function Home() {
               to generate a test with possible HR interview questions
             </p>
             <Formulaire />
-          { quiz === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." && (
-            <p className="text-center text-sm mb-4 text-danger font-bold">{errorMsg}</p>
+          { quiz === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." && !remove && (
+            <p onClick={()=> setRemove(true)} className="text-center text-sm mb-4 text-danger font-bold cursor-pointer">{"I'm sorry, I'm currently experiencing technical difficulties. Please try again in a few moments."}</p>
           )}
           </div>
         </main>
