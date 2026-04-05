@@ -1,22 +1,22 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import AdviceBody from "@/components/AdviceBody";
 import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_LinkedIn_Strategy } from "@/constants";
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function LinkedinNetworking() {
   const [activeStep, setActiveStep] = useState(0);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
-
   const step = STEPS_LinkedIn_Strategy[activeStep];
 
   return (
-    <div className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
-
+    <motion.div 
+      className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 `}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.5 }}
+      viewport={{ once: true }}
+    >
       {/* ── HERO ── */}
       <AdviceHeader
         title1="How to Network Effectively"
@@ -28,6 +28,6 @@ export default function LinkedinNetworking() {
       />
       {/* ── MAIN ── */}
       <AdviceBody data={STEPS_LinkedIn_Strategy} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
-    </div>
+    </motion.div>  
   );
 }

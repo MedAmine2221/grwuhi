@@ -1,20 +1,21 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import AdviceBody from "@/components/AdviceBody";
 import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_Prepar_Interview } from "@/constants";
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
+import { motion } from "framer-motion";
 export default function PreparingInterview() {
   const [activeStep, setActiveStep] = useState(0);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
-
   const step = STEPS_Prepar_Interview[activeStep];
 
   return (
-    <div className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
+    <motion.div 
+      className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 `}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.5 }}
+      viewport={{ once: true }}
+    >
       <AdviceHeader
         title1="How to Prepare"
         title2="Your Interview"
@@ -26,6 +27,6 @@ export default function PreparingInterview() {
 
       {/* ── MAIN ── */}
       <AdviceBody data={STEPS_Prepar_Interview} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
-    </div>
+    </motion.div>
   );
 }

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { CategorySectionProps } from "@/constants/interfaces";
 import QuestionCard from "./QuestionCard";
 import SectionCard from "./SectionCard";
 
@@ -6,11 +7,7 @@ export default function CategorySection({
   title,
   items,
   accentColor,
-}: {
-  title: string;
-  items: any[];
-  accentColor: string;
-}) {
+}: CategorySectionProps) {
   const avg = items.reduce((s: number, q: any) => s + q.score, 0) / items.length;
   const pct = Math.round((avg / 10) * 100);
 

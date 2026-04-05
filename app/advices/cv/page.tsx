@@ -1,22 +1,22 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import AdviceBody from "@/components/AdviceBody";
 import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_CV } from "@/constants";
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Cv() {
   const [activeStep, setActiveStep] = useState(0);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
-
   const step = STEPS_CV[activeStep];
-
+  
   return (
-    <div className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 ${mounted ? "opacity-100" : "opacity-0"}`}>
-
+    <motion.div 
+      className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 `}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.5 }}
+      viewport={{ once: true }}
+    >
       {/* ── HERO ── */}
       <AdviceHeader
         title1="How to Write"
@@ -33,6 +33,6 @@ export default function Cv() {
         </p>
       </div>
       <AdviceBody data={STEPS_CV} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
-    </div>
+    </motion.div>
   );
 }

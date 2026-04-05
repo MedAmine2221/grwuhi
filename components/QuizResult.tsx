@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import SectionCard from "./SectionCard";
 import { motion } from "framer-motion";
 import CategorySection from "./CategorySection";
+import { QuizResultProps } from "@/constants/interfaces";
 
-export default function QuizResult({ candidateName, candidatePost }: { candidateName: string; candidatePost: string }) {
+export default function QuizResult({ candidateName, candidatePost }: QuizResultProps) {
   const quizResult = useSelector((state: any) => state.quizResult.quizResult);
 
   if (!quizResult) return null;

@@ -1,4 +1,6 @@
-export default function ScoreRing({ score, max = 100 }: { score: number; max?: number }) {
+import { ScoreRingProps } from "@/constants/interfaces";
+
+export default function ScoreRing({ score, max = 100 }: ScoreRingProps) {
   const pct = Math.round((score / max) * 100);
   const r = 26;
   const circ = 2 * Math.PI * r;

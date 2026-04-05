@@ -56,5 +56,47 @@ interface AllAnswersType {
   technical: QuestionAnswer[];
 }
 
+interface HRProps {
+  question: string,
+  category: string,
+  preferred_answer: string,
+  red_flag_answer: string,
+  follow_up: string
+}
 
-export type {QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState}
+interface TechnicalProps {
+  question: string,
+  type: "theory" | "practical" | "trap",
+  difficulty: "easy" | "medium" | "hard",
+  correct_answer: string,
+  common_mistake: string
+}
+
+interface QuizModalProps {
+  hr: HRProps[],
+  technical: TechnicalProps[]
+}
+
+interface ScoreRingProps {
+  score: number; 
+  max?: number
+}
+
+interface QuizResultProps {
+  candidateName: string; 
+  candidatePost: string
+}
+
+interface QuestionCardProps {
+  item: any;
+  index: number;
+  accentColor: string;
+}
+
+interface CategorySectionProps {
+  title: string;
+  items: any[];
+  accentColor: string;
+}
+
+export type {CategorySectionProps, QuestionCardProps, QuizResultProps, ScoreRingProps, QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState, QuizModalProps}

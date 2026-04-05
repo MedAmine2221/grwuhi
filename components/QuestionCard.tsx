@@ -1,16 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import ScoreRing from "./ScoreRing";
+import { QuestionCardProps } from "@/constants/interfaces";
 
 export default function QuestionCard({
   item,
   index,
   accentColor,
-}: {
-  item: any;
-  index: number;
-  accentColor: string;
-}) {
+}: QuestionCardProps) {
   const [open, setOpen] = useState(false);
   const answered = item.candidate_answer && item.candidate_answer !== "Pas de réponse";
 

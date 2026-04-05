@@ -2,11 +2,11 @@
 "use client";;
 import { PER_QUESTION_TIME } from '@/constants';
 import { TestType } from '@/constants/enums';
-import { AllAnswersType, QuestionAnswer } from '@/constants/interfaces';
+import { AllAnswersType, QuestionAnswer, QuizModalProps } from '@/constants/interfaces';
 import { setLoadingFalse, setLoadingTrue } from '@/redux/slice/loadingSlice';
 import { addQuizResult } from '@/redux/slice/quizResultSlice';
 import { analyseResponses } from '@/utils/functions';
-import { Modal, Spinner } from '@heroui/react';
+import { Modal } from '@heroui/react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,26 +15,10 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function QuizModal({
   hr,
   technical,
-}: {
-  hr: {
-    question: string,
-    category: string,
-    preferred_answer: string,
-    red_flag_answer: string,
-    follow_up: string
-  }[],
-  technical: {
-    question: string,
-    type: "theory" | "practical" | "trap",
-    difficulty: "easy" | "medium" | "hard",
-    correct_answer: string,
-    common_mistake: string
-  }[]
-}) {
+}: QuizModalProps) {
   const dispatch = useDispatch();
   const quiz = useSelector((state: any) => state.quiz.quiz);
   const loading = useSelector((state: any)=> state.loading.loading);
-  console.log("loading =============> ", loading);
   
   const [phase, setPhase] = useState<TestType>(TestType.HR);
   const [current, setCurrent] = useState(0);
@@ -182,32 +166,7 @@ export default function QuizModal({
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <>
-      {!quiz ? (
-        /* ─────────── Loading / Welcome Screen ─────────── */
-        <Modal.Backdrop className="bg-black/60 backdrop-blur-sm">
-          <Modal.Container className="flex items-center justify-center min-h-screen p-4">
-            <Modal.Dialog className="relative w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-2xl shadow-black/20 border border-[#113d3c]/10">
-              <Modal.CloseTrigger className="w-10 h-10" />
-              <div className="relative px-8 pt-10 pb-7 bg-linear-to-b from-[#113d3c]/5 to-transparent overflow-hidden">
-                <div className="mx-auto mb-5 w-50 h-50 rounded-full p-0.75 bg-linear-to-br from-[#d99934] to-[#113d3c]">
-                  <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
-                    <Image src="/hiring-interview.png" alt="hiring-interview" loading="eager" width={88} height={88} className="object-cover" />
-                  </div>
-                </div>
-                <h1 className="text-center text-xl font-bold text-[#113d3c] tracking-tight">
-                  The HR and technical test for the position you applied for is currently under development
-                </h1>
-              </div>
-              <div className="px-8 pb-8">
-                <div className="flex items-center justify-center">
-                  <Spinner className="w-30 h-30" />
-                </div>
-              </div>
-            </Modal.Dialog>
-          </Modal.Container>
-        </Modal.Backdrop>
-
-      ) : quiz === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." ? (
+      {quiz === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." ? (
         /* ─────────── Error Screen ─────────── */
         <Modal.Backdrop className="bg-black/60 backdrop-blur-sm">
           <Modal.Container className="flex items-center justify-center min-h-screen p-4">
