@@ -68,7 +68,7 @@ export async function analyseResponses(
   - Lorsque le score est < 75%, fournir la meilleure réponse que le candidat aurait dû donner
 
   ════════════════════════════════════════
-  FORMAT JSON STRICT — AUCUN TEXTE EN DEHORS
+  FORMAT JSON STRICT — AUCUN TEXTE EN DEHORS (Réponse en anglais toujour)
   ════════════════════════════════════════
   {
     "hr_analysis": [
@@ -238,7 +238,7 @@ export async function gemini(cv: any, postDesc: string) {
     - hiring_recommendation : "strong yes | yes | maybe | no" avec justification courte
 
     ════════════════════════════════════════
-    FORMAT JSON STRICT — AUCUN TEXTE EN DEHORS
+    FORMAT JSON STRICT — AUCUN TEXTE EN DEHORS (Réponse en anglais toujour)
     ════════════════════════════════════════
 
     {
