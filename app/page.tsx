@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";;
+"use client";
 import Image from "next/image";
 import { useState } from "react";
 import Formulaire from "@/components/Formulaire";
