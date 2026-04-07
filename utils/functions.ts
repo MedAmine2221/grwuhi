@@ -242,7 +242,8 @@ export async function gemini(cv: any, postDesc: string) {
     ════════════════════════════════════════
 
     {
-    "condidate_name": "",
+    "condidate_name": "what is the name of candidate",
+    "candidate_email": "what is the email of candidate",
     "candidate_post": "What is the candidate’s academic background",
     "analysis": {
         "detected_level": "junior | mid | senior | principal",

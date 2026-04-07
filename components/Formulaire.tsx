@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addQuiz } from "@/redux/slice/quizSlice";
 import { setLoadingFalse, setLoadingTrue } from "@/redux/slice/loadingSlice";
 import Image from "next/image";
+import { db } from "@/firebaseConfig";
+import { addDoc, collection } from "firebase/firestore";
 export default function Formulaire() {
     const dispatch = useDispatch();
     const loading = useSelector((state: any) => state.loading.loading);
@@ -40,6 +42,11 @@ export default function Formulaire() {
           .trim();
           const parsed = clean === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." || clean === "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard." ? clean :  JSON?.parse(clean);        
           dispatch(addQuiz(parsed));
+          await addDoc(collection(db, "users"), {
+            name: parsed?.condidate_name,
+            email: parsed?.candidate_email,
+            createdAt: `${new Date().getDay()} - ${new Date().getMonth()} - ${new Date().getFullYear()}`
+          });
         }
       } catch (e) {
         console.error(e);

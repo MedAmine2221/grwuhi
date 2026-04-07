@@ -21,10 +21,10 @@ export default function Home() {
       {!quiz && !quizResult || quiz =="Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." ? (
         <main className="flex flex-col items-center lg:justify-around justify-center lg:flex-row m-8">
           <Image
-            src="/home.png"
+            src="/interview.gif"
             width={1000}
             height={1000}
-            className="lg:w-200 w-110 h-110 object-contain"
+            className="lg:w-200 lg:h-200 w-110 h-100 object-contain"
             alt="GRWUHI Home Desc"
             loading="eager"
           />
