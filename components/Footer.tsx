@@ -3,9 +3,14 @@
 import { NAV_LINKS, SOCIAL } from "@/constants";
 import Image from "next/image";
 import SocialButton from "./SocialButton";
+import { motion } from "framer-motion";
 export default function Footer() {
   return (
-    <footer
+    <motion.footer
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 2.5 }}
+      viewport={{ once: true }}
       className="bg-[#113d3c] w-full rounded-t-lg"
     >
       {/* Main content */}
@@ -75,6 +80,6 @@ export default function Footer() {
           Developed By <a href="https://mohamed-amine-laz.vercel.app/fr" target="_blank" className="text-[#113d3c] text-sm">Mohamed Amine LAZREG</a>
         </p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

@@ -8,9 +8,9 @@ export default function Advices() {
   const router = useRouter();
   return (
     <motion.section 
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: -50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.5 }}
+      transition={{ duration: 2 }}
       viewport={{ once: true }}
       className="py-10 px-4 max-w-6xl mx-auto"
     >
