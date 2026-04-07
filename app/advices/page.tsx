@@ -3,11 +3,17 @@ import { AdviceCard } from "@/components/AdviceCard";
 import { ADVICES } from "@/constants";
 import { useRouter } from "next/navigation";
 import { FiArrowLeft } from "react-icons/fi";
-
+import { motion } from "framer-motion";
 export default function Advices() {
   const router = useRouter();
   return (
-    <section className="py-10 px-4 max-w-6xl mx-auto">
+    <motion.section 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.5 }}
+      viewport={{ once: true }}
+      className="py-10 px-4 max-w-6xl mx-auto"
+    >
       <div className="flex flex-row items-center">
         <FiArrowLeft onClick={() => router.push("/")} className='font-extrabold cursor-pointer' color='black' size={40}/>
         <div className="ml-8">
@@ -23,6 +29,6 @@ export default function Advices() {
           <AdviceCard key={advice.id} {...advice} />
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

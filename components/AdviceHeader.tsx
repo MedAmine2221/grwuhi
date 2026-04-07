@@ -1,15 +1,17 @@
 "use client";
 import { AdviceHeaderProps } from '@/constants/interfaces';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { FiArrowLeft } from 'react-icons/fi';
 
 export default function AdviceHeader({title1, title2, description, buttonText, buttonLink, imageSrc}: AdviceHeaderProps) {
+  const router = useRouter();
   return (
     <header className="bg-[#113d3c] relative overflow-hidden">
       {/* decorative rings */}
       <div className="max-w-5xl mx-auto px-8 py-16 flex flex-wrap items-center justify-between gap-10 relative z-10">
         {/* text */}
-        <FiArrowLeft onClick={() => window.history.back()} className='font-extrabold cursor-pointer' color='white' size={40}/>
+        <FiArrowLeft onClick={() => router.push("/advices")} className='font-extrabold cursor-pointer' color='white' size={40}/>
         <div className="flex lg:hidden flex-none w-50 h-50 rounded-full border-2 border-amber-400/30 bg-white/5 items-center justify-center overflow-hidden">
           <Image
             width={220} height={220}
