@@ -1,13 +1,15 @@
 "use client";
 import { AdviceCard } from "@/components/AdviceCard";
 import { ADVICES } from "@/constants";
+import { useRouter } from "next/navigation";
 import { FiArrowLeft } from "react-icons/fi";
 
 export default function Advices() {
+  const router = useRouter();
   return (
     <section className="py-10 px-4 max-w-6xl mx-auto">
       <div className="flex flex-row items-center">
-        <FiArrowLeft onClick={() => window.history.back()} className='font-extrabold cursor-pointer' color='black' size={40}/>
+        <FiArrowLeft onClick={() => router.push("/")} className='font-extrabold cursor-pointer' color='black' size={40}/>
         <div className="ml-8">
           <h1 className="text-3xl font-bold text-foreground">HR Advices</h1>
           <p className="text-muted mt-1">
