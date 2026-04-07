@@ -42,6 +42,9 @@ export default function Formulaire() {
           .trim();
           const parsed = clean === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants." || clean === "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard." ? clean :  JSON?.parse(clean);        
           dispatch(addQuiz(parsed));
+          if (typeof parsed === "object") {
+            localStorage.setItem("quiz", JSON.stringify(parsed));
+          }
           await addDoc(collection(db, "users"), {
             name: parsed?.condidate_name,
             email: parsed?.candidate_email,
