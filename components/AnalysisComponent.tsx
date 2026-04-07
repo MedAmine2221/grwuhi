@@ -5,9 +5,12 @@ import QuizModal from "./QuizModal";
 import SectionCard from "./SectionCard";
 import FlagItem from "./FlagItem";
 import MetricCard from "./MetricCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { FiArrowLeft } from "react-icons/fi";
+import { addQuiz } from "@/redux/slice/quizSlice";
 export default function AnalysisResult({ quiz }: { quiz: any }) {
+  const dispatch = useDispatch();
   const quizReslt = useSelector((state: any)=> state.quizResult.quizResult)  
   const { analysis, evaluation_summary, hr_questions, technical_questions } = quiz;
   const score = parseInt(analysis?.match_score);
@@ -23,6 +26,13 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
+        <FiArrowLeft size = {30} onClick={
+          ()=>{
+            localStorage.removeItem("quiz");
+            dispatch(addQuiz(null))
+          }}
+          className="cursor-pointer"
+        />
         <div className="w-11 h-11 rounded-full bg-[#113d3c] text-white flex items-center justify-center font-medium text-sm shrink-0">
           {quiz?.condidate_name?.split(" ").map((element: any) => (
             element[0]

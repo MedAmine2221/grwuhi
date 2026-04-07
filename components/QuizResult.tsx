@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";;
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SectionCard from "./SectionCard";
 import { motion } from "framer-motion";
 import CategorySection from "./CategorySection";
 import { QuizResultProps } from "@/constants/interfaces";
+import { FiArrowLeft } from "react-icons/fi";
+import { addQuizResult } from "@/redux/slice/quizResultSlice";
 
 export default function QuizResult({ candidateName, candidatePost }: QuizResultProps) {
+  const dispatch = useDispatch();
   const quizResult = useSelector((state: any) => state.quizResult.quizResult);
 
   if (!quizResult) return null;
@@ -28,6 +31,13 @@ export default function QuizResult({ candidateName, candidatePost }: QuizResultP
 
       {/* Header — mirrors AnalysisResult */}
       <div className="flex items-center gap-3 mb-6">
+        <FiArrowLeft size = {30} onClick={
+          ()=>{
+            localStorage.removeItem("quizResult");
+            dispatch(addQuizResult(null))
+          }}
+          className="cursor-pointer"
+        />
         <div className="w-11 h-11 rounded-full bg-[#113d3c] text-white flex items-center justify-center font-medium text-sm shrink-0">
           {candidateName.split(" ").map((w: string) => w[0])}
         </div>

@@ -26,8 +26,7 @@ export default function Home() {
     if (savedResult && !quizResult) {
       try { dispatch(addQuizResult(JSON.parse(savedResult))); } catch {}
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, quiz, quizResult]);
 
   const isError = quiz === "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants.";
 
@@ -70,7 +69,6 @@ export default function Home() {
           candidateName={quiz?.condidate_name ?? "Candidate"}
           candidatePost={quiz?.candidate_post ?? ""}
         />
-
       ) : (
         <AnalysisResult quiz={quiz} />
       )}
