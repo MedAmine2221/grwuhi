@@ -10,6 +10,7 @@ import { addUser } from "@/redux/slice/usersSlice";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import CheckBoxApp from "@/components/CheckBoxApp";
 import InputApp from "@/components/InputApp";
+import { addRaiting } from "@/redux/slice/raitingAppSlice";
 
 export default function Login() {
   const router = useRouter();
@@ -28,9 +29,12 @@ export default function Login() {
       localStorage.setItem("token", await user.user.getIdToken())
       const data = await getDocs(collection(db, "users"));
       const listUsers = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      console.log(listUsers);
       
       dispatch(addUser(listUsers))
+      const raitingData = await getDocs(collection(db, "raiting"));
+      const listRaiting = raitingData.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      dispatch(addRaiting(listRaiting))
+      
       if(!user){
         alert("Incorrect login details. Please try again.")
       }

@@ -99,6 +99,9 @@ interface CategorySectionProps {
   accentColor: string;
 }
 
+interface RaitingState {
+  raiting: any[]
+} 
 
 interface User {
   id: string;
@@ -107,4 +110,4 @@ interface User {
   createdAt: string;
 }
 
-export type {User, CategorySectionProps, QuestionCardProps, QuizResultProps, ScoreRingProps, QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState, QuizModalProps}
+export type {RaitingState, User, CategorySectionProps, QuestionCardProps, QuizResultProps, ScoreRingProps, QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState, QuizModalProps}

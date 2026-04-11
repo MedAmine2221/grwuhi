@@ -1,17 +1,26 @@
 "use client";
 // app/admin/dashboard/page.tsx
 import { AppTab } from '@/components/AppTab';
+import { AppRaite } from '@/constants';
 import { RootState } from '@/redux/store';
 import { Icon } from '@iconify/react';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 
 export default function Dashboard() {
   const users = useSelector((state: RootState)=> state.usersResult.users);
+  const starRaiting = useSelector((state: RootState)=> state.raiting.raiting);
+  const appRaitingRslt = useMemo(()=>{
+    const list = starRaiting.flat() ?? []
+    const tot = list?.length
+    const som = list?.reduce((a,b) => a+b.starRaiting, 0);
+    return som/tot
+  },[starRaiting])
   const stats = [
     { label: "Users Numbers", icon: "mdi:account-group-outline", value: users?.flat().length ?? 0 },
-    { label: "App Rating", icon: "mdi:star-outline", value: "4.2/5" },
+    { label: "App Rating", icon: "mdi:star-outline", value: `${appRaitingRslt}/5` },
   ]
   const router = useRouter()
   return (
@@ -24,7 +33,8 @@ export default function Dashboard() {
             Dashboard
           </h1>
           <p className="text-sm text-black/40 mt-0.5">
-            GRWUHI Users Management
+            GRWUHI Users Management <br/>
+            App Raiting : {AppRaite[Math.trunc(appRaitingRslt)]}
           </p>
         </div>
         <div className='flex flex-col items-center'>

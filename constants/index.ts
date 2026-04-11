@@ -501,4 +501,7 @@ const STEPS_CoverLetter = [
     ],
   },
 ];
-export {PAGE_SIZE, NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }
+
+const AppRaite = ["", "Needs improvement", "Could be better", "Good", "Really good", "Excellent!"];
+
+export {AppRaite, PAGE_SIZE, NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import ReduxProvider from "@/providers/reduxProvider";
+import RatingModal from "@/components/RaitingModal";
 
 export const metadata: Metadata = {
   title: "GRWUHI",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="flex flex-col w-full justify-between min-h-screen" cz-shortcut-listen="true">
         <ReduxProvider>
           {children}
+          <RatingModal />
           <Footer />  
         </ReduxProvider>
       </body>
