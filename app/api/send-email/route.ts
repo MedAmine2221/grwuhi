@@ -23,6 +23,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ message: "Success" }, { status: 200 });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({ error: "Failed to send" }, { status: 500 });
   }

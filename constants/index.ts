@@ -1,6 +1,4 @@
 import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
-import { User } from "./interfaces";
-import { createColumnHelper } from "@tanstack/react-table";
 
 const PER_QUESTION_TIME = 150;
 
@@ -503,6 +501,4 @@ const STEPS_CoverLetter = [
     ],
   },
 ];
-const columnHelper = createColumnHelper<User>();
-
-export {columnHelper, PAGE_SIZE, NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }
+export {PAGE_SIZE, NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }

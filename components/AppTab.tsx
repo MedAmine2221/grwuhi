@@ -2,13 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";;
 import { Icon } from "@iconify/react";
-import { SortingState } from "@tanstack/react-table";
+import { createColumnHelper, SortingState } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/constants/interfaces";
 import Avatar from "./AppAvatar";
-import { columnHelper } from "@/constants";
 import DataTable from "./DataTable";
 import { toSortingState } from "@/utils/functions";
 
@@ -18,6 +17,8 @@ export function AppTab() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [sorting, setSorting] = useState<SortingState>([]);
   const [toast, setToast] = useState<string | null>(null);
+  const columnHelper = createColumnHelper<User>();
+
   async function handleSendOne(data: any) {
     await fetch('/api/send-email', {
       method: 'POST',
