@@ -101,7 +101,7 @@ interface CategorySectionProps {
 
 
 interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
   createdAt: string;

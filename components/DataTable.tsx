@@ -14,9 +14,7 @@ import { PAGE_SIZE } from '@/constants';
 import { useMemo } from 'react';
 import { toSortDescriptor } from '@/utils/functions';
 import { Icon } from '@iconify/react';
-export default function DataTable({action, selectedIds, setSorting, sorting, setSelectedIds, columns, data, onSortChange}: {action: any, setSorting: any, sorting: any, selectedIds: any, setSelectedIds: (e: any)=> void, columns: any, data: any, onSortChange: (e: any)=> any}) {
-    console.log("dataaaaaaaaaaaaaa ", data);
-    
+export default function DataTable({action, selectedIds, setSorting, sorting, setSelectedIds, columns, data, onSortChange}: {action: any, setSorting: any, sorting: any, selectedIds: any, setSelectedIds: (e: any)=> void, columns: any, data: any, onSortChange: (e: any)=> any}) {    
     const table = useReactTable({
       columns,
       data: data ?? [],

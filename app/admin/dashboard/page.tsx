@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 export default function Dashboard() {
   const users = useSelector((state: RootState)=> state.usersResult.users);
   const stats = [
-    { label: "Users Numbers", icon: "mdi:account-group-outline", value: users?.length ?? 0 },
+    { label: "Users Numbers", icon: "mdi:account-group-outline", value: users?.flat().length ?? 0 },
     { label: "App Rating", icon: "mdi:star-outline", value: "4.2/5" },
   ]
   const router = useRouter()

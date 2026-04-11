@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";;
 import { Icon } from "@iconify/react";
@@ -13,15 +14,23 @@ import { toSortingState } from "@/utils/functions";
 
 export function AppTab() {
   const users = useSelector((state: RootState) => state.usersResult.users);
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const flatUsers = useMemo(() => users?.flat() ?? [], [users]);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [sorting, setSorting] = useState<SortingState>([]);
   const [toast, setToast] = useState<string | null>(null);
+  async function handleSendOne(data: any) {
+    await fetch('/api/send-email', {
+      method: 'POST',
+      body: JSON.stringify({ email: data.email, message: 'Hello!' }),
+    });
+    showToast(`email sent to ${data.name} (${data.email})`)
+  }
   const columns = useMemo(() => [
     columnHelper.display({
       id: "select",
       header: () => {
-        const allSelected = users?.every((u: User) => selectedIds.has(u.id));
-        const someSelected = users?.some((u: User) => selectedIds.has(u.id));
+        const allSelected = flatUsers.every((u: User) => selectedIds.has(u.id));
+        const someSelected = flatUsers?.some((u: User) => selectedIds.has(u.id));
         return (
           <input
             type="checkbox"
@@ -31,7 +40,7 @@ export function AppTab() {
               if (el) el.indeterminate = !!(someSelected && !allSelected); 
             }}            
             onChange={(e) => {
-              setSelectedIds(e.target.checked ? new Set(users?.map((u: User) => u.id)) : new Set());
+              setSelectedIds(e.target.checked ? new Set(flatUsers?.map((u: User) => u.id)) : new Set());
             }}
           />
         );
@@ -76,7 +85,7 @@ export function AppTab() {
       header: "Action",
       cell: ({ row }) => (
         <button
-          onClick={() => showToast(`email sent to ${row.original.name} (${row.original.email})`)}
+          onClick={() => handleSendOne(row.original)}
           title={`Email to ${row.original.name}`}
           className="p-1.5 rounded-lg text-[#d99934] hover:bg-[#d99934]/10
                      border border-transparent hover:border-[#d99934]/25 transition-all"
@@ -90,8 +99,15 @@ export function AppTab() {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
   }
-  function handleSendAll() {
-      const targets = users?.filter((u: User) => selectedIds.has(u.id));
+
+  async function handleSendAll() {
+      const targets = flatUsers?.filter((u: User) => selectedIds.has(u.id));
+      const listEmails = targets.flat().map((list)=> list.email)
+      
+      await fetch('/api/send-email', {
+        method: 'POST',
+        body: JSON.stringify({ email: listEmails, message: 'Hello!' }),
+      });
       showToast(`✓ email sent to ${targets?.length} user(s)`);
   }
   return (
@@ -108,7 +124,7 @@ export function AppTab() {
         selectedIds={selectedIds}
         setSelectedIds={setSelectedIds}
         columns={columns}
-        data={users?.flat()}
+        data={flatUsers}
         onSortChange={(d) => setSorting(toSortingState(d))}
         sorting={sorting}
         setSorting= {setSorting}
