@@ -20,7 +20,7 @@ export function AppTab() {
   const columnHelper = createColumnHelper<User>();
 
   async function handleSendOne(data: any) {
-    await fetch('/api/send-email', {
+    await fetch('https://grwuhi.vercel.app/api/send-email', {
       method: 'POST',
       body: JSON.stringify({ email: data.email, message: 'Hello!' }),
     });
@@ -105,7 +105,7 @@ export function AppTab() {
       const targets = flatUsers?.filter((u: User) => selectedIds.has(u.id));
       const listEmails = targets.flat().map((list)=> list.email)
       
-      await fetch('/api/send-email', {
+      await fetch('https://grwuhi.vercel.app/api/send-email', {
         method: 'POST',
         body: JSON.stringify({ email: listEmails, message: 'Hello!' }),
       });
