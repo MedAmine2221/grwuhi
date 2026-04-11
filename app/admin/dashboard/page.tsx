@@ -45,10 +45,10 @@ export default function Dashboard() {
             {new Date().toLocaleDateString("en-EN", { day: "numeric", month: "long", year: "numeric" })}
           </div>
           <button onClick={()=>{
-            localStorage.removeItem("token");
+            sessionStorage.removeItem("token");
             router.replace("/admin/auth")
           }} className="my-4 flex items-center gap-2 text-sm text-red-500 bg-red-200 border border-red-500 rounded-lg px-3 py-1.5">
-            Déconnexion
+            Logout
           </button>
         </div>
       </div>

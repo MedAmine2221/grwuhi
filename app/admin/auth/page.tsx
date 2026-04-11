@@ -26,7 +26,7 @@ export default function Login() {
     setError(null);
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem("token", await user.user.getIdToken())
+      sessionStorage.setItem("token", await user.user.getIdToken())
       const data = await getDocs(collection(db, "users"));
       const listUsers = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       
@@ -81,10 +81,10 @@ export default function Login() {
               </div>
               <div>
                 <h1 className="text-white text-[15px] font-medium">
-                  Connexion à GRWUHI
+                  Connecting to GRWUHI
                 </h1>
                 <p className="text-white/40 text-xs mt-0.5">
-                  {"Plateforme d'analyse des cv et preparation pour les entretien d'embauche"}
+                  {"CV analysis and interview preparation platform"}
                 </p>
               </div>
             </div>
@@ -117,7 +117,7 @@ export default function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   htmlFor="password"
-                  label="Mot de passe"
+                  label="Password"
                   inputLeft={
                     <button
                       type="button"
@@ -137,13 +137,13 @@ export default function Login() {
 
               {/* Remember me */}
               <div className="flex items-center justify-between">
-                <CheckBoxApp text="Se souvenir de moi" />
+                <CheckBoxApp text="Remember me" />
                 <button
                   type="button"
                   onClick={() => router.push("/admin/auth/forget-pass")}
                   className="text-xs text-[#d99934] hover:underline focus:outline-none"
                 >
-                  Mot de passe oublié ?
+                  Forgotten password?
                 </button>
               </div>
 
@@ -163,7 +163,7 @@ export default function Login() {
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z" />
                   </svg>
                 )}
-                {loading ? "Connexion…" : "Se connecter"}
+                {loading ? "Connection…" : "Log in"}
               </button>
             </form>
 

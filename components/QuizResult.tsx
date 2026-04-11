@@ -33,7 +33,7 @@ export default function QuizResult({ candidateName, candidatePost }: QuizResultP
       <div className="flex items-center gap-3 mb-6">
         <FiArrowLeft size = {30} onClick={
           ()=>{
-            localStorage.removeItem("quizResult");
+            sessionStorage.removeItem("quizResult");
             dispatch(addQuizResult(null))
           }}
           className="cursor-pointer"
