@@ -26,7 +26,7 @@ export default function Login() {
     setError(null);
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      sessionStorage.setItem("token", await user.user.getIdToken())
+      localStorage.setItem("token", await user.user.getIdToken())
       const data = await getDocs(collection(db, "users"));
       const listUsers = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       

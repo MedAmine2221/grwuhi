@@ -28,7 +28,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       <div className="flex items-center gap-3 mb-6">
         <FiArrowLeft size = {30} onClick={
           ()=>{
-            sessionStorage.removeItem("quiz");
+            localStorage.removeItem("quiz");
             dispatch(addQuiz(null))
           }}
           className="cursor-pointer"

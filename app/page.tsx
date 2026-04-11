@@ -17,8 +17,8 @@ export default function Home() {
   const [remove, setRemove] = useState(false);
 
   useEffect(() => {
-    const savedQuiz = sessionStorage.getItem("quiz");
-    const savedResult = sessionStorage.getItem("quizResult");
+    const savedQuiz = localStorage.getItem("quiz");
+    const savedResult = localStorage.getItem("quizResult");
 
     if (savedQuiz && !quiz) {
       try { dispatch(addQuiz(JSON.parse(savedQuiz))); } catch {}
