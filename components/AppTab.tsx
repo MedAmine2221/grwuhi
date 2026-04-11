@@ -19,6 +19,7 @@ import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/constants/interfaces";
+import { PAGE_SIZE } from "@/constants";
 
 // Avatar initials
 function Avatar({ name }: { name: string }) {
@@ -61,8 +62,6 @@ function SortableColumnHeader({
     </span>
   );
 }
-
-const PAGE_SIZE = 4;
 
 export function AppTab() {
   const users = useSelector((state: RootState) => state.usersResult.users);
@@ -254,8 +253,8 @@ export function AppTab() {
                   className={cn(
                     "transition-colors",
                     selectedIds.has(row.original.id)
-                      ? "bg-[#d99934]/[0.06] border-l-2 border-[#d99934]/50"
-                      : "hover:bg-[#113d3c]/[0.02]"
+                      ? "bg-[#d99934]/6 border-l-2 border-[#d99934]/50"
+                      : "hover:bg-[#113d3c]/2"
                   )}
                 >
                   {row.getVisibleCells().map((cell) => (

@@ -3,6 +3,7 @@
 import { AppTab } from '@/components/AppTab';
 import { RootState } from '@/redux/store';
 import { Icon } from '@iconify/react';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 
@@ -12,6 +13,7 @@ export default function Dashboard() {
     { label: "Users Numbers", icon: "mdi:account-group-outline", value: users?.length ?? 0 },
     { label: "App Rating", icon: "mdi:star-outline", value: "4.2/5" },
   ]
+  const router = useRouter()
   return (
     <main className="min-h-screen bg-[#f7f7f8] px-6 py-8">
 
@@ -25,9 +27,17 @@ export default function Dashboard() {
             GRWUHI Users Management
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-black/35 bg-white border border-black/10 rounded-lg px-3 py-1.5">
-          <Icon icon="mdi:calendar-outline" className="size-3.5" />
-          {new Date().toLocaleDateString("en-EN", { day: "numeric", month: "long", year: "numeric" })}
+        <div className='flex flex-col items-center'>
+          <div className="flex items-center gap-2 text-xs text-black/35 bg-white border border-black/10 rounded-lg px-3 py-1.5">
+            <Icon icon="mdi:calendar-outline" className="size-3.5" />
+            {new Date().toLocaleDateString("en-EN", { day: "numeric", month: "long", year: "numeric" })}
+          </div>
+          <button onClick={()=>{
+            localStorage.removeItem("token");
+            router.replace("/admin/auth")
+          }} className="my-4 flex items-center gap-2 text-sm text-red-500 bg-red-200 border border-red-500 rounded-lg px-3 py-1.5">
+            Déconnexion
+          </button>
         </div>
       </div>
 
@@ -57,14 +67,14 @@ export default function Dashboard() {
       <div className="bg-white border border-black/[0.07] rounded-2xl overflow-hidden">
 
         {/* Card Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-black/[0.06]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-black/6">
           <div className="flex items-center gap-2.5">
             <div className="w-1 h-5 rounded-full bg-[#d99934]" />
             <h2 className="text-sm font-semibold text-[#113d3c]">
               Users List
             </h2>
           </div>
-          <span className="text-xs text-black/35 bg-black/[0.04] px-2.5 py-1 rounded-full">
+          <span className="text-xs text-black/35 bg-black/4 px-2.5 py-1 rounded-full">
             8 user(s)
           </span>
         </div>
