@@ -20,7 +20,7 @@ export default function Dashboard() {
   },[starRaiting])
   const stats = [
     { label: "Users Numbers", icon: "mdi:account-group-outline", value: users?.flat().length ?? 0 },
-    { label: "App Rating", icon: "mdi:star-outline", value: `${appRaitingRslt && "0"}/5` },
+    { label: "App Rating", icon: "mdi:star-outline", value: `${Number.isNaN(appRaitingRslt) ? "0" : appRaitingRslt}/5` },
   ]
   const router = useRouter()
   return (
@@ -32,7 +32,7 @@ export default function Dashboard() {
           <h1 className="text-[#113d3c] text-2xl font-semibold tracking-tight">
             Dashboard
           </h1>
-          {appRaitingRslt && <p className="text-sm text-black/40 mt-0.5 font-bold">
+          {!Number.isNaN(appRaitingRslt) && <p className="text-sm text-black/40 mt-0.5 font-bold">
             App Raiting : {AppRaite[Math.trunc(appRaitingRslt)]}
           </p>}
           <p className="text-sm text-black/40 mt-0.5">
