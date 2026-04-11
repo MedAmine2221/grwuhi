@@ -32,9 +32,11 @@ export default function Dashboard() {
           <h1 className="text-[#113d3c] text-2xl font-semibold tracking-tight">
             Dashboard
           </h1>
+          <p className="text-sm text-black/40 mt-0.5 font-bold">
+            App Raiting : {AppRaite[Math.trunc(appRaitingRslt)]}
+          </p>
           <p className="text-sm text-black/40 mt-0.5">
             GRWUHI Users Management <br/>
-            App Raiting : {AppRaite[Math.trunc(appRaitingRslt)]}
           </p>
         </div>
         <div className='flex flex-col items-center'>
