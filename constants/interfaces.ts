@@ -8,7 +8,7 @@ interface QuizResultState {
 }
 
 interface UserState {
-  user: null
+  users: User[] | null
 }
 
 interface LoadingState {
@@ -99,4 +99,12 @@ interface CategorySectionProps {
   accentColor: string;
 }
 
-export type {CategorySectionProps, QuestionCardProps, QuizResultProps, ScoreRingProps, QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState, QuizModalProps}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: string;
+}
+
+export type {User, CategorySectionProps, QuestionCardProps, QuizResultProps, ScoreRingProps, QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState, QuizModalProps}

@@ -12,6 +12,7 @@
     "@google/genai": "^1.46.0",
     "@heroui/react": "^3.0.1",
     "@heroui/styles": "^3.0.1",
+    "@iconify/react": "^6.0.2",
     "@reduxjs/toolkit": "^2.11.2",
     "firebase": "^12.11.0",
     "framer-motion": "^12.38.0",

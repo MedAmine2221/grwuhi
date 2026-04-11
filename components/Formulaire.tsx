@@ -48,7 +48,7 @@ export default function Formulaire() {
           await addDoc(collection(db, "users"), {
             name: parsed?.condidate_name,
             email: parsed?.candidate_email,
-            createdAt: `${new Date().getDay()} - ${new Date().getMonth()} - ${new Date().getFullYear()}`
+            createdAt: `${new Date().getDay()}-${new Date().getMonth()}-${new Date().getFullYear()}`
           });
         }
       } catch (e) {
