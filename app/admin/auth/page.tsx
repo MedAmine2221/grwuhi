@@ -70,8 +70,9 @@ export default function Login() {
                   alt="Warning Group"
                   width={26}
                   height={26}
-                  className="object-contain"
+                  className="cursor-pointer object-contain"
                   priority
+                  onClick={()=> router.replace("/")}
                 />
               </div>
               <div>
