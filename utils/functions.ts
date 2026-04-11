@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AllAnswersType } from "@/constants/interfaces";
 import { GoogleGenAI } from "@google/genai";
+import { SortDescriptor } from "@heroui/react";
+import type { SortingState } from "@tanstack/react-table";
 
 const ai = new GoogleGenAI({
   apiKey: process.env.NEXT_PUBLIC_AI_API,
@@ -330,3 +332,16 @@ export async function gemini(cv: any, postDesc: string) {
 
   return "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard.";
 }
+
+
+
+export function toSortDescriptor(sorting: SortingState): SortDescriptor | undefined {
+  const first = sorting[0];
+  if (!first) return undefined;
+  return { column: first.id, direction: first.desc ? "descending" : "ascending" };
+}
+
+export function toSortingState(descriptor: SortDescriptor): SortingState {
+  return [{ desc: descriptor.direction === "descending", id: descriptor.column as string }];
+}
+
