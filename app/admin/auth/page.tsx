@@ -8,7 +8,6 @@ import { auth, db } from "@/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { addUser } from "@/redux/slice/usersSlice";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
-import CheckBoxApp from "@/components/CheckBoxApp";
 import InputApp from "@/components/InputApp";
 import { addRaiting } from "@/redux/slice/raitingAppSlice";
 
@@ -136,8 +135,7 @@ export default function Login() {
               </div>
 
               {/* Remember me */}
-              <div className="flex items-center justify-between">
-                <CheckBoxApp text="Remember me" />
+              <div className="flex items-center justify-end">
                 <button
                   type="button"
                   onClick={() => router.push("/admin/auth/forget-pass")}
