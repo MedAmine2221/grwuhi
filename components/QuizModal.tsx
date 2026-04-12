@@ -17,7 +17,7 @@ export default function QuizModal({
   technical,
 }: QuizModalProps) {
   const dispatch = useDispatch();
-  const quiz = useSelector((state: any) => state.quiz.quiz);
+  const quiz = useSelector((state: any) => state.quiz.quiz);  
   const loading = useSelector((state: any)=> state.loading.loading);
   
   const [phase, setPhase] = useState<TestType>(TestType.HR);
@@ -138,8 +138,9 @@ export default function QuizModal({
 
   // ── Timer reset ────────────────────────────────────────────────────────────
   useEffect(() => {
-    setSeconds(PER_QUESTION_TIME);
-  }, [current, phase]);
+    const time = currentQuestion?.estimated_time_seconds ?? PER_QUESTION_TIME
+    setSeconds(time);
+  }, [current, currentQuestion, phase]);
 
   // ── Countdown + auto-advance ───────────────────────────────────────────────
   useEffect(() => {

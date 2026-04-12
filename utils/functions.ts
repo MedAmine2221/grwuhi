@@ -17,21 +17,25 @@ export async function analyseResponses(
     category: string,
     preferred_answer: string,
     red_flag_answer: string,
-    follow_up: string
+    follow_up: string,
+    estimated_time_seconds: string
   }[], 
   technical_questions: {
     question: string,
     type: "theory" | "practical" | "trap",
     difficulty: "easy" | "medium" | "hard",
     correct_answer: string,
-    common_mistake: string
+    common_mistake: string,
+    estimated_time_seconds: string
   }[]
 ){
   let attempts = 0;
   const maxAttempts = 3;
   const baseDelay = 2000;
   const maxDelay = 10000;
-  const fullPrompt = `Tu es un expert en évaluation de candidats avec 15+ ans d'expérience en recrutement tech.
+  const fullPrompt = `
+  IMPORTANT: Your entire response must be in English only. No French, no Arabic, no other language.  
+  Tu es un expert en évaluation de candidats avec 15+ ans d'expérience en recrutement tech.
 
   Ta mission est d'analyser les réponses d'un candidat lors d'un entretien et de fournir une évaluation détaillée.
 
@@ -60,15 +64,20 @@ export async function analyseResponses(
   ════════════════════════════════════════
   RÈGLES D'ÉVALUATION
   ════════════════════════════════════════
-  - Évaluer chaque réponse de 0% à 100% selon sa qualité
-  - Comparer la réponse du candidat à la preferred_answer ET à la red_flag_answer
-  - Si la réponse ressemble à un red_flag → score ≤ 30%
-  - Si la réponse est partielle mais correcte → score entre 40% et 74%
-  - Si la réponse est bonne mais incomplète → score entre 75% et 89%
-  - Si la réponse correspond bien à la preferred_answer → score ≥ 90%
-  - Pour les réponses nulles ou "Pas de réponse" → score = 0%
-  - Lorsque le score est < 75%, fournir la meilleure réponse que le candidat aurait dû donner
-
+  - Evaluate each answer REALISTICALLY based on what was actually said
+  - Do NOT penalize for not matching the ideal answer word-for-word
+  - Ask yourself: "Did the candidate understand the question and answer it sensibly?"
+  - A correct but brief answer can still score 80%+
+  - A wrong or confused answer scores low, even if it sounds confident
+  - Score logic:
+    * Completely wrong, confused, or red_flag-like → 0%–30%
+    * Shows partial understanding, missing key points → 31%–60%
+    * Correct understanding, minor gaps → 61%–79%
+    * Solid, complete, and relevant answer → 80%–94%
+    * Exceptional: clear, precise, with depth → 95%–100%
+  - For null or "Pas de réponse" → score = 0%
+  - ideal_answer: provide ONLY when score < 75%, and keep it concise — 
+    it already exists from the interview generation, just summarize the key point the candidate missed
   ════════════════════════════════════════
   FORMAT JSON STRICT — AUCUN TEXTE EN DEHORS (Réponse en anglais toujour)
   ════════════════════════════════════════
@@ -159,7 +168,9 @@ export async function gemini(cv: any, postDesc: string) {
     reader.readAsDataURL(cv);
   });
 
-  const fullPrompt = `Tu es un expert RH senior et tech interviewer avec 15+ ans d'expérience en recrutement tech.
+  const fullPrompt = `
+  IMPORTANT: Your entire response must be in English only. No French, no Arabic, no other language.  
+  Tu es un expert RH senior et tech interviewer avec 15+ ans d'expérience en recrutement tech.
 
     Ta mission est de générer un test de recrutement complet, réaliste et personnalisé basé sur :
     - job_description : ${postDesc}
@@ -239,6 +250,12 @@ export async function gemini(cv: any, postDesc: string) {
     - green_flags       : signaux positifs à valoriser
     - hiring_recommendation : "strong yes | yes | maybe | no" avec justification courte
 
+    - For each question, estimate "estimated_time_seconds" by analyzing:
+      * The complexity of the question itself (simple vs deep analysis required)
+      * How much thinking/reflection the candidate needs before answering
+      * How long a complete, quality answer would realistically take to verbalize
+      * A short factual question → ~45s, a deep architectural question → ~300s
+      * Be precise per question, not generic ranges
     ════════════════════════════════════════
     FORMAT JSON STRICT — AUCUN TEXTE EN DEHORS (Réponse en anglais toujour)
     ════════════════════════════════════════
@@ -266,20 +283,23 @@ export async function gemini(cv: any, postDesc: string) {
     },
     "hr_questions": [
         {
-        "question": "",
-        "category": "",
-        "preferred_answer": "",
-        "red_flag_answer": "",
-        "follow_up": ""
+          "question": "",
+          "category": "",
+          "preferred_answer": "",
+          "red_flag_answer": "",
+          "follow_up": "",
+          "estimated_time_seconds": 0
         }
     ],
     "technical_questions": [
         {
-        "question": "",
-        "type": "theory | practical | trap",
-        "difficulty": "easy | medium | hard",
-        "correct_answer": "",
-        "common_mistake": ""
+          "question": "",
+          "type": "theory | practical | trap",
+          "difficulty": "easy | medium | hard",
+          "correct_answer": "",
+          "common_mistake": "",
+          "estimated_time_seconds": 0
+
         }
     ]}`;
 

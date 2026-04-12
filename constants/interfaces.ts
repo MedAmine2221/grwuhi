@@ -61,7 +61,8 @@ interface HRProps {
   category: string,
   preferred_answer: string,
   red_flag_answer: string,
-  follow_up: string
+  follow_up: string,
+  estimated_time_seconds: string,
 }
 
 interface TechnicalProps {
@@ -69,7 +70,8 @@ interface TechnicalProps {
   type: "theory" | "practical" | "trap",
   difficulty: "easy" | "medium" | "hard",
   correct_answer: string,
-  common_mistake: string
+  common_mistake: string,
+  estimated_time_seconds: string,
 }
 
 interface QuizModalProps {
