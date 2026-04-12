@@ -1,25 +1,27 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import nodemailer from 'nodemailer';
 
 export async function POST(req: Request) {
   try {
     const { email, message } = await req.json();
 
-    const { data, error } = await resend.emails.send({
-      from: 'GRWUHI <onboarding@resend.dev>',
-      to: email,
-      subject: "New Contact Form Submission",
-      html: `<p>${message}</p>`,
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
     });
 
-    if (error) {
-      return NextResponse.json({ error }, { status: 500 });
-    }
-
-    return NextResponse.json({ message: "Success", data }, { status: 200 });
-
+    await transporter.sendMail({
+      from: process.env.SMTP_USER,
+      to: email,
+      subject: "New Contact Form Submission",
+      text: message,
+      html: `<p>${message}</p>`,
+    });
+    return NextResponse.json({ message: "Success" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to send" }, { status: 500 });
   }
