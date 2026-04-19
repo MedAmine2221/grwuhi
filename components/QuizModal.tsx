@@ -210,11 +210,11 @@ export default function QuizModal({
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
                         <span className={`w-2 h-2 rounded-full shrink-0 ${isUrgent ? "bg-red-500 animate-ping" : "bg-[#d99934] animate-pulse"}`} />
-                        <span className={`font-mono text-2xl font-semibold tracking-widest transition-colors ${isUrgent ? "text-red-500" : "text-[#113d3c]"}`}>
+                        <span className={`text-2xl font-semibold tracking-widest transition-colors ${isUrgent ? "text-red-500" : "text-[#113d3c]"}`}>
                           {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
                         </span>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-[#113d3c]/6 text-[#113d3c]/55 text-xs font-bold font-mono">
+                      <span className="px-3 py-1 rounded-full bg-[#113d3c]/6 text-[#113d3c]/55 text-xs font-bold">
                         {current + 1} / {totalQuestions}
                       </span>
                     </div>
@@ -233,7 +233,7 @@ export default function QuizModal({
               {/* ── Question ── */}
               <div className="px-6 pt-6 pb-4">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-[#d99934]/10 border border-[#d99934]/25 text-[#d99934] text-[11px] font-bold font-mono shrink-0">
+                  <div className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-[#d99934]/10 border border-[#d99934]/25 text-[#d99934] text-[11px] font-bold shrink-0">
                     {String(current + 1).padStart(2, "0")}
                   </div>
                   <span className="text-[10px] font-bold text-[#113d3c]/35 uppercase tracking-widest">Question</span>

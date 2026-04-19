@@ -1,50 +1,44 @@
 /* eslint-disable @next/next/no-img-element */
 import { AdviceCardProps } from "@/constants/interfaces";
-import { Card } from "@heroui/react";
 
 export function AdviceCard({
-  title,
-  description,
-  tag,
-  tagColor = "#d99934",
-  imageSrc,
-  imageAlt,
-  href,
+  title, description, tag, tagColor = "#d99934", imageSrc, imageAlt, href,
 }: AdviceCardProps) {
   return (
-    <Card className="w-full items-stretch md:flex-row border-2 border-[#d99934] bg-[#d99934]/10">
-      <div className="relative h-35 w-full shrink-0 overflow-hidden rounded-2xl sm:h-full sm:w-36">
+    <a
+      href={href}
+      className="group flex flex-row bg-white/4 border border-[#d99934]/20 rounded-2xl overflow-hidden
+                 hover:border-[#d99934]/45 hover:bg-white/[0.07] transition-all duration-250 no-underline"
+    >
+      {/* Image */}
+      <div className="w-24 shrink-0 relative overflow-hidden bg-linear-to-br from-[#0d7a6e] to-[#162d52]">
         <img
           alt={imageAlt}
-          className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover select-none"
-          loading="lazy"
           src={imageSrc}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover opacity-80 scale-110 group-hover:scale-105 transition-transform duration-500"
         />
+        <div className="absolute inset-0 bg-linear-to-t from-[#0d1f3c]/60 to-transparent" />
       </div>
 
-      <div className="flex flex-1 flex-col gap-2">
-        <Card.Header className="gap-1 pb-0">
-          <span
-            className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full w-fit"
-            style={{ backgroundColor: `${tagColor}25`, color: tagColor }}
-          >
-            {tag}
-          </span>
-          <Card.Title className="pr-8 text-base leading-snug">{title}</Card.Title>
-          <Card.Description className="text-xs leading-relaxed line-clamp-2">
-            {description}
-          </Card.Description>
-        </Card.Header>
-
-        <Card.Footer className="mt-auto flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between pt-0">
-          <a
-            href={href}
-            className="inline-flex items-center justify-center w-full sm:w-auto border-2 border-[#113d3c] bg-[#113d3c]/10 text-[#113d3c] rounded-md px-3 py-1 text-sm font-medium"
-          >
-            {"Read the article"}
-          </a>
-        </Card.Footer>
+      {/* Body */}
+      <div className="flex flex-col gap-2 p-4 flex-1">
+        <span
+          className="text-[10px] font-medium uppercase tracking-wider px-2.5 py-0.5 rounded-full w-fit"
+          style={{ backgroundColor: `${tagColor}18`, color: tagColor, border: `1px solid ${tagColor}30` }}
+        >
+          {tag}
+        </span>
+        <h3 className="text-[15px] font-semibold text-[#f4f1ea] leading-snug">{title}</h3>
+        <p className="text-xs text-[#8a9bb8] leading-relaxed line-clamp-2">{description}</p>
+        <span className="mt-auto inline-flex items-center gap-1.5 text-[#1a9e8f] text-xs font-medium
+                        px-2.5 py-1 rounded-md border border-[#1a9e8f]/25 bg-[#1a9e8f]/7 w-fit">
+          Read the article
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </span>
       </div>
-    </Card>
+    </a>
   );
 }

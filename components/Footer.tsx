@@ -1,83 +1,64 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";;
-import { NAV_LINKS, SOCIAL } from "@/constants";
+"use client";
 import Image from "next/image";
+import { SOCIAL } from "@/constants";
 import SocialButton from "./SocialButton";
 import { motion } from "framer-motion";
+
 export default function Footer() {
   return (
     <motion.footer
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 2.5 }}
+      transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="bg-[#113d3c] w-full rounded-t-lg"
+      className="bg-[#09101c] w-full border-t border-white/6"
     >
-      {/* Main content */}
-      <div className="px-10 pt-10 pb-8 flex flex-row justify-between gap-10">
+      {/* Main row */}
+      <div className="px-8 lg:px-14 py-8 flex flex-wrap items-center justify-between gap-6 border-b border-white/6">
 
-        {/* Brand Column */}
-        <div className="flex flex-col gap-4 max-w-xs">
-          <div className="flex flex-row items-center gap-2">
-            <Image
-              src="/logo.png"
-              width={40}
-              height={40}
-              className="w-10 h-10 object-contain"
-              alt="GRWUHI logo"
-              loading="eager"
-            />
-            <span className="text-white text-xl font-semibold tracking-widest">
+        {/* Left — Brand */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-8.5 h-8.5 rounded-[10px] bg-linear-to-br from-[#1a9e8f] to-[#162d52] border border-[#1a9e8f]/40 flex items-center justify-center">
+              <Image src="/logo.png" width={18} height={18} className="object-contain" alt="" />
+            </div>
+            <span className="text-lg font-semibold text-[#f4f1ea] tracking-[0.12em]">
               GRWUHI
             </span>
           </div>
-
-          <p className="text-white/60 text-sm leading-relaxed">
-            Ace your HR and technical interviews with AI-powered coaching.
-            From preparation to salary negotiation — we boost your chances of getting hired.
+          <p className="text-[#8a9bb8] text-xs leading-relaxed max-w-60">
+            Ace your HR and technical interviews with AI-powered coaching —
+            from preparation to salary negotiation.
           </p>
+        </div>
 
-          {/* Social Icons */}
-          <div className="flex flex-row gap-3 mt-1">
+        {/* Right — Badge + Socials */}
+        <div className="flex flex-col items-end gap-3">
+          <span className="inline-flex items-center gap-2 bg-[#1a9e8f]/10 border border-[#1a9e8f]/25 text-[#1a9e8f] text-[10px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1a9e8f] animate-pulse" />
+            AI-Powered Assessment
+          </span>
+          <div className="flex gap-2">
             {SOCIAL.map(({ icon, label, link }) => (
-              <SocialButton link={link} key={label} icon={icon} label={label} />
+              <SocialButton key={label} link={link} icon={icon} label={label} />
             ))}
           </div>
         </div>
-
-        {/* Nav Columns */}
-        <div className="flex flex-row gap-16">
-          {Object.entries(NAV_LINKS).map(([section, links]) => (
-            <div key={section} className="flex flex-col gap-3">
-              <h4 className="text-[#d99934] text-base font-semibold uppercase tracking-widest">
-                {section}
-              </h4>
-              <ul className="flex flex-col gap-2">
-                {links.map((link: any) => (
-                  <li key={link?.name}>
-                    <a
-                      href={link?.href}
-                      className="text-white/60 text-base hover:text-white transition-colors duration-150"
-                    >
-                      {link?.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
       </div>
 
-      {/* Gold Bottom Bar */}
-      <div
-        className="w-full py-2 flex flex-col items-center justify-center bg-[#d99934]"
-      >
-        <p className="text-white text-xs tracking-wide">
-          Copyright &copy; {new Date().getFullYear()} GRWUHI — All Rights Reserved.
+      {/* Gold bar */}
+      <div className="bg-[#d99934] px-8 lg:px-14 py-2.5 flex items-center justify-between flex-wrap gap-2">
+        <p className="text-[#0d1f3c] text-[11px] font-medium tracking-wide">
+          © {new Date().getFullYear()} GRWUHI — All Rights Reserved.
         </p>
-        <p className="text-white text-xs tracking-wide">
-          Developed By <a href="https://mohamed-amine-laz.vercel.app/fr" target="_blank" className="text-[#113d3c] text-sm">Mohamed Amine LAZREG</a>
+        <p className="text-[#0d1f3c] text-[11px]">
+          <a
+            href="https://mohamed-amine-laz.vercel.app/fr"
+            target="_blank"
+            className="font-bold text-[#09101c] hover:underline"
+          >
+            Mohamed Amine LAZREG
+          </a>
         </p>
       </div>
     </motion.footer>

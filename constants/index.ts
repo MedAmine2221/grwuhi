@@ -2,9 +2,7 @@ import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
 
 const PER_QUESTION_TIME = 150;
 
-const NAV_LINKS = {
-  "Site Map": [{name:"Home",href:"/"},{name: "Advices", href: "/advices"}],
-};
+const NAV_LINKS = [{name:"Home",href:"/"},{name: "Advices", href: "/advices"}];
 
 const SOCIAL = [
   { icon: FiLinkedin, label: "LinkedIn", link:"https://www.linkedin.com/in/mohamed-amine-lazreg-831b1817a/" },
@@ -45,7 +43,7 @@ const ADVICES = [
     description:
       "Succeeding in a job interview requires preparation. This involves thoroughly analyzing the job posting, conducting in-depth research on the company, its industry, and its projects. You should prepare a concise presentation of your background, anticipate common interview questions, list your concrete achievements, and prepare questions to ask the recruiter to demonstrate your motivation.",
     tag: "Interview",
-    tagColor: "#113d3c",
+    tagColor: "#d99934",
     imageSrc: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80",
     imageAlt: "hiring Interview",
     readTime: "7 min",

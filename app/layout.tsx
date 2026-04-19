@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ReduxProvider from "@/providers/reduxProvider";
 import RatingModal from "@/components/RaitingModal";
 import InitDataLoader from "@/components/LoadingData";
+import Navbar from "@/components/NavBar";
 
 export const metadata: Metadata = {
   title: "GRWUHI",
@@ -23,8 +24,9 @@ export default function RootLayout({
       lang="en"
       className={"h-full antialiased"}
     >
-      <body className="flex flex-col w-full justify-between min-h-screen" cz-shortcut-listen="true">
+      <body className="flex flex-col w-full justify-between min-h-screen bg-[#0d1f3c] pt-16">
         <ReduxProvider>
+          <Navbar />
           {children}
           <InitDataLoader />
           <RatingModal />

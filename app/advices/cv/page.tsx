@@ -10,12 +10,12 @@ export default function Cv() {
   const step = STEPS_CV[activeStep];
   
   return (
+    // PreparingInterview, NegotiatingSalary, LinkedinNetworking, FollowUp, Cv, Cover_letter
     <motion.div 
-      className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 `}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.5 }}
-      viewport={{ once: true }}
+      className="min-h-screen bg-[#0d1f3c]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
     >
       {/* ── HERO ── */}
       <AdviceHeader
@@ -27,11 +27,6 @@ export default function Cv() {
         imageSrc="/write-cv.png"
       />
       {/* ── INTRO STRIP ── */}
-      <div className="bg-white border-b border-stone-200 py-7 px-8">
-        <p className="max-w-3xl mx-auto text-center italic text-stone-500 text-base leading-relaxed">
-          A perfect CV is a tailored, concise, and error-free document — a marketing tool for your skills and achievements. It spans one to two A4 pages and should be adapted for each application to highlight the most relevant experience.
-        </p>
-      </div>
       <AdviceBody data={STEPS_CV} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
     </motion.div>
   );

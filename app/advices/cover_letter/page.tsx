@@ -9,14 +9,14 @@ export default function Cover_letter() {
   const step = STEPS_CoverLetter[activeStep];
 
   return (
+    // PreparingInterview, NegotiatingSalary, LinkedinNetworking, FollowUp, Cv, Cover_letter
     <motion.div 
-      className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 `}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.5 }}
-      viewport={{ once: true }}
-    >      
-    <AdviceHeader
+      className="min-h-screen bg-[#0d1f3c]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >    
+      <AdviceHeader
         title1="How to Write"
         title2="a Perfect Cover Letter"
         description="At its core, a cover letter is a personalized document that introduces you to potential employers. It's your chance to convey your enthusiasm for the position, highlight your qualifications, and showcase your communication skills. A well-crafted cover letter serves as a bridge between your CV and the job you're applying for."

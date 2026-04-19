@@ -10,12 +10,12 @@ export default function LinkedinNetworking() {
   const step = STEPS_LinkedIn_Strategy[activeStep];
 
   return (
+    // PreparingInterview, NegotiatingSalary, LinkedinNetworking, FollowUp, Cv, Cover_letter
     <motion.div 
-      className={`min-h-screen bg-stone-100 font-serif transition-opacity duration-700 `}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.5 }}
-      viewport={{ once: true }}
+      className="min-h-screen bg-[#0d1f3c]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
     >
       {/* ── HERO ── */}
       <AdviceHeader

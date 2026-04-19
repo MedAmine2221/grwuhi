@@ -1,29 +1,17 @@
-"use client";
+"use client";;
 import { AdviceCard } from "@/components/AdviceCard";
 import { ADVICES } from "@/constants";
-import { useRouter } from "next/navigation";
-import { FiArrowLeft } from "react-icons/fi";
 import { motion } from "framer-motion";
-export default function Advices() {
-  const router = useRouter();
-  return (
-    <motion.section 
-      initial={{ opacity: 0, y: -50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 2 }}
-      viewport={{ once: true }}
-      className="py-10 px-4 max-w-6xl mx-auto"
-    >
-      <div className="flex flex-row items-center">
-        <FiArrowLeft onClick={() => router.push("/")} className='font-extrabold cursor-pointer' color='black' size={40}/>
-        <div className="ml-8">
-          <h1 className="text-3xl font-bold text-foreground">HR Advices</h1>
-          <p className="text-muted mt-1">
-            {"All our avices to help you succeed in your job search"}.
-          </p>
-        </div>
-      </div>
 
+export default function Advices() {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="min-h-screen bg-[#0d1f3c] py-12 px-6 max-w-5xl mx-auto"
+    >
+      {/* Grid */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {ADVICES.map((advice) => (
           <AdviceCard key={advice.id} {...advice} />
