@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { MODELS } from "@/constants";
 import { AllAnswersType } from "@/constants/interfaces";
 import { GoogleGenAI } from "@google/genai";
 import { SortDescriptor } from "@heroui/react";
@@ -10,6 +11,80 @@ const ai = new GoogleGenAI({
 });
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Fonction générique pour appeler l'API avec fallback
+async function callWithFallback(
+  prompt: string,
+  pdfBase64?: string,
+  maxRetriesPerModel = 2
+): Promise<string> {
+  let lastError: Error | null = null;
+
+  for (const model of MODELS) {
+    let attempts = 0;
+    
+    while (attempts < maxRetriesPerModel) {
+      try {
+        if (attempts > 0) {
+          const backoffDelay = Math.min(2000 * Math.pow(2, attempts - 1), 10000);
+          await delay(backoffDelay);
+        }
+
+        const content: any = [{ text: prompt }];
+        
+        if (pdfBase64) {
+          content.push({
+            inlineData: {
+              mimeType: "application/pdf",
+              data: pdfBase64
+            }
+          });
+        }
+
+        const response = await ai.models.generateContent({
+          model: model,
+          contents: content,
+          generationConfig: {
+            maxOutputTokens: 1000,
+            temperature: 0.7,
+            topP: 0.8,
+          },
+        } as any);
+        
+        const text = response.text;
+        if (text?.trim()) {
+          console.log(`✅ Success with model: ${model}`);
+          return text.trim();
+        }
+        
+        throw new Error("Empty response");
+        
+      } catch (error: any) {
+        lastError = error;
+        attempts++;
+        
+        const shouldRetry =
+          error.message?.includes("429") ||
+          error.message?.includes("503") ||
+          error.message?.includes("500") ||
+          error.message?.includes("rate_limit") ||
+          error.message?.includes("quota");
+        
+        console.warn(`⚠️ Model ${model} failed (attempt ${attempts}/${maxRetriesPerModel}):`, error.message);
+        
+        if (!shouldRetry || attempts >= maxRetriesPerModel) {
+          break;
+        }
+      }
+    }
+    
+    console.log(`❌ Model ${model} exhausted, trying next model...`);
+  }
+
+  console.error("🚨 All models failed:", lastError);
+  throw new Error("All AI models are currently unavailable. Please try again later.");
+}
+
 export async function analyseResponses(
   response: AllAnswersType, 
   hr_questions: {
@@ -28,11 +103,7 @@ export async function analyseResponses(
     common_mistake: string,
     estimated_time_seconds: string
   }[]
-){
-  let attempts = 0;
-  const maxAttempts = 3;
-  const baseDelay = 2000;
-  const maxDelay = 10000;
+): Promise<string> {
   const fullPrompt = `
   IMPORTANT: Your entire response must be in English only. No French, no Arabic, no other language.  
   Tu es un expert en évaluation de candidats avec 15+ ans d'expérience en recrutement tech.
@@ -107,56 +178,41 @@ export async function analyseResponses(
       "summary": "résumé global de la performance du candidat en 2-3 phrases"
     }
   }`;
-  while (attempts < maxAttempts) {
-    try {
-      if (attempts > 0) {
-        const backoffDelay = Math.min(
-          baseDelay * Math.pow(2, attempts - 1),
-          maxDelay,
-        );
-        await delay(backoffDelay);
+
+  try {
+    return await callWithFallback(fullPrompt);
+  } catch (error) {
+    console.error("Analyse responses failed:", error);
+    return JSON.stringify({
+      error: true,
+      message: "Service temporarily unavailable. Please try again in a few moments.",
+      fallback_data: {
+        hr_analysis: hr_questions.map(q => ({
+          question: q.question,
+          candidate_answer: "Service unavailable",
+          score: 0,
+          feedback: "Unable to analyze due to technical issues",
+          ideal_answer: q.preferred_answer
+        })),
+        technical_analysis: technical_questions.map(q => ({
+          question: q.question,
+          candidate_answer: "Service unavailable",
+          score: 0,
+          feedback: "Unable to analyze due to technical issues",
+          ideal_answer: q.correct_answer
+        })),
+        overall: {
+          hr_average: 0,
+          technical_average: 0,
+          global_score: 0,
+          summary: "Unable to complete analysis at this time. Please try again later."
+        }
       }
-
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: [
-          { text: fullPrompt },
-        ],
-        generationConfig: {
-          maxOutputTokens: 1000,
-          temperature: 0.7,
-          topP: 0.8,
-        },
-      } as any);
-      
-      const text = response.text;
-      const cleanedText = text?.trim();
-      return cleanedText;
-    } catch (error: any) {
-      attempts++;
-      const shouldRetry =
-        error.message?.includes("429") ||
-        error.message?.includes("503") ||
-        error.message?.includes("500") ||
-        error.message?.includes("rate_limit");
-
-      if (shouldRetry && attempts < maxAttempts) {
-        continue;
-      }
-
-      return "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants.";
-    }
+    });
   }
-
-  return "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard.";
 }
 
-export async function gemini(cv: any, postDesc: string) {
-  let attempts = 0;
-  const maxAttempts = 3;
-  const baseDelay = 2000;
-  const maxDelay = 10000;
-  
+export async function gemini(cv: any, postDesc: string): Promise<string> {
   // Convertir le PDF en base64
   const base64PDF = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -261,9 +317,9 @@ export async function gemini(cv: any, postDesc: string) {
     ════════════════════════════════════════
 
     {
-    "condidate_name": "what is the name of candidate",
+    "candidate_name": "what is the name of candidate",
     "candidate_email": "what is the email of candidate",
-    "candidate_post": "What is the candidate’s academic background",
+    "candidate_post": "What is the candidate's academic background",
     "analysis": {
         "detected_level": "junior | mid | senior | principal",
         "years_of_experience": 0,
@@ -273,13 +329,13 @@ export async function gemini(cv: any, postDesc: string) {
         "match_justification": ""
     },
     "evaluation_summary": {
-      concerns: [],
-      green_flags: []
-      hiring_justification: "",
-      hiring_recommendation: Yes | No | Maybe,
-      match_justification: [],
-      red_flags: [],
-      strengths: []
+      "concerns": [],
+      "green_flags": [],
+      "hiring_justification": "",
+      "hiring_recommendation": "Yes | No | Maybe",
+      "match_justification": [],
+      "red_flags": [],
+      "strengths": []
     },
     "hr_questions": [
         {
@@ -299,61 +355,44 @@ export async function gemini(cv: any, postDesc: string) {
           "correct_answer": "",
           "common_mistake": "",
           "estimated_time_seconds": 0
-
         }
-    ]}`;
+    ]
+  }`;
 
-  while (attempts < maxAttempts) {
-    try {
-      if (attempts > 0) {
-        const backoffDelay = Math.min(
-          baseDelay * Math.pow(2, attempts - 1),
-          maxDelay,
-        );
-        await delay(backoffDelay);
-      }
-
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: [
-          { text: fullPrompt },
-          { 
-            inlineData: {
-              mimeType: "application/pdf",
-              data: base64PDF
-            }
-          }
-        ],
-        generationConfig: {
-          maxOutputTokens: 1000,
-          temperature: 0.7,
-          topP: 0.8,
+  try {
+    return await callWithFallback(fullPrompt, base64PDF);
+  } catch (error) {
+    console.error("Gemini generation failed:", error);
+    return JSON.stringify({
+      error: true,
+      message: "Service temporarily unavailable. Please try again in a few moments.",
+      fallback_data: {
+        candidate_name: "Unknown",
+        candidate_email: "Not available",
+        candidate_post: "Unable to analyze CV",
+        analysis: {
+          detected_level: "unknown",
+          years_of_experience: 0,
+          main_stack: [],
+          business_domain: "Unknown",
+          match_score: "0%",
+          match_justification: "Service temporarily unavailable"
         },
-      } as any);
-      
-      const text = response.text;
-      const cleanedText = text?.trim();
-      return cleanedText;
-    } catch (error: any) {
-      attempts++;
-      const shouldRetry =
-        error.message?.includes("429") ||
-        error.message?.includes("503") ||
-        error.message?.includes("500") ||
-        error.message?.includes("rate_limit");
-
-      if (shouldRetry && attempts < maxAttempts) {
-        continue;
+        evaluation_summary: {
+          concerns: ["Unable to evaluate due to technical issues"],
+          green_flags: [],
+          hiring_justification: "Please try again later",
+          hiring_recommendation: "Maybe",
+          match_justification: ["Service unavailable"],
+          red_flags: ["System temporarily unavailable"],
+          strengths: []
+        },
+        hr_questions: [],
+        technical_questions: []
       }
-
-      return "Je suis désolé, je rencontre actuellement des difficultés techniques. Veuillez réessayer dans quelques instants.";
-    }
+    });
   }
-
-  return "Je ne peux pas répondre pour le moment. Veuillez réessayer plus tard.";
 }
-
-
 
 export function toSortDescriptor(sorting: SortingState): SortDescriptor | undefined {
   const first = sorting[0];
@@ -364,4 +403,3 @@ export function toSortDescriptor(sorting: SortingState): SortDescriptor | undefi
 export function toSortingState(descriptor: SortDescriptor): SortingState {
   return [{ desc: descriptor.direction === "descending", id: descriptor.column as string }];
 }
-

@@ -42,7 +42,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
         <div className="w-11 h-11 rounded-full bg-linear-to-br from-[#1a9e8f] to-[#162d52]
                         border-2 border-[#1a9e8f]/40 flex items-center justify-center
                         font-medium text-sm text-[#f4f1ea] shrink-0">
-          {quiz?.condidate_name?.split(" ").map((w: any) => w[0])}
+          {quiz?.condidate_name ? quiz?.condidate_name?.split(" ").map((w: any) => w[0]): "C"}
         </div>
 
         <div className="flex-1 min-w-0">

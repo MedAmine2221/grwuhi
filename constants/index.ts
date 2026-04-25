@@ -507,4 +507,12 @@ const STEPS_CoverLetter = [
 
 const AppRaite = ["", "Needs improvement", "Could be better", "Good", "Really good", "Excellent!"];
 
-export {valueColor, AppRaite, PAGE_SIZE, NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }
+const MODELS = [
+  "gemini-2.5-flash",
+  "gemini-2.0-flash-exp",
+  "gemini-2.0-flash",
+  "gemini-1.5-flash",
+  "gemini-1.5-pro"
+];
+
+export {MODELS, valueColor, AppRaite, PAGE_SIZE, NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }
