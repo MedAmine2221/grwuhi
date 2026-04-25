@@ -1,7 +1,9 @@
-"use client";;
+"use client";
+
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/firebaseConfig";
@@ -18,25 +20,22 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem("token", await user.user.getIdToken())
+      localStorage.setItem("token", await user.user.getIdToken());
       const data = await getDocs(collection(db, "users"));
-      const listUsers = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      
-      dispatch(addUser(listUsers))
+      const listUsers = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      dispatch(addUser(listUsers));
       const raitingData = await getDocs(collection(db, "raiting"));
-      const listRaiting = raitingData.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      dispatch(addRaiting(listRaiting))
-      
-      if(!user){
-        alert("Incorrect login details. Please try again.")
-      }
+      const listRaiting = raitingData.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      dispatch(addRaiting(listRaiting));
+      if (!user) alert("Incorrect login details. Please try again.");
       router.replace("/admin/dashboard");
     } catch (error) {
       setError("Une erreur est survenue. Veuillez réessayer. " + error);
@@ -46,52 +45,100 @@ export default function Login() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#f7f7f8] px-4 relative overflow-hidden">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="relative min-h-screen overflow-hidden bg-[#09101c] flex items-center justify-center px-4"
+    >
+      {/* Grid background */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(26,158,143,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(26,158,143,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: "48px 48px",
+        }}
+      />
 
-      {/* Decorative circles */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-36 -left-36 w-105 h-105 rounded-full bg-[#0d2f2e]/8" />
-        <div className="absolute -bottom-24 -right-20 w-75 h-75 rounded-full bg-[#0d2f2e]/6" />
-        <div className="absolute top-[60%] -left-16 w-45 h-45 rounded-full bg-[#d99934]/[0.07]" />
-        <div className="absolute top-[10%] right-[8%] w-30 h-30 rounded-full bg-[#d99934]/6" />
-      </div>
+      {/* Radial glow centre */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 55% at 50% 50%, rgba(26,158,143,0.08) 0%, transparent 70%)",
+        }}
+      />
 
-      <div className="relative w-full max-w-md">
-        {/* Card */}
-        <div className="bg-[#113d3c] rounded-2xl shadow-xl shadow-[#0d2f2e]/20 border border-[#d99934]/20 overflow-hidden">
+      {/* Floating orbs */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -top-32 -right-32 w-96 h-96 rounded-full opacity-5"
+        style={{ background: "radial-gradient(circle, #d99934 0%, transparent 70%)" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed -bottom-40 -left-20 w-80 h-80 rounded-full opacity-5"
+        style={{ background: "radial-gradient(circle, #1a9e8f 0%, transparent 70%)" }}
+      />
 
-          {/* Top accent bar */}
-          <div className="h-0.75 w-full bg-[#d99934]" />
+      {/* Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+        className="relative w-full max-w-105"
+      >
+        <div
+          className="rounded-2xl overflow-hidden"
+          style={{
+            background: "linear-gradient(160deg, #0a1220 0%, #060b14 100%)",
+            border: "1px solid rgba(26,158,143,0.15)",
+            boxShadow: "0 0 0 1px rgba(217,153,52,0.05), 0 32px 64px rgba(0,0,0,0.6), 0 0 80px rgba(26,158,143,0.1)",
+          }}
+        >
+          <div className="px-8 pt-9 pb-10">
+            {/* Header */}
+            <div className="flex items-center gap-4 mb-9">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => router.replace("/")}
+                className="relative shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
+                style={{
+                  background: "linear-gradient(135deg, rgba(217,153,52,0.12), rgba(26,158,143,0.08))",
+                  border: "1px solid rgba(217,153,52,0.2)",
+                }}
+              >
+                <Image src="/logo.png" alt="GRWUHI" width={26} height={26} className="object-contain" priority />
+              </motion.button>
 
-          <div className="px-8 pt-8 pb-10">
-
-            {/* Logo + title */}
-            <div className="flex items-center gap-3 mb-7">
-              <div className="w-11 h-11 rounded-full bg-[#d99934]/15 border border-[#d99934]/35 flex items-center justify-center shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="Warning Group"
-                  width={26}
-                  height={26}
-                  className="cursor-pointer object-contain"
-                  priority
-                  onClick={()=> router.replace("/")}
-                />
-              </div>
               <div>
-                <h1 className="text-white text-[15px] font-medium">
-                  Connecting to GRWUHI
-                </h1>
-                <p className="text-white/40 text-xs mt-0.5">
-                  {"CV analysis and interview preparation platform"}
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[#1a9e8f]/60 font-medium mb-0.5">
+                  GRWUHI Platform
                 </p>
+                <h1
+                  className="text-[22px] font-semibold leading-tight tracking-tight"
+                  style={{ color: "#f4f1ea" }}
+                >
+                  Welcome back
+                </h1>
               </div>
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 mb-7">
+              <div className="flex-1 h-px bg-white/5" />
+              <span className="text-[11px] text-white/20 tracking-widest uppercase">Sign in</span>
+              <div className="flex-1 h-px bg-white/5" />
             </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
-
-              {/* Username */}
               <div className="space-y-1.5">
                 <InputApp
                   id="email"
@@ -105,7 +152,6 @@ export default function Login() {
                 />
               </div>
 
-              {/* Password */}
               <div className="space-y-1.5">
                 <InputApp
                   id="password"
@@ -121,66 +167,95 @@ export default function Login() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/35 hover:text-white/65 transition"
-                      aria-label={showPassword ? "Masquer" : "Afficher"}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-[#d99934]/70 transition-colors"
+                      aria-label={showPassword ? "Hide" : "Show"}
                     >
-                      {showPassword ? (
-                        <FiEyeOff className="cursor-pointer" />
-                      ) : (
-                        <FiEye className="cursor-pointer" />
-                      )}
+                      {showPassword ? <FiEyeOff size={15} /> : <FiEye size={15} />}
                     </button>
                   }
                 />
               </div>
 
-              {/* Remember me */}
-              <div className="flex items-center justify-end">
+              {/* Forgot password */}
+              <div className="flex justify-end -mt-1">
                 <button
                   type="button"
                   onClick={() => router.push("/admin/auth/forget-pass")}
-                  className="text-xs text-[#d99934] hover:underline focus:outline-none"
+                  className="text-[12px] text-[#1a9e8f]/60 hover:text-[#1a9e8f] transition-colors tracking-wide"
                 >
                   Forgotten password?
                 </button>
               </div>
 
-              {/* Submit */}
-              <button
+              {/* Submit button */}
+              <motion.button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 rounded-lg bg-[#d99934] text-[#113d3c] font-medium text-sm
-                           hover:opacity-85 active:scale-[0.98]
-                           disabled:opacity-60 disabled:cursor-not-allowed
-                           transition-all duration-150
-                           flex items-center justify-center gap-2"
+                whileHover={{ scale: loading ? 1 : 1.01 }}
+                whileTap={{ scale: loading ? 1 : 0.99 }}
+                className="group relative w-full py-3 rounded-xl text-[13px] font-semibold tracking-wide overflow-hidden transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                style={{ color: "#09101c" }}
               >
-                {loading && (
-                  <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z" />
-                  </svg>
-                )}
-                {loading ? "Connection…" : "Log in"}
-              </button>
+                <div
+                  className="absolute inset-0 transition-opacity group-hover:opacity-90"
+                  style={{ background: "linear-gradient(135deg, #d99934 0%, #c8852b 50%, #d99934 100%)" }}
+                />
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%)" }}
+                />
+                <span className="relative flex items-center justify-center gap-2">
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z" />
+                      </svg>
+                      Connecting…
+                    </>
+                  ) : (
+                    <>
+                      Log in
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </>
+                  )}
+                </span>
+              </motion.button>
             </form>
 
-            {/* Error */}
+            {/* Error message */}
             {error && (
-              <div className="flex items-center gap-2 rounded-lg border border-red-500/30
-                              bg-red-500/10 px-4 py-2.5 text-sm text-red-300 mt-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0"
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round"
-                        d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a1 1 0 00.86 1.5h18.64
-                          a1 1 0 00.86-1.5L13.71 3.86a2 2 0 00-3.42 0z" />
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 flex items-start gap-2.5 rounded-xl px-4 py-3 text-[12px]"
+                style={{
+                  background: "rgba(239,68,68,0.07)",
+                  border: "1px solid rgba(239,68,68,0.2)",
+                  color: "#fca5a5",
+                }}
+              >
+                <svg className="w-4 h-4 shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a1 1 0 00.86 1.5h18.64a1 1 0 00.86-1.5L13.71 3.86a2 2 0 00-3.42 0z" />
                 </svg>
                 {error}
-              </div>
+              </motion.div>
             )}
           </div>
+
+          {/* Footer strip */}
+          <div
+            className="px-8 py-3 border-t flex items-center justify-center"
+            style={{ borderColor: "rgba(26,158,143,0.1)", background: "rgba(0,0,0,0.2)" }}
+          >
+            <p className="text-[11px] text-white/15 tracking-wider">
+              AI Interview Coach & CV analysis platform
+            </p>
+          </div>
         </div>
-      </div>
-    </main>
+      </motion.div>
+    </motion.main>
   );
 }

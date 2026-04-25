@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 
 export async function POST(req: Request) {
   try {
-    const { email, message } = await req.json();
+    const { email, message, subject } = await req.json();
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -17,12 +17,12 @@ export async function POST(req: Request) {
     await transporter.sendMail({
       from: process.env.SMTP_USER,
       to: email,
-      subject: "New Contact Form Submission",
+      subject: subject,
       text: message,
       html: `<p>${message}</p>`,
     });
     return NextResponse.json({ message: "Success" }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: "Failed to send" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to send " + error }, { status: 500 });
   }
 }

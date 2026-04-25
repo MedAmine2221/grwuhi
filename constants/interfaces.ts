@@ -116,6 +116,19 @@ interface User {
   name: string;
   email: string;
   createdAt: string;
+  color?: string;
+  avatar?: string;
 }
 
-export type {RaitingState, User, CategorySectionProps, QuestionCardProps, QuizResultProps, ScoreRingProps, QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState, QuizModalProps}
+interface EmailModalProps {
+  recipients: User[];
+  onClose: () => void;
+  onSend: (subject: string, message: string) => void;
+}
+
+
+interface DataTableProps {
+  data: User[];
+}
+
+export type {DataTableProps, EmailModalProps, RaitingState, User, CategorySectionProps, QuestionCardProps, QuizResultProps, ScoreRingProps, QuizState, UserState, LoadingState, FlagItemProps, MetricItemProps, SectionCardProps, AdviceBodyProps, AdviceCardProps, AdviceHeaderProps, PostDescriptionProps, SocialButtonProps, UploadCVProps, QuestionAnswer, AllAnswersType, QuizResultState, QuizModalProps}
