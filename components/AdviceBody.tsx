@@ -14,7 +14,7 @@ export default function AdviceBody({ data, setActiveStep, activeStep, step }: Ad
             className={`relative rounded-xl px-4 py-3 text-left transition-all duration-200 border
               ${activeStep === i
                 ? "bg-[#d99934]/10 border-[#d99934]/40 shadow-[0_0_20px_rgba(217,153,52,0.08)]"
-                : "bg-white/[0.03] border-white/[0.07] hover:bg-white/[0.06] hover:border-white/[0.12]"
+                : "bg-white/3 border-white/[0.07] hover:bg-white/6 hover:border-white/12"
               }`}
           >
             {activeStep === i && (

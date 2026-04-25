@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface QuizState {
   quiz: null
@@ -17,13 +19,17 @@ interface LoadingState {
 
 interface FlagItemProps { text: string; color: string }
 
-interface MetricItemProps { label: string; value: string }
+interface MetricItemProps {
+  label: string;
+  value: string | number;
+  variant?: "gold" | "teal" | "default";
+}
 
 interface SectionCardProps {
   title: string;
   titleColor?: string;
-  children: React.ReactNode;
   accent?: string;
+  children?: ReactNode;
 }
 
 interface AdviceBodyProps {data: any, setActiveStep: (step: number) => void, activeStep: number, step: any}

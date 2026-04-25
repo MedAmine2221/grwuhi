@@ -24,7 +24,7 @@ export default function RootLayout({
       lang="en"
       className={"h-full antialiased"}
     >
-      <body className="flex flex-col w-full justify-between min-h-screen bg-[#0d1f3c] pt-16">
+      <body className="flex flex-col w-full justify-between min-h-screen bg-[#0d1f3c] pt-16" cz-shortcut-listen="true">
         <ReduxProvider>
           <Navbar />
           {children}

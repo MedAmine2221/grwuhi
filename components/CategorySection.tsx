@@ -3,28 +3,22 @@ import { CategorySectionProps } from "@/constants/interfaces";
 import QuestionCard from "./QuestionCard";
 import SectionCard from "./SectionCard";
 
-export default function CategorySection({
-  title,
-  items,
-  accentColor,
-}: CategorySectionProps) {
+export default function CategorySection({ title, items, accentColor }: CategorySectionProps) {
   const avg = items.reduce((s: number, q: any) => s + q.score, 0) / items.length;
   const pct = Math.round((avg / 10) * 100);
+  const barColor = pct >= 70 ? "#1a9e8f" : pct >= 40 ? "#d99934" : "#e05c3a";
 
   return (
-    <SectionCard title={title}>
-      {/* mini progress bar */}
-      <div className="flex justify-between text-xs text-muted-foreground mb-2">
+    <SectionCard title={title} titleColor={accentColor}>
+      {/* Mini progress bar */}
+      <div className="flex justify-between text-xs text-[#8a9bb8] mb-2">
         <span>Average score</span>
-        <span className="font-medium text-foreground">{avg.toFixed(1)} / 100</span>
+        <span className="font-medium text-[#f4f1ea]">{avg.toFixed(1)} / 10</span>
       </div>
-      <div className="h-1.5 bg-muted rounded-full overflow-hidden mb-4">
+      <div className="h-1 bg-white/8 rounded-full overflow-hidden mb-4">
         <div
           className="h-full rounded-full transition-all duration-700"
-          style={{
-            width: `${pct}%`,
-            background: pct >= 70 ? "#1D9E75" : pct >= 40 ? "#d99934" : "#D85A30",
-          }}
+          style={{ width: `${pct}%`, background: barColor }}
         />
       </div>
 

@@ -9,6 +9,11 @@ const SOCIAL = [
   { icon: FiInstagram, label: "Instagram", link:"https://www.instagram.com/mouhamedaminelz/" },
   { icon: FiFacebook, label: "Facebook", link:"https://www.facebook.com/mouhamed.amine.lazreg/" },
 ];
+const valueColor = {
+  gold: "text-[#d99934]",
+  teal: "text-[#1a9e8f]",
+  default: "text-[#f4f1ea]",
+};
 
 const PAGE_SIZE = 4;
 
@@ -502,4 +507,4 @@ const STEPS_CoverLetter = [
 
 const AppRaite = ["", "Needs improvement", "Could be better", "Good", "Really good", "Excellent!"];
 
-export {AppRaite, PAGE_SIZE, NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }
+export {valueColor, AppRaite, PAGE_SIZE, NAV_LINKS, SOCIAL, STEPS_CV, STEPS_CoverLetter, ADVICES, STEPS_Prepar_Interview, STEPS_SALARY_NEGOTIATION, STEPS_FollowUp_Email, STEPS_LinkedIn_Strategy, PER_QUESTION_TIME }
