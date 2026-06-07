@@ -14,7 +14,7 @@ export default function QuizResult({ candidateName, candidatePost }: QuizResultP
   if (!quizResult) return null;
 
   const { hr_analysis, technical_analysis, overall } = quizResult;
-  const globalPct   = Math.round((overall.global_score / 100) * 100);
+  const globalPct   = Math?.round((overall?.global_score / 100) * 100);
   const globalColor = globalPct >= 70 ? "#1a9e8f" : globalPct >= 40 ? "#d99934" : "#e05c3a";
 
   return (
@@ -51,16 +51,16 @@ export default function QuizResult({ candidateName, candidatePost }: QuizResultP
           style={{ background: `${globalColor}15`, color: globalColor, borderColor: `${globalColor}40` }}
         >
           <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: globalColor }} />
-          Score {overall.global_score.toFixed(1)} / 100
+          Score {overall?.global_score?.toFixed(1)} / 100
         </span>
       </div>
 
       {/* ── Metric cards ── */}
       <div className="flex gap-3 flex-wrap">
         {[
-          { label: "Global Score",   value: `${overall.global_score.toFixed(1)} / 100`,   color: globalColor },
-          { label: "HR Average",     value: `${overall.hr_average.toFixed(1)} / 100`,      color: "#4a9de0"   },
-          { label: "Technical Avg",  value: `${overall.technical_average.toFixed(1)} / 100`, color: "#d99934" },
+          { label: "Global Score",   value: `${overall?.global_score.toFixed(1)} / 100`,   color: globalColor },
+          { label: "HR Average",     value: `${overall?.hr_average.toFixed(1)} / 100`,      color: "#4a9de0"   },
+          { label: "Technical Avg",  value: `${overall?.technical_average.toFixed(1)} / 100`, color: "#d99934" },
         ].map(({ label, value, color }) => (
           <div key={label}
                className="flex-1 min-w-22.5 bg-white/4 border border-white/8 rounded-2xl px-4 py-3">
@@ -86,7 +86,7 @@ export default function QuizResult({ candidateName, candidatePost }: QuizResultP
 
       {/* ── Summary ── */}
       <SectionCard title="Summary" accent="#1a9e8f" titleColor="#1a9e8f">
-        <p className="text-sm leading-relaxed text-[#f4f1ea]/75">{overall.summary}</p>
+        <p className="text-sm leading-relaxed text-[#f4f1ea]/75">{overall?.summary}</p>
       </SectionCard>
 
       {/* ── HR Questions ── */}

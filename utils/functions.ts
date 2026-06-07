@@ -41,7 +41,7 @@ async function callWithFallback(
           });
         }
 
-        const response = await ai.models.generateContent({
+        const response = await ai?.models?.generateContent({
           model: model,
           contents: content,
           generationConfig: {

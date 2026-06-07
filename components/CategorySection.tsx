@@ -4,7 +4,7 @@ import QuestionCard from "./QuestionCard";
 import SectionCard from "./SectionCard";
 
 export default function CategorySection({ title, items, accentColor }: CategorySectionProps) {
-  const avg = items.reduce((s: number, q: any) => s + q.score, 0) / items.length;
+  const avg = items?.reduce((s: number, q: any) => s + q.score, 0) / items?.length;
   const pct = Math.round((avg / 10) * 100);
   const barColor = pct >= 70 ? "#1a9e8f" : pct >= 40 ? "#d99934" : "#e05c3a";
 
@@ -23,7 +23,7 @@ export default function CategorySection({ title, items, accentColor }: CategoryS
       </div>
 
       <div className="space-y-3">
-        {items.map((item: any, i: number) => (
+        {items?.map((item: any, i: number) => (
           <QuestionCard key={i} item={item} index={i} accentColor={accentColor} />
         ))}
       </div>
