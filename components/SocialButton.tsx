@@ -11,19 +11,11 @@ export default function SocialButton({ icon: Icon, label, link }: SocialButtonPr
       aria-label={label}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "8px",
-        borderRadius: "8px",
-        border: `1px solid ${hovered ? "#d99934" : "rgba(255,255,255,0.3)"}`,
-        backgroundColor: hovered ? "rgba(217,153,52,0.1)" : "transparent",
-        transition: "border-color 0.2s, background-color 0.2s",
-        cursor: "pointer",
-      }}
+      className="inline-flex items-center justify-center p-2 rounded-lg
+                 border border-gray-200 bg-white
+                 transition-all duration-200 hover:border-blue-400 hover:bg-blue-50"
     >
-      <Icon size={18} color={hovered ? "#d99934" : "rgba(255,255,255,0.7)"} />
+      <Icon size={18} color={hovered ? "#2563eb" : "#64748b"} />
     </a>
   );
 }

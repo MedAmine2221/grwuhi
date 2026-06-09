@@ -20,7 +20,6 @@ export default function InitDataLoader() {
     if (!token) return;
 
     const fetchData = async () => {
-      // Ken store fergha bark
       if (users?.length === 0) {
         const data = await getDocs(collection(db, "users"));
         const listUsers = data.docs.map(doc => ({

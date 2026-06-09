@@ -10,14 +10,12 @@ export default function LinkedinNetworking() {
   const step = STEPS_LinkedIn_Strategy[activeStep];
 
   return (
-    // PreparingInterview, NegotiatingSalary, LinkedinNetworking, FollowUp, Cv, Cover_letter
     <motion.div 
-      className="min-h-screen bg-[#0d1f3c]"
+      className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      {/* ── HERO ── */}
       <AdviceHeader
         title1="How to Network Effectively"
         title2="On LinkedIn to Find a Job"
@@ -26,7 +24,6 @@ export default function LinkedinNetworking() {
         buttonLink=""
         imageSrc="/linkedin.png"
       />
-      {/* ── MAIN ── */}
       <AdviceBody data={STEPS_LinkedIn_Strategy} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
     </motion.div>  
   );

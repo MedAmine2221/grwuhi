@@ -4,14 +4,14 @@ import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_CoverLetter } from "@/constants";
 import { useState } from "react";
 import { motion } from "framer-motion";
+
 export default function Cover_letter() {
   const [activeStep, setActiveStep] = useState(0);
   const step = STEPS_CoverLetter[activeStep];
 
   return (
-    // PreparingInterview, NegotiatingSalary, LinkedinNetworking, FollowUp, Cv, Cover_letter
     <motion.div 
-      className="min-h-screen bg-[#0d1f3c]"
+      className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
@@ -24,7 +24,6 @@ export default function Cover_letter() {
         buttonLink="https://novoresume.com/?noRedirect=true"
         imageSrc="/write_cover_letter.png"
       />
-      {/* ── MAIN ── */}
       <AdviceBody data={STEPS_CoverLetter} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
     </motion.div>
   );

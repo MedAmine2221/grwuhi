@@ -11,7 +11,7 @@ export default function SortableColumnHeader({
         <Icon
           icon="gravity-ui:chevron-up"
           className={cn(
-            "size-3 transform transition-transform duration-100 ease-out text-[#d99934]",
+            "size-3 transform transition-transform duration-100 ease-out text-blue-600",
             sortDirection === "descending" ? "rotate-180" : "",
           )}
         />

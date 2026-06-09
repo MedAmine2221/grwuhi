@@ -11,22 +11,22 @@ export default function Footer() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="bg-[#09101c] w-full border-t border-white/6"
+      className="bg-white w-full border-t border-gray-200"
     >
       {/* Main row */}
-      <div className="px-8 lg:px-14 py-8 flex flex-wrap items-center justify-between gap-6 border-b border-white/6">
+      <div className="px-8 lg:px-14 py-8 flex flex-wrap items-center justify-between gap-6 border-b border-gray-100">
 
         {/* Left — Brand */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8.5 h-8.5 rounded-[10px] bg-linear-to-br from-[#1a9e8f] to-[#162d52] border border-[#1a9e8f]/40 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-sm">
               <Image src="/logo.png" width={18} height={18} className="object-contain" alt="" />
             </div>
-            <span className="text-lg font-semibold text-[#f4f1ea] tracking-[0.12em]">
+            <span className="text-xl font-bold text-gray-900 tracking-tight">
               GRWUHI
             </span>
           </div>
-          <p className="text-[#8a9bb8] text-xs leading-relaxed max-w-60">
+          <p className="text-gray-500 text-xs leading-relaxed max-w-60">
             Ace your HR and technical interviews with AI-powered coaching —
             from preparation to salary negotiation.
           </p>
@@ -34,8 +34,8 @@ export default function Footer() {
 
         {/* Right — Badge + Socials */}
         <div className="flex flex-col items-end gap-3">
-          <span className="inline-flex items-center gap-2 bg-[#1a9e8f]/10 border border-[#1a9e8f]/25 text-[#1a9e8f] text-[10px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1a9e8f] animate-pulse" />
+          <span className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-[10px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
             AI-Powered Assessment
           </span>
           <div className="flex gap-2">
@@ -46,16 +46,16 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Gold bar */}
-      <div className="bg-[#d99934] px-8 lg:px-14 py-2.5 flex items-center justify-between flex-wrap gap-2">
-        <p className="text-[#0d1f3c] text-[11px] font-medium tracking-wide">
+      {/* Bottom bar */}
+      <div className="bg-gray-50 px-8 lg:px-14 py-3 flex items-center justify-between flex-wrap gap-2">
+        <p className="text-gray-500 text-[11px] font-medium">
           © {new Date().getFullYear()} GRWUHI — All Rights Reserved.
         </p>
-        <p className="text-[#0d1f3c] text-[11px]">
+        <p className="text-gray-400 text-[11px]">
           <a
             href="https://mohamed-amine-laz.vercel.app/fr"
             target="_blank"
-            className="font-bold text-[#09101c] hover:underline"
+            className="hover:text-blue-600 transition-colors"
           >
             Mohamed Amine LAZREG
           </a>

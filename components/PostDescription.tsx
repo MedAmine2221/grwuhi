@@ -4,22 +4,22 @@ export default function PostDescription({ setPostDesc, postDesc, isPressed }: Po
   const hasError = !postDesc && isPressed;
   return (
     <div className="flex flex-col gap-1.5 w-full">
-      <label className={`text-[11px] uppercase tracking-[0.08em] font-medium ${hasError ? "text-red-400" : "text-[#d99934]"}`}>
-        Position Description <span className="opacity-60">*</span>
+      <label className={`text-xs font-medium uppercase tracking-wide ${hasError ? "text-red-500" : "text-gray-700"}`}>
+        Position Description <span className="text-gray-400">*</span>
       </label>
       <textarea
-        className={`w-full h-28 rounded-xl px-4 py-3 text-sm font-light resize-none outline-none
-          bg-white/5 border transition-all duration-200
-          text-[#f4f1ea] placeholder:text-[#8a9bb8]
+        className={`w-full h-28 rounded-xl px-4 py-3 text-sm resize-none outline-none
+          bg-gray-50 border transition-all duration-200
+          text-gray-900 placeholder:text-gray-400
           ${hasError
-            ? "border-red-400/60 bg-red-400/5 focus:border-red-400"
-            : "border-[#d99934]/30 focus:border-[#d99934]/70 hover:border-[#d99934]/50"
+            ? "border-red-400 bg-red-50/50 focus:border-red-500"
+            : "border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
           }`}
         placeholder="Describe the position you're applying for…"
         onChange={(e) => setPostDesc(e.currentTarget.value)}
       />
       {hasError && (
-        <p className="text-red-400 text-[11px]">This field is required.</p>
+        <p className="text-red-500 text-xs">This field is required.</p>
       )}
     </div>
   );

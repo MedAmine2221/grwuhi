@@ -32,8 +32,7 @@ export default function Home() {
       transition={{ duration: 0.9, ease: "easeOut" }}
     >
       {(!quiz || isError) && !quizResult ? (
-        <main className="min-h-screen bg-[#0d1f3c] flex flex-col lg:flex-row items-center justify-center gap-12 px-8 py-16">
-
+        <main className="min-h-screen bg-white flex flex-col lg:flex-row items-center justify-center gap-12 px-8 py-16">
           {/* Left – Visual */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -41,16 +40,16 @@ export default function Home() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="relative flex items-center justify-center"
           >
-            <div className="absolute inset-0 rounded-full border border-[#1a9e8f]/20 animate-ping scale-110 pointer-events-none" />
-            <div className="absolute inset-0 rounded-full border border-[#d99934]/10 animate-pulse scale-125 pointer-events-none" />
-            <Image
-              src="/interview.gif"
-              width={420}
-              height={420}
-              className="w-72 h-72 lg:w-96 lg:h-96 object-contain rounded-full border-2 border-[#1a9e8f]/30 shadow-[0_0_60px_rgba(26,158,143,0.12)]"
-              alt="GRWUHI Interview Coach"
-              loading="eager"
-            />
+            <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+                  <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                </div>
+                <p className="text-gray-400 text-sm">AI Interview Coach</p>
+              </div>
+            </div>
           </motion.div>
 
           {/* Right – Form */}
@@ -61,28 +60,28 @@ export default function Home() {
             className="flex flex-col gap-5 w-full max-w-md"
           >
             {/* Badge */}
-            <span className="inline-flex items-center gap-2 self-start bg-[#1a9e8f]/10 border border-[#1a9e8f]/30 text-[#1a9e8f] text-[11px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1a9e8f] animate-pulse" />
+            <span className="inline-flex items-center gap-2 self-start bg-blue-50 text-blue-600 text-[11px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
               AI-Powered Assessment
             </span>
 
-            <h1 className="text-4xl lg:text-5xl font-semibold text-[#f4f1ea] leading-tight">
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
               Land Your Next<br />
-              <span className="text-[#d99934]">Dream Position</span>
+              <span className="text-blue-600">Dream Position</span>
             </h1>
 
-            <p className="text-[#8a9bb8] text-sm leading-relaxed">
+            <p className="text-gray-500 text-sm leading-relaxed">
               Upload your CV and describe the role. Our AI generates personalized HR interview
               questions to maximize your hiring chances.
             </p>
 
             {/* Card */}
-            <div className="bg-white/4 border border-white/8 rounded-2xl p-6 flex flex-col gap-4">
+            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
               <Formulaire />
               {isError && !remove && (
                 <p
                   onClick={() => setRemove(true)}
-                  className="text-red-400 text-xs font-medium text-center cursor-pointer hover:text-red-300 transition-colors"
+                  className="text-red-500 text-xs font-medium text-center cursor-pointer hover:text-red-600 transition-colors"
                 >
                   Technical error — please try again in a few moments. ✕
                 </p>
@@ -90,7 +89,6 @@ export default function Home() {
             </div>
           </motion.div>
         </main>
-
       ) : quizResult ? (
         <QuizResult
           candidateName={quiz?.condidate_name ?? "Candidate"}

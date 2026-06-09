@@ -45,12 +45,12 @@ export default function RatingModal() {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full
-          bg-[#1a9e8f]/10 border border-[#1a9e8f]/30 shadow-lg
+          bg-white border border-gray-200 shadow-lg
           flex items-center justify-center
-          hover:bg-[#1a9e8f]/20 hover:border-[#1a9e8f]/50
+          hover:border-blue-400 hover:bg-blue-50
           transition-colors"
       >
-        <BsStarHalf size={18} className="text-[#1a9e8f]" />
+        <BsStarHalf size={18} className="text-blue-600" />
       </motion.button>
 
       {/* Overlay */}
@@ -72,15 +72,10 @@ export default function RatingModal() {
               transition={{ duration: 0.3, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
               className="relative w-80 rounded-2xl overflow-hidden
-                bg-linear-to-br from-[#0f2647] to-[#0d1f3c]
-                border border-[#1a9e8f]/20
-                shadow-[0_0_60px_rgba(26,158,143,0.1)]
+                bg-white border border-gray-200
+                shadow-xl
                 p-8 text-center"
             >
-              {/* Decorative orbs */}
-              <div className="absolute -top-10 -left-10 w-28 h-28 rounded-full bg-[#1a9e8f]/5 pointer-events-none" />
-              <div className="absolute -bottom-8 -right-8 w-20 h-20 rounded-full bg-[#d99934]/5 pointer-events-none" />
-
               <AnimatePresence mode="wait">
                 {!submitted ? (
                   <motion.div
@@ -91,15 +86,15 @@ export default function RatingModal() {
                     transition={{ duration: 0.2 }}
                   >
                     {/* Badge */}
-                    <span className="inline-flex items-center gap-2 bg-[#1a9e8f]/10 border border-[#1a9e8f]/25 text-[#1a9e8f] text-[10px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a9e8f] animate-pulse" />
+                    <span className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-[10px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
                       Share Your Experience
                     </span>
 
-                    <p className="text-xl font-semibold text-[#f4f1ea] mb-1.5">
+                    <p className="text-xl font-semibold text-gray-900 mb-1.5">
                       Rate GRWUHI
                     </p>
-                    <p className="text-sm text-[#8a9bb8] mb-6 leading-relaxed">
+                    <p className="text-sm text-gray-500 mb-6 leading-relaxed">
                       How was your interview prep experience?
                     </p>
 
@@ -112,8 +107,8 @@ export default function RatingModal() {
                           whileTap={{ scale: 0.9 }}
                           className={`text-3xl transition-colors duration-150 ${
                             v <= display
-                              ? "text-[#d99934]"
-                              : "text-[#1e3a5f] hover:text-[#d99934]/50"
+                              ? "text-amber-500"
+                              : "text-gray-200 hover:text-amber-500/50"
                           }`}
                           onMouseEnter={() => setHovered(v)}
                           onMouseLeave={() => setHovered(0)}
@@ -127,7 +122,7 @@ export default function RatingModal() {
                     {/* Label */}
                     <p
                       className={`text-xs min-h-4.5 mb-5 transition-colors duration-200 ${
-                        display ? "text-[#d99934]" : "text-[#8a9bb8]"
+                        display ? "text-amber-600" : "text-gray-400"
                       }`}
                     >
                       {display ? AppRaite[display] : "Tap a star to rate"}
@@ -138,8 +133,8 @@ export default function RatingModal() {
                       disabled={!selected || loading}
                       onClick={raiting}
                       className="w-full py-2.5 rounded-xl text-sm font-semibold tracking-wide
-                        bg-[#1a9e8f] text-[#f4f1ea]
-                        hover:bg-[#148a7d] active:scale-[0.98]
+                        bg-blue-600 text-white
+                        hover:bg-blue-700 active:scale-[0.98]
                         disabled:opacity-30 disabled:cursor-not-allowed
                         transition-all duration-200 mb-2.5"
                     >
@@ -148,7 +143,7 @@ export default function RatingModal() {
 
                     <button
                       onClick={handleClose}
-                      className="text-xs text-[#8a9bb8] hover:text-[#f4f1ea] transition-colors"
+                      className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       Not now
                     </button>
@@ -162,22 +157,22 @@ export default function RatingModal() {
                   >
                     {/* Checkmark circle */}
                     <div className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center
-                      bg-[#1a9e8f]/10 border border-[#1a9e8f]/30 text-[#1a9e8f] text-2xl">
+                      bg-green-100 text-green-600 text-2xl">
                       ✓
                     </div>
 
-                    <p className="text-xl font-semibold text-[#f4f1ea] mb-2">
+                    <p className="text-xl font-semibold text-gray-900 mb-2">
                       Thank you!
                     </p>
-                    <p className="text-sm text-[#8a9bb8] leading-relaxed mb-6">
+                    <p className="text-sm text-gray-500 leading-relaxed mb-6">
                       Your feedback helps us build a better interview experience for everyone.
                     </p>
 
                     <button
                       onClick={handleClose}
                       className="w-full py-2.5 rounded-xl text-sm font-semibold
-                        bg-[#1a9e8f]/10 border border-[#1a9e8f]/25 text-[#1a9e8f]
-                        hover:bg-[#1a9e8f]/20 transition-colors"
+                        bg-gray-100 text-gray-700
+                        hover:bg-gray-200 transition-colors"
                     >
                       Done
                     </button>

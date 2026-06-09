@@ -8,7 +8,6 @@ import { gemini } from "@/utils/functions";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuiz } from "@/redux/slice/quizSlice";
 import { setLoadingFalse, setLoadingTrue } from "@/redux/slice/loadingSlice";
-import Image from "next/image";
 import { db } from "@/firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 
@@ -62,9 +61,9 @@ export default function Formulaire() {
       {!loading ? (
         <Button
           onClick={createQuiz}
-          className="w-full h-12 rounded-xl bg-[#d99934] text-[#0d1f3c] font-semibold text-sm
-                     hover:bg-[#c4891f] active:scale-[0.98] transition-all duration-200
-                     flex items-center justify-center gap-2 tracking-wide border-none"
+          className="w-full h-12 rounded-xl bg-blue-600 text-white font-semibold text-sm
+                     hover:bg-blue-700 active:scale-[0.98] transition-all duration-200
+                     flex items-center justify-center gap-2 shadow-sm"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -73,8 +72,8 @@ export default function Formulaire() {
         </Button>
       ) : (
         <div className="flex flex-col items-center gap-2 py-2">
-          <Image src="/scanner.gif" width={64} height={64} alt="" className="opacity-90" />
-          <p className="text-[#d99934] text-xs font-medium text-center animate-pulse">{msgAtt}</p>
+          <div className="w-12 h-12 rounded-full border-2 border-blue-600 border-t-transparent animate-spin" />
+          <p className="text-blue-600 text-xs font-medium text-center">{msgAtt}</p>
         </div>
       )}
     </div>

@@ -1,4 +1,19 @@
 import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
+const valueColor = {
+  primary: "text-blue-600",
+  secondary: "text-green-600", 
+  default: "text-gray-900",
+  teal: "text-blue-600",
+  gold: "text-amber-600",
+};
+
+const AppRaite = {
+  1: "Poor",
+  2: "Fair", 
+  3: "Good",
+  4: "Very Good",
+  5: "Excellent",
+};
 
 const PER_QUESTION_TIME = 150;
 
@@ -9,12 +24,6 @@ const SOCIAL = [
   { icon: FiInstagram, label: "Instagram", link:"https://www.instagram.com/mouhamedaminelz/" },
   { icon: FiFacebook, label: "Facebook", link:"https://www.facebook.com/mouhamed.amine.lazreg/" },
 ];
-const valueColor = {
-  gold: "text-[#d99934]",
-  teal: "text-[#1a9e8f]",
-  default: "text-[#f4f1ea]",
-};
-
 const PAGE_SIZE = 4;
 
 const ADVICES = [
@@ -505,7 +514,6 @@ const STEPS_CoverLetter = [
   },
 ];
 
-const AppRaite = ["", "Needs improvement", "Could be better", "Good", "Really good", "Excellent!"];
 
 const MODELS = [
   "gemini-2.5-flash",

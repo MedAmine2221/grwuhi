@@ -6,7 +6,7 @@ export default function SortIcon({ state }: { state: false | "asc" | "desc" }) {
         height="5"
         viewBox="0 0 8 5"
         className={`transition-colors ${
-          state === "asc" ? "text-[#1a9e8f]" : "text-[#8a9bb8]/25"
+          state === "asc" ? "text-blue-600" : "text-gray-300"
         }`}
       >
         <path d="M4 0L8 5H0L4 0Z" fill="currentColor" />
@@ -16,7 +16,7 @@ export default function SortIcon({ state }: { state: false | "asc" | "desc" }) {
         height="5"
         viewBox="0 0 8 5"
         className={`transition-colors ${
-          state === "desc" ? "text-[#1a9e8f]" : "text-[#8a9bb8]/25"
+          state === "desc" ? "text-blue-600" : "text-gray-300"
         }`}
       >
         <path d="M4 5L0 0H8L4 5Z" fill="currentColor" />

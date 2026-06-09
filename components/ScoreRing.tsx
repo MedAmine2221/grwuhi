@@ -5,14 +5,14 @@ export default function ScoreRing({ score, max = 100 }: ScoreRingProps) {
   const r     = 26;
   const circ  = 2 * Math.PI * r;
   const dash  = (pct / 100) * circ;
-  const color = pct >= 70 ? "#1a9e8f" : pct >= 40 ? "#d99934" : "#e05c3a";
+  const color = pct >= 70 ? "#10b981" : pct >= 40 ? "#f59e0b" : "#ef4444";
 
   return (
     <div className="relative w-14 h-14 shrink-0">
       <svg viewBox="0 0 64 64" className="w-full h-full -rotate-90">
         {/* Track */}
         <circle cx="32" cy="32" r={r} fill="none"
-                stroke="rgba(255,255,255,0.07)" strokeWidth="5" />
+                stroke="rgba(0,0,0,0.05)" strokeWidth="5" />
         {/* Progress */}
         <circle cx="32" cy="32" r={r} fill="none"
                 stroke={color} strokeWidth="5"

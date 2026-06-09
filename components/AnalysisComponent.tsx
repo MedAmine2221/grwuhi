@@ -23,7 +23,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="max-w-3xl mx-auto px-4 py-10 space-y-4"
+      className="max-w-3xl mx-auto px-4 py-10 space-y-4 bg-white"
     >
       {/* ── Header ── */}
       <div className="flex items-center gap-3 mb-6">
@@ -32,29 +32,28 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
             localStorage.removeItem("quiz");
             dispatch(addQuiz(null));
           }}
-          className="w-9 h-9 rounded-xl bg-white/5 border border-white/8 flex items-center
-                     justify-center hover:bg-white/10 transition-colors shrink-0"
+          className="w-9 h-9 rounded-xl border border-gray-200 flex items-center
+                     justify-center hover:bg-gray-100 transition-colors shrink-0"
         >
-          <FiArrowLeft size={16} color="#f4f1ea" />
+          <FiArrowLeft size={16} color="#64748b" />
         </button>
 
         {/* Avatar */}
-        <div className="w-11 h-11 rounded-full bg-linear-to-br from-[#1a9e8f] to-[#162d52]
-                        border-2 border-[#1a9e8f]/40 flex items-center justify-center
-                        font-medium text-sm text-[#f4f1ea] shrink-0">
-          {quiz?.condidate_name ? quiz?.condidate_name?.split(" ").map((w: any) => w[0]): "C"}
+        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600
+                        flex items-center justify-center font-medium text-sm text-white shadow-sm shrink-0">
+          {quiz?.condidate_name ? quiz?.condidate_name?.split(" ").map((w: any) => w[0]).join("") : "C"}
         </div>
 
         <div className="flex-1 min-w-0">
-          <p className="font-medium text-[15px] text-[#f4f1ea]">{quiz?.condidate_name}</p>
-          <p className="text-xs text-[#8a9bb8] mt-0.5">
+          <p className="font-semibold text-gray-900">{quiz?.condidate_name}</p>
+          <p className="text-xs text-gray-500 mt-0.5">
             {quiz?.candidate_post} — {analysis?.detected_level} level
           </p>
         </div>
 
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium px-3 py-1.5
-                         rounded-full bg-[#d99934]/10 text-[#d99934] border border-[#d99934]/35 shrink-0">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#d99934] animate-pulse" />
+        <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5
+                         rounded-full bg-green-100 text-green-700">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse" />
           {evaluation_summary?.hiring_recommendation === "Yes"
             ? "Excellent match — go ahead and apply with confidence!"
             : evaluation_summary?.hiring_recommendation === "Maybe" 
@@ -66,21 +65,18 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
 
       {/* ── Metrics ── */}
       <div className="flex gap-3 flex-wrap">
-        <MetricCard label="Match Score" value={analysis?.match_score} variant="gold" />
+        <MetricCard label="Match Score" value={`${analysis?.match_score}%`} variant="primary" />
         {String(analysis?.years_of_experience).length < 10 && (
-          <MetricCard label="Experience" value={`${analysis?.years_of_experience} yrs`} variant="teal" />
+          <MetricCard label="Experience" value={`${analysis?.years_of_experience} yrs`} variant="secondary" />
         )}
-        <MetricCard label="Level" value={analysis?.detected_level} />
+        <MetricCard label="Level" value={analysis?.detected_level} variant="default" />
       </div>
-      {String(analysis?.years_of_experience).length > 10 && (
-        <MetricCard label="Experience" value={`${analysis?.years_of_experience} yrs`} variant="teal" />
-      )}
 
       {/* ── Start Test ── */}
       <Modal>
         <Button
-          className="inline-flex items-center gap-2 bg-[#d99934] text-[#0d1f3c] font-semibold
-                     text-sm px-5 py-2.5 rounded-xl border-none hover:bg-[#c4891f]
+          className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold
+                     text-sm px-5 py-2.5 rounded-xl shadow-sm hover:bg-blue-700
                      active:scale-[0.98] transition-all duration-200"
           onClick={() => setStart(true)}
         >
@@ -93,108 +89,117 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
       </Modal>
 
       {/* ── Score Bar ── */}
-      <div className="bg-white/4 border border-white/8 rounded-2xl p-4">
-        <div className="flex justify-between text-xs text-[#8a9bb8] mb-2">
+      <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4">
+        <div className="flex justify-between text-xs text-gray-500 mb-2">
           <span>Overall compatibility</span>
-          <span className="font-medium text-[#f4f1ea]">{analysis?.match_score}</span>
+          <span className="font-medium text-gray-900">{analysis?.match_score}%</span>
         </div>
-        <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
           <div
-            className="h-full rounded-full transition-all duration-700"
-            style={{
-              width: `${score}%`,
-              background: "linear-gradient(90deg, #1a9e8f, #d99934)",
-            }}
+            className="h-full rounded-full transition-all duration-700 bg-blue-600"
+            style={{ width: `${score}%` }}
           />
         </div>
       </div>
 
       {/* ── Tech Stack ── */}
-      {analysis?.main_stack.length != 0 ? <SectionCard title="Tech Stack">
-        <div className="flex flex-wrap gap-1.5">
-          {analysis?.main_stack.map((item: string) => (
-            <span
-              key={item}
-              className="text-xs px-2.5 py-1 rounded-lg border border-white/10
-                         text-[#8a9bb8] bg-white/3"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </SectionCard>:
-      <SectionCard title="Tech Stack">
-        <EmptyState  message="No Tech Stack identified"  color="#8a9bb8"/>
-      </SectionCard>
-      }
+      {analysis?.main_stack.length != 0 ? (
+        <SectionCard title="Tech Stack">
+          <div className="flex flex-wrap gap-2">
+            {analysis?.main_stack.map((item: string) => (
+              <span
+                key={item}
+                className="text-xs px-3 py-1.5 rounded-lg border border-gray-200
+                           text-gray-600 bg-gray-50"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </SectionCard>
+      ) : (
+        <SectionCard title="Tech Stack">
+          <EmptyState message="No Tech Stack identified" color="#64748b" />
+        </SectionCard>
+      )}
 
       {/* ── Match Justification ── */}
-      {analysis?.match_justification ? <SectionCard title="Match Justification" accent="#1a9e8f" titleColor="#1a9e8f">
-        <p className="text-sm leading-relaxed text-[#f4f1ea]/75">
-          {analysis?.match_justification}
-        </p>
-      </SectionCard> :
-      <SectionCard title="Match Justification" accent="#1a9e8f" titleColor="#1a9e8f">
-        <EmptyState  message="No Match Justification identified"  color="#1a9e8f"/>
-      </SectionCard>
-      }
+      {analysis?.match_justification ? (
+        <SectionCard title="Match Justification" accent="#2563eb" titleColor="#2563eb">
+          <p className="text-sm leading-relaxed text-gray-600">
+            {analysis?.match_justification}
+          </p>
+        </SectionCard>
+      ) : (
+        <SectionCard title="Match Justification" accent="#2563eb" titleColor="#2563eb">
+          <EmptyState message="No Match Justification identified" color="#2563eb" />
+        </SectionCard>
+      )}
 
       {/* ── Green & Red Flags ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {
-          evaluation_summary?.green_flags.length !== 0 ? <SectionCard title="Green Flags" titleColor="#1a9e8f">
+        {evaluation_summary?.green_flags.length !== 0 ? (
+          <SectionCard title="Green Flags" titleColor="#10b981">
             {evaluation_summary?.green_flags.map((item: string, i: number) => (
-              <FlagItem key={i} text={item} color="#1a9e8f" />
+              <FlagItem key={i} text={item} color="#10b981" />
             ))}
-          </SectionCard>:
-          <SectionCard title="Green Flags" titleColor="#1a9e8f">
-            <EmptyState  message="No green flags identified"  color="#1a9e8f"/>
           </SectionCard>
-        }
-        {
-          evaluation_summary?.red_flags.length != 0 ? <SectionCard title="Red Flags" titleColor="#e05c3a">
+        ) : (
+          <SectionCard title="Green Flags" titleColor="#10b981">
+            <EmptyState message="No green flags identified" color="#10b981" />
+          </SectionCard>
+        )}
+        {evaluation_summary?.red_flags.length != 0 ? (
+          <SectionCard title="Red Flags" titleColor="#ef4444">
             {evaluation_summary?.red_flags.map((item: string, i: number) => (
-              <FlagItem key={i} text={item} color="#e05c3a" />
+              <FlagItem key={i} text={item} color="#ef4444" />
             ))}
-          </SectionCard>:
-          <SectionCard title="Red Flags" titleColor="#e05c3a">
-            <EmptyState  message="No red flags identified"  color="#e05c3a"/>
           </SectionCard>
-        }
+        ) : (
+          <SectionCard title="Red Flags" titleColor="#ef4444">
+            <EmptyState message="No red flags identified" color="#ef4444" />
+          </SectionCard>
+        )}
       </div>
 
       {/* ── Strengths & Concerns ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {evaluation_summary?.strengths.length != 0 ? <SectionCard title="Strengths" titleColor="#4a9de0">
-          {evaluation_summary?.strengths.map((item: string, i: number) => (
-            <FlagItem key={i} text={item} color="#4a9de0" />
-          ))}
-        </SectionCard>:
-        <SectionCard title="Strengths" titleColor="#4a9de0">
-            <EmptyState  message="No Strengths identified"  color="#4a9de0"/>
-        </SectionCard>
-        }
-        {evaluation_summary?.concerns.length != 0 ? <SectionCard title="Concerns" titleColor="#d99934">
-          {evaluation_summary?.concerns.map((item: string, i: number) => (
-            <FlagItem key={i} text={item} color="#d99934" />
-          ))}
-        </SectionCard> : 
-        <SectionCard title="Concerns" titleColor="#d99934">
-            <EmptyState  message="No Concerns identified"  color="#d99934"/>
-        </SectionCard>
-        }
+        {evaluation_summary?.strengths.length != 0 ? (
+          <SectionCard title="Strengths" titleColor="#3b82f6">
+            {evaluation_summary?.strengths.map((item: string, i: number) => (
+              <FlagItem key={i} text={item} color="#3b82f6" />
+            ))}
+          </SectionCard>
+        ) : (
+          <SectionCard title="Strengths" titleColor="#3b82f6">
+            <EmptyState message="No Strengths identified" color="#3b82f6" />
+          </SectionCard>
+        )}
+        {evaluation_summary?.concerns.length != 0 ? (
+          <SectionCard title="Concerns" titleColor="#f59e0b">
+            {evaluation_summary?.concerns.map((item: string, i: number) => (
+              <FlagItem key={i} text={item} color="#f59e0b" />
+            ))}
+          </SectionCard>
+        ) : (
+          <SectionCard title="Concerns" titleColor="#f59e0b">
+            <EmptyState message="No Concerns identified" color="#f59e0b" />
+          </SectionCard>
+        )}
       </div>
 
       {/* ── Hiring Recommendation ── */}
-      {evaluation_summary?.hiring_justification ? <SectionCard title="Hiring Recommendation" accent="#d99934" titleColor="#d99934">
-        <p className="text-sm leading-relaxed text-[#f4f1ea]/75">
-          {evaluation_summary?.hiring_justification}
-        </p>
-      </SectionCard> : 
-      <SectionCard title="Hiring Recommendation" accent="#d99934" titleColor="#d99934">
-        <EmptyState  message="No Hiring Recommendation identified"  color="#d99934"/>
-      </SectionCard>
-    }
+      {evaluation_summary?.hiring_justification ? (
+        <SectionCard title="Hiring Recommendation" accent="#f59e0b" titleColor="#f59e0b">
+          <p className="text-sm leading-relaxed text-gray-600">
+            {evaluation_summary?.hiring_justification}
+          </p>
+        </SectionCard>
+      ) : (
+        <SectionCard title="Hiring Recommendation" accent="#f59e0b" titleColor="#f59e0b">
+          <EmptyState message="No Hiring Recommendation identified" color="#f59e0b" />
+        </SectionCard>
+      )}
     </motion.div>
   );
 }

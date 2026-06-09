@@ -15,14 +15,14 @@ export default function EmailModal({ recipients, onClose, onSend }: EmailModalPr
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="w-full max-w-md rounded-xl border border-white/10 bg-[#0d1825] p-6 shadow-2xl">
-        <h3 className="mb-1 text-[15px] font-semibold text-[#dce8f5]">
+      <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-xl">
+        <h3 className="mb-1 text-base font-semibold text-gray-900">
           Send email
         </h3>
-        <p className="mb-4 text-[12px] text-[#8a9bb8]">
+        <p className="mb-4 text-xs text-gray-500">
           Sending to {recipients.length} recipient
           {recipients.length > 1 ? "s" : ""}
         </p>
@@ -32,7 +32,7 @@ export default function EmailModal({ recipients, onClose, onSend }: EmailModalPr
           {recipients.map((u) => (
             <span
               key={u.id}
-              className="rounded-full border border-[#1a9e8f]/25 bg-[#1a9e8f]/10 px-2.5 py-0.5 text-[11px] text-[#1a9e8f]"
+              className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-xs text-blue-700"
             >
               {u.email}
             </span>
@@ -41,7 +41,7 @@ export default function EmailModal({ recipients, onClose, onSend }: EmailModalPr
 
         {/* Subject */}
         <div className="mb-3">
-          <label className="mb-1 block text-[11px] text-[#8a9bb8]">
+          <label className="mb-1 block text-xs text-gray-500">
             Subject
           </label>
           <input
@@ -49,13 +49,13 @@ export default function EmailModal({ recipients, onClose, onSend }: EmailModalPr
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             placeholder="Email subject..."
-            className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-[13px] text-[#c2d0e6] outline-none placeholder:text-[#8a9bb8]/50 focus:border-[#1a9e8f]/50"
+            className="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-100"
           />
         </div>
 
         {/* Message */}
         <div className="mb-5">
-          <label className="mb-1 block text-[11px] text-[#8a9bb8]">
+          <label className="mb-1 block text-xs text-gray-500">
             Message
           </label>
           <textarea
@@ -63,7 +63,7 @@ export default function EmailModal({ recipients, onClose, onSend }: EmailModalPr
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Write your message..."
             rows={4}
-            className="w-full resize-y rounded-md border border-white/10 bg-white/5 px-3 py-2 text-[13px] text-[#c2d0e6] outline-none placeholder:text-[#8a9bb8]/50 focus:border-[#1a9e8f]/50"
+            className="w-full resize-y rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-100"
           />
         </div>
 
@@ -71,13 +71,13 @@ export default function EmailModal({ recipients, onClose, onSend }: EmailModalPr
         <div className="flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="rounded-md border border-white/10 bg-white/5 px-4 py-1.5 text-[12px] font-medium text-[#8a9bb8] transition hover:bg-white/10 hover:text-[#c2d0e6]"
+            className="rounded-md border border-gray-200 bg-white px-4 py-1.5 text-xs font-medium text-gray-600 transition hover:bg-gray-50 hover:text-gray-800"
           >
             Cancel
           </button>
           <button
             onClick={handleSend}
-            className="rounded-md bg-[#1a9e8f] px-4 py-1.5 text-[12px] font-medium text-white transition hover:bg-[#16887b]"
+            className="rounded-md bg-blue-600 px-4 py-1.5 text-xs font-medium text-white transition hover:bg-blue-700"
           >
             Send
           </button>

@@ -10,14 +10,12 @@ export default function Cv() {
   const step = STEPS_CV[activeStep];
   
   return (
-    // PreparingInterview, NegotiatingSalary, LinkedinNetworking, FollowUp, Cv, Cover_letter
     <motion.div 
-      className="min-h-screen bg-[#0d1f3c]"
+      className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      {/* ── HERO ── */}
       <AdviceHeader
         title1="How to Write"
         title2="a Perfect CV"
@@ -26,7 +24,6 @@ export default function Cv() {
         buttonLink="https://www.moncvparfait.fr/creer-cv"
         imageSrc="/write-cv.png"
       />
-      {/* ── INTRO STRIP ── */}
       <AdviceBody data={STEPS_CV} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
     </motion.div>
   );

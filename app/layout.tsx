@@ -9,7 +9,7 @@ import Navbar from "@/components/NavBar";
 export const metadata: Metadata = {
   title: "GRWUHI",
   description: "Get Ready With Us For Your Hiring Interview",
-  icons:{
+  icons: {
     icon: "/logo.png"
   }
 };
@@ -20,17 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={"h-full antialiased"}
-    >
-      <body className="flex flex-col w-full justify-between min-h-screen bg-[#0d1f3c] pt-16" cz-shortcut-listen="true">
+    <html lang="en" className="h-full antialiased">
+      <body className="flex flex-col w-full justify-between min-h-screen bg-white pt-16">
         <ReduxProvider>
           <Navbar />
           {children}
           <InitDataLoader />
           <RatingModal />
-          <Footer />  
+          <Footer />
         </ReduxProvider>
       </body>
     </html>

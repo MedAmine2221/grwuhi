@@ -4,14 +4,14 @@ import AdviceHeader from "@/components/AdviceHeader";
 import { STEPS_Prepar_Interview } from "@/constants";
 import { useState } from "react";
 import { motion } from "framer-motion";
+
 export default function PreparingInterview() {
   const [activeStep, setActiveStep] = useState(0);
   const step = STEPS_Prepar_Interview[activeStep];
 
   return (
-    // PreparingInterview, NegotiatingSalary, LinkedinNetworking, FollowUp, Cv, Cover_letter
     <motion.div 
-      className="min-h-screen bg-[#0d1f3c]"
+      className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
@@ -24,8 +24,6 @@ export default function PreparingInterview() {
         buttonLink=""
         imageSrc="/interview.png"
       />
-
-      {/* ── MAIN ── */}
       <AdviceBody data={STEPS_Prepar_Interview} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
     </motion.div>
   );
