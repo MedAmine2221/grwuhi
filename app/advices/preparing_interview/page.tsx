@@ -10,21 +10,26 @@ export default function PreparingInterview() {
   const step = STEPS_Prepar_Interview[activeStep];
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.55 }}
     >
       <AdviceHeader
         title1="How to Prepare"
         title2="Your Interview"
-        description="Succeeding in a job interview requires preparation. This involves thoroughly analyzing the job posting, conducting in-depth research on the company, its industry, and its projects. You should prepare a concise presentation of your background, anticipate common interview questions, list your concrete achievements, and prepare questions to ask the recruiter to demonstrate your motivation."
+        description="Succeeding in a job interview requires preparation: analyze the job posting, research the company, prepare a concise self-presentation, anticipate common questions, and list your concrete achievements."
         buttonText=""
         buttonLink=""
         imageSrc="/interview.png"
       />
-      <AdviceBody data={STEPS_Prepar_Interview} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
+      <AdviceBody
+        data={STEPS_Prepar_Interview}
+        setActiveStep={setActiveStep}
+        activeStep={activeStep}
+        step={step}
+      />
     </motion.div>
   );
 }

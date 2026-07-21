@@ -8,13 +8,13 @@ import { motion } from "framer-motion";
 export default function Cv() {
   const [activeStep, setActiveStep] = useState(0);
   const step = STEPS_CV[activeStep];
-  
+
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.55 }}
     >
       <AdviceHeader
         title1="How to Write"
@@ -24,7 +24,12 @@ export default function Cv() {
         buttonLink="https://www.moncvparfait.fr/creer-cv"
         imageSrc="/write-cv.png"
       />
-      <AdviceBody data={STEPS_CV} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
+      <AdviceBody
+        data={STEPS_CV}
+        setActiveStep={setActiveStep}
+        activeStep={activeStep}
+        step={step}
+      />
     </motion.div>
   );
 }

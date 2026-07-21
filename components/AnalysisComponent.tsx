@@ -39,7 +39,7 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
         </button>
 
         {/* Avatar */}
-        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600
+        <div className="w-11 h-11 rounded-full bg-linear-to-br from-blue-500 to-indigo-600
                         flex items-center justify-center font-medium text-sm text-white shadow-sm shrink-0">
           {quiz?.condidate_name ? quiz?.condidate_name?.split(" ").map((w: any) => w[0]).join("") : "C"}
         </div>
@@ -65,9 +65,9 @@ export default function AnalysisResult({ quiz }: { quiz: any }) {
 
       {/* ── Metrics ── */}
       <div className="flex gap-3 flex-wrap">
-        <MetricCard label="Match Score" value={`${analysis?.match_score}%`} variant="primary" />
+        <MetricCard label="Match Score" value={`${analysis?.match_score}%`}/>
         {String(analysis?.years_of_experience).length < 10 && (
-          <MetricCard label="Experience" value={`${analysis?.years_of_experience} yrs`} variant="secondary" />
+          <MetricCard label="Experience" value={`${analysis?.years_of_experience} yrs`}/>
         )}
         <MetricCard label="Level" value={analysis?.detected_level} variant="default" />
       </div>

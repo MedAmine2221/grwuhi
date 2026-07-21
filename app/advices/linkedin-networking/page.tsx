@@ -10,21 +10,26 @@ export default function LinkedinNetworking() {
   const step = STEPS_LinkedIn_Strategy[activeStep];
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.55 }}
     >
       <AdviceHeader
         title1="How to Network Effectively"
         title2="On LinkedIn to Find a Job"
-        description="To network effectively on LinkedIn and find a job, optimize your profile with strategic keywords, a professional photo, and a clear headline. Target relevant connections (HR professionals, managers, alumni), engage through comments and shares, and ask for advice rather than direct job postings."
+        description="Optimize your profile with strategic keywords, a professional photo, and a clear headline. Target relevant connections, engage through comments, and ask for advice rather than direct job postings."
         buttonText=""
         buttonLink=""
         imageSrc="/linkedin.png"
       />
-      <AdviceBody data={STEPS_LinkedIn_Strategy} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
-    </motion.div>  
+      <AdviceBody
+        data={STEPS_LinkedIn_Strategy}
+        setActiveStep={setActiveStep}
+        activeStep={activeStep}
+        step={step}
+      />
+    </motion.div>
   );
 }

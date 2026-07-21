@@ -10,21 +10,26 @@ export default function Cover_letter() {
   const step = STEPS_CoverLetter[activeStep];
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >    
+      transition={{ duration: 0.55 }}
+    >
       <AdviceHeader
         title1="How to Write"
         title2="a Perfect Cover Letter"
-        description="At its core, a cover letter is a personalized document that introduces you to potential employers. It's your chance to convey your enthusiasm for the position, highlight your qualifications, and showcase your communication skills. A well-crafted cover letter serves as a bridge between your CV and the job you're applying for."
+        description="At its core, a cover letter is a personalized document that introduces you to potential employers. It's your chance to convey your enthusiasm for the position, highlight your qualifications, and showcase your communication skills."
         buttonText="Create My Cover Letter →"
         buttonLink="https://novoresume.com/?noRedirect=true"
         imageSrc="/write_cover_letter.png"
       />
-      <AdviceBody data={STEPS_CoverLetter} setActiveStep={setActiveStep} activeStep={activeStep} step={step} />
+      <AdviceBody
+        data={STEPS_CoverLetter}
+        setActiveStep={setActiveStep}
+        activeStep={activeStep}
+        step={step}
+      />
     </motion.div>
   );
 }

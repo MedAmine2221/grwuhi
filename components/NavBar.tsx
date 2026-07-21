@@ -19,8 +19,8 @@ export default function Navbar() {
         
         {/* Logo + Brand */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-sm">
-            <Image src="/logo.png" width={18} height={18} className="object-contain" alt="" />
+          <div className="flex items-center justify-center">
+            <Image src="/logo.png" width={25} height={25} className="object-contain" alt="" />
           </div>
           <span className="text-xl font-bold text-gray-900 tracking-tight">
             GRWUHI

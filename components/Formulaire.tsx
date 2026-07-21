@@ -39,12 +39,14 @@ export default function Formulaire() {
             ? clean
             : JSON.parse(clean);
         dispatch(addQuiz(parsed));
-        if (typeof parsed === "object") localStorage.setItem("quiz", JSON.stringify(parsed));        
-        await addDoc(collection(db, "users"), {
-          name: parsed?.condidate_name,
-          email: parsed?.candidate_email,
-          createdAt: `${new Date()}`,
-        });
+        if (typeof parsed === "object") localStorage.setItem("quiz", JSON.stringify(parsed));
+        if(parsed?.condidate_name && parsed?.candidate_email) {
+          await addDoc(collection(db, "users"), {
+            name: parsed?.condidate_name,
+            email: parsed?.candidate_email,
+            createdAt: `${new Date()}`,
+          });
+        }     
       }
     } catch (e) {
       console.error(e);
