@@ -21,8 +21,11 @@ export default function Dashboard() {
 
   const router = useRouter();
   const totalUsers = users?.flat().length ?? 0;
+  const rating =
+    Math.min(5, Math.max(1, Math.trunc(appRaitingRslt))) as keyof typeof AppRaite;
+
   const ratingLabel = !Number.isNaN(appRaitingRslt)
-    ? AppRaite[Math.trunc(appRaitingRslt)]
+    ? AppRaite[rating]
     : null;
 
   const stats = [
