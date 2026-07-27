@@ -32,7 +32,7 @@ interface SectionCardProps {
   children?: ReactNode;
 }
 
-interface AdviceBodyProps {data: any, setActiveStep: (step: number) => void, activeStep: number, step: any}
+interface AdviceBodyProps {data: any, setActiveStep: (step: any) => void, activeStep: number, step: any}
 
 interface AdviceCardProps {
   title: string;

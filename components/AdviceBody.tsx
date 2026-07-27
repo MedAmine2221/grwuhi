@@ -25,7 +25,7 @@ export default function AdviceBody({
               }`}
           >
             {activeStep === i && (
-              <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full bg-blue-600" />
+              <span className="absolute left-0 top-3 bottom-3 w-0.75 rounded-r-full bg-blue-600" />
             )}
             <span className={`block text-[10px] font-semibold tracking-widest uppercase mb-1
               ${activeStep === i ? "text-blue-500" : "text-slate-400"}`}>

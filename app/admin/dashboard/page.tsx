@@ -74,7 +74,7 @@ export default function Dashboard() {
                 year: "numeric",
               })}
             </div>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-xs font-semibold text-white shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-xs font-semibold text-white shadow-sm">
               MAL
             </div>
             <button
@@ -148,7 +148,7 @@ export default function Dashboard() {
             {/* Card header */}
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100">
               <div className="flex items-center gap-2.5">
-                <div className="w-1 h-5 rounded-full bg-gradient-to-b from-blue-600 to-amber-500" />
+                <div className="w-1 h-5 rounded-full bg-linear-to-b from-blue-600 to-amber-500" />
                 <h2 className="text-sm font-semibold text-gray-900">
                   Users List
                 </h2>
