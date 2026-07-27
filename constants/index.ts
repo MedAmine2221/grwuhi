@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi";
 const valueColor = {
   primary: "text-blue-600",
@@ -13,7 +14,7 @@ const AppRaite = {
   3: "Good",
   4: "Very Good",
   5: "Excellent",
-};
+} as any;
 
 const PER_QUESTION_TIME = 150;
 
